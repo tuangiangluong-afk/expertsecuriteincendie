@@ -1,0 +1,159 @@
+import { NextRequest, NextResponse } from "next/server";
+import { isMainHub } from "@/lib/sites-config";
+
+export const config = {
+    matcher: [
+        "/((?!api/|_next/|_static/|_vercel|images/|[\\w-]+\\.\\w+).*)",
+        "/sitemap.xml",
+        "/robots.txt"
+    ],
+};
+
+export default async function middleware(req: NextRequest) {
+    const url = req.nextUrl;
+
+    // Get hostname (e.g. securiteincendieparis.fr, expertsecuriteincendie.fr)
+    let hostname = req.headers.get("host") || "expertsecuriteincendie.fr";
+    hostname = hostname.split(":")[0]; // Remove port if present
+
+    // Check if we are on the main hub
+    const isHub = isMainHub(hostname);
+
+    // Get the path
+    const searchParams = req.nextUrl.searchParams.toString();
+    const cleanPath = url.pathname;
+    const path = `${cleanPath}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
+
+    // Helper to apply security headers
+    const applySecurityHeaders = (res: NextResponse) => {
+        res.headers.set("X-Frame-Options", "DENY");
+        res.headers.set("X-Content-Type-Options", "nosniff");
+        res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+        res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+        res.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+        return res;
+    };
+
+    // 0. EXPLICIT DEAD ROUTES (GSC Cleanup)
+    if (cleanPath.startsWith("/gare")) {
+        return applySecurityHeaders(new NextResponse(null, { status: 410, statusText: "Gone" }));
+    }
+
+    // 0.1 Path Normalization (Lowercase & No Trailing Slash handled by next.config `trailingSlash: false`)
+    if (cleanPath !== cleanPath.toLowerCase()) {
+        const lowercaseUrl = new URL(url.origin + url.pathname.toLowerCase() + url.search);
+        if (lowercaseUrl.href !== url.href) {
+            return applySecurityHeaders(NextResponse.redirect(lowercaseUrl, 301));
+        }
+    }
+
+
+    // 0.2 Domain Normalization (www -> non-www redirect)
+    if (hostname.startsWith("www.") && !hostname.includes("localhost") && !hostname.includes("192.168.")) {
+        const nonWwwHost = hostname.replace(/^www\./, "");
+        const targetUrl = new URL(url.pathname + url.search, `https://${nonWwwHost}`);
+        return applySecurityHeaders(NextResponse.redirect(targetUrl, 301));
+    }
+
+    // Consolidate domain key early for all logic
+    let domainKey = hostname;
+    if (hostname.includes(".localhost")) {
+        domainKey = hostname.split(".")[0];
+        if (domainKey === "www") domainKey = hostname.split(".")[1];
+    } else if (hostname.startsWith("www.")) {
+        domainKey = hostname.replace("www.", "");
+    }
+
+    // 1. Sitemap Rewrite
+    if (path === "/sitemap.xml") {
+        let sitemapResponse;
+        if (isHub) {
+            sitemapResponse = NextResponse.rewrite(new URL("/home/sitemap.xml", req.url));
+        } else {
+            sitemapResponse = NextResponse.rewrite(new URL(`/${domainKey}/sitemap.xml`, req.url));
+        }
+        sitemapResponse.headers.set("x-incendie-domain", domainKey);
+        sitemapResponse.headers.set("x-incendie-city", domainKey);
+        return applySecurityHeaders(sitemapResponse);
+    }
+
+    // 1.5 Robots Rewrite
+    if (path === "/robots.txt") {
+        if (isHub) {
+            // Next.js handles /robots.txt from src/app/robots.ts
+            return applySecurityHeaders(NextResponse.next());
+        }
+        // Satellite domains: serve from API route (Next.js Metadata robots.ts doesn't work in dynamic segments)
+        const robotsResponse = NextResponse.rewrite(new URL(`/api/robots`, req.url));
+        robotsResponse.headers.set("x-incendie-domain", domainKey);
+        return applySecurityHeaders(robotsResponse);
+    }
+
+    // Prepare request headers to pass forward to Server Components & Layout
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-incendie-domain", domainKey);
+    requestHeaders.set("x-incendie-city", domainKey);
+    requestHeaders.set("x-incendie-path", cleanPath);
+
+    const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur"))
+        ? "expertsecuriteincendie.fr"
+        : domainKey;
+    requestHeaders.set("x-incendie-canonical-domain", canonicalDomain);
+
+    // 2. Routing Logic
+    let response: NextResponse;
+
+    if (isHub) {
+        // HUB Logic
+        // Redirect /home/* to /* to prevent duplicate content
+        if (cleanPath.startsWith("/home") && cleanPath !== "/home/sitemap.xml") {
+            const cleanUrl = cleanPath.replace("/home", "") || "/";
+            const targetUrl = new URL(cleanUrl + url.search, req.url);
+            if (targetUrl.href !== req.url) {
+                return applySecurityHeaders(NextResponse.redirect(targetUrl, 301));
+            }
+        }
+
+        if (path.startsWith("/admin") || path.startsWith("/login") || path.startsWith("/api") || path.startsWith("/leads") || path.startsWith("/guides") || path.startsWith("/outils") || path.startsWith("/vehicules") || path.startsWith("/ville") || path.startsWith("/solutions") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/demo") || path.startsWith("/maintenance") || path.startsWith("/images") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+            response = NextResponse.next({ request: { headers: requestHeaders } });
+        } else {
+            response = NextResponse.rewrite(
+                new URL(`/home${path === "/" ? "" : path}`, req.url),
+                { request: { headers: requestHeaders } }
+            );
+        }
+    } else {
+        // SATELLITE Logic
+        if (path.startsWith("/guides") || path.startsWith("/leads") || path.startsWith("/vehicules") || path.startsWith("/solutions") || path.startsWith("/ville") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/api") || path.startsWith("/outils") || path.startsWith("/login") || path.startsWith("/admin") || path.startsWith("/maintenance") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+            response = NextResponse.next({ request: { headers: requestHeaders } });
+        } else {
+            const routeParam = hostname.includes(".localhost") ? domainKey : domainKey;
+            response = NextResponse.rewrite(
+                new URL(`/${routeParam}${path}`, req.url),
+                { request: { headers: requestHeaders } }
+            );
+        }
+    }
+
+    // Global Headers for SEO & Canonical
+    response.headers.set("x-incendie-domain", domainKey);
+    response.headers.set("x-incendie-city", domainKey);
+    response.headers.set("x-incendie-path", cleanPath);
+    response.headers.set("x-incendie-canonical-domain", canonicalDomain);
+
+    // Vercel CDN Caching: Cache all public HTML and sitemap routes to save Fluid CPU hours
+    if (
+        !cleanPath.startsWith("/api") && 
+        !cleanPath.startsWith("/admin") && 
+        !cleanPath.startsWith("/login") && 
+        !cleanPath.startsWith("/leads") &&
+        !cleanPath.startsWith("/success") &&
+        !cleanPath.startsWith("/demo")
+    ) {
+        response.headers.set("Vercel-CDN-Cache-Control", "public, s-maxage=86400, stale-while-revalidate=3600");
+    }
+
+    return applySecurityHeaders(response);
+}
+
+

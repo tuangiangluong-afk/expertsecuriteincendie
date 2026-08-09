@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "eau-vs-co2",
+    "title": "Extincteur Eau Pulvérisée vs Extincteur CO2 : Quel Choix ?",
+    "meta_description": "Comparatif complet entre extincteur eau avec additif et extincteur CO2 (Dioxyde de carbone). Utilisation, risques et réglementation.",
+    "h1": "Extincteur Eau Additivée vs CO2 : Guide de Choix ERP",
+    "introduction": "Comprendre les différences entre l'extincteur à eau (feux de papier, bois, tissus) et l'extincteur CO2 (matériel électrique, armoires informatiques).",
+    "sections": [
+      {
+        "h2": "Domaines d'Application",
+        "content": "<p>L'extincteur à eau avec additif protège les surfaces générales. L'extincteur CO2 est indispensable dans les salles de serveurs et armoires électriques sans laisser de résidus.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Peut-on utiliser l'eau sur un feu électrique ?",
+        "answer": "L'eau avec additif est pulvérisée sans jet bâton jusqu'à 1000V, mais le CO2 reste fortement recommandé pour éviter d'endommager les composants."
+      }
+    ],
+    "price_estimate": "À partir de 45€ HT avec vérification annuelle incluse."
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Expert Sécurité Incendie API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/leads/public": {
+      "post": {
+        "summary": "Submit lead for EV charger maintenance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Full documentation, guides, and installer network details",
+    "url": "https://expertsecuriteincendie.fr/guides"
+  }
+}

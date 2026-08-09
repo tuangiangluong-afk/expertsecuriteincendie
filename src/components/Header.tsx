@@ -1,0 +1,161 @@
+"use client";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+
+import Link from "next/link";
+import Logo from "@/components/Logo";
+import { Phone, Zap } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+interface HeaderProps {
+    isHub?: boolean;
+    city?: string | null;
+    phoneNumber?: string;
+    variant?: "default" | "light" | "transparent";
+    themeColor?: 'red' | 'emerald' | 'amber' | 'purple';
+}
+
+export default function Header({
+    isHub = false,
+    city = null,
+    phoneNumber = "01 89 71 30 76",
+    variant = "default",
+    themeColor = 'red'
+}: HeaderProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    const showMobileMenu = isHub && !city;
+
+    const hoverColors: Record<string, string> = {
+        blue: "hover:text-red-500",
+        emerald: "hover:text-emerald-500",
+        amber: "hover:text-amber-500",
+        purple: "hover:text-purple-500",
+        rose: "hover:text-rose-500",
+        teal: "hover:text-teal-500",
+        indigo: "hover:text-indigo-500",
+        orange: "hover:text-orange-500",
+        gold: "hover:text-amber-500"
+    };
+    const hoverClass = hoverColors[themeColor] || "hover:text-red-500";
+
+    const navLinks = [
+        {
+            href: "/solutions/entreprise",
+            text: "Solutions B2B"
+        },
+        {
+            href: "/guides",
+            text: "Guides & Normes"
+        }
+    ];
+
+    const pathname = usePathname();
+
+    // DEMO MODE FIX: If we are in /demo/ route, the logo should stay on the demo page
+    // Extract: /demo/securiteincendieneuilly
+    const demoMatch = pathname?.match(/^(\/demo\/[^\/]+)/);
+    const customLink = demoMatch ? demoMatch[1] : undefined;
+
+    // Color Mapping
+    const buttonColors = {
+        red: "bg-red-600 hover:bg-red-700 text-white border-transparent",
+        emerald: "bg-emerald-600 hover:bg-emerald-700 text-white border-transparent",
+        amber: "bg-amber-600 hover:bg-amber-700 text-white border-transparent",
+        purple: "bg-purple-600 hover:bg-purple-700 text-white border-transparent",
+    };
+
+    const btnClass = buttonColors[themeColor] || buttonColors.red;
+
+    // Background styles
+    const bgClass = variant === "transparent"
+        ? "bg-transparent border-transparent"
+        : variant === "light"
+            ? "bg-neutral-900/95 backdrop-blur border-white/10 text-white"
+            : "bg-white/95 backdrop-blur border-slate-200 text-slate-900";
+
+
+    // Navigation Logic
+    const homePath = customLink || "/";
+    const isHome = pathname === homePath;
+    const simulatorHref = isHome ? "#simulateur" : `${homePath}#simulateur`;
+
+    return (
+        <nav className={`fixed top-0 z-50 w-full transition-all duration-300 border-b ${bgClass} py-3`}>
+            <div className="container mx-auto px-4 flex items-center justify-between">
+                {/* LOGO */}
+                <Logo
+                    isHub={isHub}
+                    city={city}
+                    size="md"
+                    variant={variant === "light" ? "light" : "default"}
+                    themeColor={themeColor}
+                    customLink={customLink}
+                />
+
+                {/* RIGHT ACTIONS */}
+                <div className="flex items-center gap-4">
+                    {/* Desktop Navigation (Hub Only) */}
+                    {isHub && (
+                        <div className={`hidden md:flex items-center gap-6 text-sm font-medium ${variant === "light" ? "text-slate-300" : "text-slate-600"}`}>
+                            {navLinks.map((link, idx) => (
+                                <Link key={idx} href={link.href} className={`${hoverClass} transition`}>{link.text}</Link>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Incendie Badge (Desktop) */}
+                    <div className="hidden lg:flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-full">
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span className="text-xs font-bold text-green-600">Certifié Incendie</span>
+                    </div>
+
+                    {/* CTA Devis (Replaces Phone) - Hidden on mobile to avoid redundancy with sticky CTA */}
+                    <Link
+                        href={simulatorHref}
+                        className={`hidden md:flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-lg transition transform hover:-translate-y-0.5 ${btnClass}`}
+                    >
+                        <Zap size={16} fill="currentColor" />
+                        <span>Devis Gratuit</span>
+                    </Link>
+                
+                    {showMobileMenu && (
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className={`md:hidden p-2 rounded-lg focus:outline-none ${
+                                variant === "light" 
+                                    ? "text-slate-300 hover:text-white" 
+                                    : "text-slate-600 hover:text-slate-900"
+                            }`}
+                            aria-label="Toggle menu"
+                        >
+                            {isOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {showMobileMenu && isOpen && (
+                <div className={`md:hidden border-t ${
+                    variant === 'light' 
+                        ? 'bg-neutral-900/95 border-white/10 text-white' 
+                        : 'bg-white/95 border-slate-200 text-slate-900'
+                } px-4 py-4 space-y-3`}>
+                    {navLinks.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.href}
+                            onClick={() => setIsOpen(false)}
+                            className={`block py-2 text-base font-semibold transition ${hoverClass} ${
+                                variant === "light" ? "text-slate-200" : "text-slate-700"
+                            }`}
+                        >
+                            {link.text}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </nav>
+
+    );
+}

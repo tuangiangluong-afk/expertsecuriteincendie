@@ -1,0 +1,226 @@
+import { notFound } from "next/navigation";
+import { Phone, CheckCircle, Home } from "lucide-react";
+import CallButton from "@/components/CallButton";
+import { getTheme } from "@/lib/theme";
+import type { Metadata } from "next";
+import { NATIONAL_CONFIG } from "@/config/national";
+import { BookingWidget } from "@/components/BookingWidget";
+import { Footer } from "@/components/Footer";
+import { InternalMesh } from "@/components/InternalMesh";
+import { slugify } from "@/lib/slugify";
+import { NATIONAL_TARGETS } from "@/config/national-targets"; // Source of Truth
+import { getTargetAsCityConfig } from "@/config/national-targets";
+import Header from "@/components/Header";
+
+// Helper to find Neighborhood across all Partner Cities
+import { SITES } from "@/lib/sites-config";
+
+function getNeighborhood(slug: string) {
+    // 1. Search in National Config Fallbacks
+    const nationalNightlife = NATIONAL_CONFIG.points_of_interest.nightlife;
+    let match = nationalNightlife.find(p => slugify(p) === slug);
+    if (match) return { name: match, city: "Paris (ou National)" };
+
+    // 2. Search in Partner Cities (Targets)
+    for (const target of NATIONAL_TARGETS) {
+        const config = getTargetAsCityConfig(target.slug);
+        if (config && config.neighborhoods) {
+            match = config.neighborhoods.find(n => slugify(n) === slug);
+            if (match) return { name: match, city: target.name, citySlug: target.slug, config: config };
+        }
+    }
+
+    // 3. Search in SITES config (Satellite Domains)
+    for (const site of Object.values(SITES)) {
+        const districts = site.quartiers || [];
+        match = districts.find(d => slugify(d) === slug);
+        if (match) return { 
+            name: match, 
+            city: site.city, 
+            citySlug: site.slug,
+            config: {
+                ...site,
+                name: site.name,
+                phoneNumber: site.phoneNumber,
+                neighborhoods: site.quartiers // Map for BookingWidget compatibility
+            } as any
+        };
+    }
+
+    return undefined;
+}
+
+export async function generateStaticParams() {
+    // Collect all neighborhoods from all targets
+    const allNeighborhoods = new Set<string>();
+
+    // National fallback
+    NATIONAL_CONFIG.points_of_interest.nightlife.forEach(n => allNeighborhoods.add(slugify(n)));
+
+    // Partners
+    for (const target of NATIONAL_TARGETS) {
+        const config = getTargetAsCityConfig(target.slug);
+        if (config && config.neighborhoods) {
+            config.neighborhoods.forEach(n => allNeighborhoods.add(slugify(n)));
+        }
+    }
+
+    // SITES (Satellite Domains)
+    for (const site of Object.values(SITES)) {
+        const districts = site.quartiers || [];
+        districts.forEach(d => allNeighborhoods.add(slugify(d)));
+    }
+
+    return Array.from(allNeighborhoods).map(slug => ({
+        slug,
+    }));
+}
+
+import { headers } from "next/headers";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const resolvedParams = await params;
+    const quartier = getNeighborhood(resolvedParams.slug);
+
+    if (!quartier) return {};
+
+    const headersList = await headers();
+    const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+    const canonicalUrl = `https://${canonicalDomain}/quartier/${resolvedParams.slug}`;
+
+    return {
+        title: `maintenance extincteur ${quartier.name} - ${quartier.city} | Devis Gratuit`,
+        description: `maintenance de matériel incendie électrique à ${quartier.name} (${quartier.city}). Expert Incendie local, devis gratuit sous 24h, matériel garanti.`,
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
+    };
+}
+
+export default async function QuartierPage({ params }: { params: Promise<{ slug: string }> }) {
+    const resolvedParams = await params;
+    const quartier = getNeighborhood(resolvedParams.slug);
+
+    if (!quartier) return notFound();
+
+    const cityConfig = quartier.config || NATIONAL_CONFIG;
+    const isHub = cityConfig.slug === 'home';
+    const theme = getTheme(cityConfig.slug);
+
+    // Map theme name to Header themeColor
+    const themeColorMap: Record<string, 'red' | 'emerald' | 'amber' | 'purple'> = {
+        'amber': 'amber',
+        'emerald': 'emerald',
+        'blue': 'red',
+        'violet': 'purple',
+        'rose': 'purple', // Fallback
+        'cyan': 'emerald', // Fallback
+        'orange': 'amber', // Fallback
+        'indigo': 'red', // Fallback
+    };
+    const headerThemeColor = themeColorMap[theme.name] || 'red';
+
+    return (
+        <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900">
+            <Header 
+                isHub={isHub} 
+                city={isHub ? null : cityConfig.city} 
+                phoneNumber={cityConfig.phoneNumber}
+                themeColor={headerThemeColor}
+            />
+
+            {/* Header */}
+            <header className="bg-neutral-900 text-white pt-32 pb-32 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900"></div>
+                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+                <div className="container mx-auto px-4 relative z-10 text-center">
+                    <span className="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs font-bold uppercase tracking-widest mb-6">
+                        Quartier & Zone Locale
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-black mb-6">
+                        maintenance extincteur <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{quartier.name}</span>
+                    </h1>
+                    maintenance certifiée Incendie dans votre quartier à {quartier.name}, {quartier.city}.
+                    <br />Devis gratuit et étude technique sous 24h.
+                </div>
+            </header>
+
+            <main className="container mx-auto max-w-5xl px-4 -mt-20 relative z-20">
+                <div className="grid md:grid-cols-3 gap-8">
+                    {/* Main Content */}
+                    <div className="md:col-span-2 space-y-8">
+                        <div className="bg-white rounded-3xl p-8 shadow-xl border border-neutral-100">
+                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <Home className="text-red-600" />
+                                Se déplacer à {quartier.name}
+                            </h2>
+                            <div className="prose prose-neutral max-w-none text-neutral-600">
+                                <p>
+                                    Vous habitez ou travaillez dans le quartier <strong>{quartier.name}</strong> ?
+                                    Expert Sécurité Incendie vous met en relation avec des techniciens certifiés Incendie locaux pour votre projet.
+                                </p>
+                                <p>
+                                    Que ce soit pour une maison individuelle, une copropriété ou un local commercial, nous maîtrisons les contraintes techniques du secteur {quartier.name}.
+                                </p>
+                                <h3 className="font-bold text-neutral-900 mt-6 mb-3">Service de proximité</h3>
+                                <ul className="space-y-2">
+                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Étude technique offerte</li>
+                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Matériel certifié (Extincteur, Andrieu, etc.)</li>
+                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Éligible aides Aide / Crédit impôt</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Local Reviews Mockup */}
+                        <div className="bg-white rounded-3xl p-8 shadow-sm border border-neutral-100">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-bold">Avis clients {quartier.name}</h3>
+                                <div className="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded">Vérifié</div>
+                            </div>
+                            <p className="text-neutral-600 italic">&quot;Très satisfait de l&apos;maintenance de ma extincteur à {quartier.name}. Travail propre et équipe très réactive.&quot; - <span className="not-italic font-bold text-neutral-900">Thomas P.</span></p>
+                        </div>
+                    </div>
+
+                    {/* Sidebar / Widget */}
+                    <div className="md:col-span-1">
+                        <div className="sticky top-24 space-y-6">
+                            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100">
+                                <div className="bg-emerald-600 p-4 text-white text-center">
+                                    <p className="font-bold">Devis extincteur {quartier.name}</p>
+                                </div>
+                                <div className="p-4">
+                                    <BookingWidget city={cityConfig} compact={true} />
+                                </div>
+                            </div>
+
+                            <div className="bg-neutral-900 rounded-3xl p-6 text-white text-center">
+                                <Phone size={32} className="mx-auto mb-4 text-emerald-400" />
+                                <h3 className="font-bold text-lg mb-2">Standard Local</h3>
+                                <p className="text-sm text-neutral-400 mb-4">Ligne directe pour {quartier.city}</p>
+                                <CallButton
+                                    phoneNumber={cityConfig.phoneNumber}
+                                    cityName={cityConfig.name}
+                                    theme={theme}
+                                    className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-emerald-500 transition shadow-lg w-full"
+                                >
+                                    <Phone size={18} />
+                                    {cityConfig.phoneNumber}
+                                </CallButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <InternalMesh city={quartier.citySlug || NATIONAL_CONFIG.city} config={cityConfig} />
+            {/* Override styling for dark theme integration */}
+            <div className="bg-neutral-900 border-t border-white/5 [&_footer]:bg-transparent [&_footer]:border-none">
+                <Footer config={cityConfig} />
+            </div>
+        </div>
+    );
+}
