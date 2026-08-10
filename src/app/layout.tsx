@@ -26,62 +26,64 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = `https://${canonicalDomain}`;
 
   return {
-  title: {
-    template: `%s | Expert Sécurité Incendie ${getCurrentYearSEO()}`,
-    default: `Expert Sécurité Incendie - Prix & maintenance ${getCurrentYearSEO()}`,
-  },
-  description: "maintenance de extincteurs. Réseau de techniciens certifiés Incendie. Devis gratuit sous 24h.",
-  metadataBase: new URL(baseUrl),
-  alternates: {
-    canonical: `${baseUrl}${path}`,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    title: {
+      template: `%s | Expert Sécurité Incendie®`,
+      default: `Expert Sécurité Incendie® - Réseau National de Conformité & Maintenance Incendie ${getCurrentYearSEO()}`,
+    },
+    description: "Expert Sécurité Incendie : N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises, ERP et copropriétés en France. Devis gratuit sous 24h.",
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: `${baseUrl}${path}`,
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    title: "Expert Sécurité Incendie - maintenance extincteurs Incendie",
-    description: "maintenance de extincteurs. Réseau de techniciens certifiés Incendie. Devis gratuit sous 24h.",
-    siteName: "Expert Sécurité Incendie",
-    locale: "fr_FR",
-    type: "website",
-    url: `${baseUrl}${path}`,
-    images: [
-      {
-        url: `${baseUrl}/images/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: "Expert Sécurité Incendie - maintenance extincteurs Incendie",
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Expert Sécurité Incendie - maintenance extincteurs Incendie",
-    description: "maintenance de extincteurs. Réseau de techniciens certifiés Incendie. Devis gratuit.",
-    images: [`${baseUrl}/images/og-image.png`],
-  },
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/favicon.png",
-    apple: "/icon.png",
-    other: [
-      {
-        rel: "icon",
-        url: "/favicon.ico",
-      }
-    ]
-  },
+    },
+    openGraph: {
+      title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
+      description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises, ERP et copropriétés en France.",
+      siteName: "Expert Sécurité Incendie",
+      locale: "fr_FR",
+      type: "website",
+      url: `${baseUrl}${path}`,
+      images: [
+        {
+          url: `${baseUrl}/images/realizations/hero-extincteur.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Expert Sécurité Incendie® - Maintenance Extincteurs",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
+      description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises et ERP.",
+      images: [`${baseUrl}/images/realizations/hero-extincteur.jpg`],
+    },
+    icons: {
+      icon: "/icon.png",
+      shortcut: "/favicon.png",
+      apple: "/icon.png",
+      other: [
+        {
+          rel: "icon",
+          url: "/favicon.ico",
+        }
+      ]
+    },
   };
-}export const viewport: Viewport = {
-  themeColor: "#1d4ed8",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#dc2626",
 };
 
 
