@@ -1,17 +1,16 @@
-
 import Script from "next/script";
 
 export default function StructuredData() {
-    const schema = {
+    const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Expert Sécurité Incendie",
         "legalName": "Expert Sécurité Incendie SAS",
-        "alternateName": ["ESI", "ExpertSécuritéIncendie"],
+        "alternateName": ["ExpertSécuritéIncendie", "Expert Sécurité Incendie Official"],
         "url": "https://expertsecuriteincendie.fr",
         "logo": "https://expertsecuriteincendie.fr/icon.png",
-        "image": "https://expertsecuriteincendie.fr/images/realizations/hero-extincteur.jpg",
-        "description": "Réseau national d'experts en maintenance d'extincteurs, désenfumage, registres de sécurité et conformité incendie B2B pour entreprises, ERP et copropriétés.",
+        "image": "https://expertsecuriteincendie.fr/icon.png",
+        "description": "N°1 de la maintenance d'extincteurs certifiés NF EN3 & APSAD, désenfumage et registres de sécurité pour entreprises, ERP et copropriétés en France.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "8 Rue de la Paix",
@@ -19,38 +18,57 @@ export default function StructuredData() {
             "postalCode": "75002",
             "addressCountry": "FR"
         },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 48.8686,
-            "longitude": 2.3314
-        },
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+33 1 84 80 00 00",
             "contactType": "customer service",
             "areaServed": "FR",
-            "availableLanguage": "French"
+            "availableLanguage": "fr-FR"
         },
         "areaServed": {
             "@type": "Country",
-            "name": "France"
-        },
-        "knowsAbout": [
-            "Sécurité Incendie",
-            "Maintenance Extincteurs NF EN3",
-            "Réglementation Code du Travail R4227-29",
-            "Conformité ERP et Copropriétés",
-            "Désenfumage et RIA"
-        ]
+            "name": "FR"
+        }
     };
 
-    const webPageSchema = {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Maintenance Extincteurs, Désenfumage & Conformité Incendie B2B",
+        "serviceType": "Maintenance Extincteurs, Désenfumage & Conformité Incendie B2B",
+        "provider": {
+            "@type": "Organization",
+            "name": "Expert Sécurité Incendie",
+            "url": "https://expertsecuriteincendie.fr"
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "FR"
+        },
+        "description": "N°1 de la maintenance d'extincteurs certifiés NF EN3 & APSAD, désenfumage et registres de sécurité pour entreprises, ERP et copropriétés en France.",
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "EUR",
+            "price": "49",
+            "availability": "https://schema.org/InStock",
+            "validFrom": "2026-01-01"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "148",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    };
+
+    const websiteSchema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "url": "https://expertsecuriteincendie.fr",
         "name": "Expert Sécurité Incendie",
-        "alternateName": "ExpertSécuritéIncendie.fr",
-        "description": "Vérification et installation d'extincteurs certifiés NF EN3 & APSAD en France.",
+        "alternateName": "expertsecuriteincendie.fr",
+        "description": "N°1 de la maintenance d'extincteurs certifiés NF EN3 & APSAD, désenfumage et registres de sécurité pour entreprises, ERP et copropriétés en France.",
         "inLanguage": "fr-FR",
         "publisher": {
             "@type": "Organization",
@@ -58,17 +76,74 @@ export default function StructuredData() {
         }
     };
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Comment obtenir un devis gratuit pour Expert Sécurité Incendie ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Remplissez notre formulaire en ligne en 2 minutes pour recevoir une estimation gratuite, personnalisée et sans engagement par nos experts certifiés."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Quelles sont les garanties fournies par Expert Sécurité Incendie ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Tous nos services et installations sont couverts par une garantie décennale, une certification de conformité aux normes en vigueur et un suivi technique réactif."
+                }
+            }
+        ]
+    };
+
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Accueil",
+                "item": "https://expertsecuriteincendie.fr"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Maintenance Extincteurs, Désenfumage & Conformité Incendie B2B",
+                "item": "https://expertsecuriteincendie.fr/#simulateur"
+            }
+        ]
+    };
+
     return (
         <>
             <Script
                 id="org-schema"
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+            />
+            <Script
+                id="service-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
             />
             <Script
                 id="website-schema"
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+            />
+            <Script
+                id="faq-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
+            <Script
+                id="breadcrumb-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
         </>
     );
