@@ -118,6 +118,29 @@ export default function StructuredData() {
         ]
     };
 
+    const productSchema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Matériel Incendie & Extincteur Certifié NF EN3",
+        "image": "https://expertsecuriteincendie.fr/images/realizations/hero-extincteur.jpg",
+        "description": "Vérification, maintenance et fourniture d'extincteurs Eau, CO2, Poudre certifiés NF EN3 & APSAD.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Expert Sécurité Incendie"
+        },
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "EUR",
+            "price": "49",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "148"
+        }
+    };
+
     return (
         <>
             <Script
@@ -129,6 +152,11 @@ export default function StructuredData() {
                 id="service-schema"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
+            <Script
+                id="product-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
             />
             <Script
                 id="website-schema"
