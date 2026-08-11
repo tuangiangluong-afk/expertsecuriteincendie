@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "expertsecuriteincendie",
+  "name_for_model": "expertsecuriteincendie",
+  "description_for_human": "Service expert pour expertsecuriteincendie",
+  "description_for_model": "Expert service related to expertsecuriteincendie, offering quotes and professional installations.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://www.expertsecuriteincendie/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://www.expertsecuriteincendie/favicon.ico",
+  "contact_email": "contact@expertsecuriteincendie",
+  "legal_info_url": "https://www.expertsecuriteincendie/legal"
+}
