@@ -61,7 +61,7 @@ export default function LeadForm({
         email: "",
         phone: "",
         zipCode: "",
-        phoneConsent: false
+        phoneConsent: true
     };
 
     const [step, setStep] = useState(1);
@@ -405,6 +405,29 @@ export default function LeadForm({
                                 />
                             </div>
                         </div>
+
+                        
+                            {/* Phone Consent Checkbox (RGPD / Bloctel) */}
+                            <div className="p-3 bg-neutral-50 border border-neutral-200 rounded-xl text-left">
+                                <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                                    <input
+                                        type="checkbox"
+                                        name="phoneConsent"
+                                        checked={formData.phoneConsent === true}
+                                        onChange={(e) => {
+                                            setFormData(prev => ({ ...prev, phoneConsent: e.target.checked }));
+                                            if (status === 'error') {
+                                                setStatus('idle');
+                                                setErrorMessage("");
+                                            }
+                                        }}
+                                        className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-blue-600 focus:ring-blue-500 accent-blue-600 shrink-0"
+                                    />
+                                    <span className="text-[11px] text-neutral-600 leading-tight">
+                                        J&apos;accepte d&apos;être contacté(e) par téléphone par ViteUnDevis.com et ses partenaires certifiés pour la qualification de ma demande de devis et la réalisation d&apos;une étude technique.
+                                    </span>
+                                </label>
+                            </div>
 
                         {status === 'error' && (
                             <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
