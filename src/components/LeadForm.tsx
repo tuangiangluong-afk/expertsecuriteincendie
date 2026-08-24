@@ -157,6 +157,9 @@ export default function LeadForm({
                 leadScore: getLeadScore(),
                 timestamp: new Date().toISOString(),
                 phoneConsent: true,
+                consentText: "J'accepte d'être contacté par téléphone par les services qui prendront en charge ma demande de devis pour la qualifier et effectuer une visite technique.",
+                consentDate: new Date().toISOString(),
+                consentUrl: typeof window !== 'undefined' ? window.location.href : '',
             };
 
             const res = await fetch('/api/leads', {
