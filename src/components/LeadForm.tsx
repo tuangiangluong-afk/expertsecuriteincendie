@@ -191,7 +191,7 @@ export default function LeadForm({
                     Demande envoyée avec succès !
                 </h3>
                 <p className="text-neutral-700 mb-6">
-                    Nos experts partenaires en sécurité incendie vous contacteront sous 24h pour votre projet à <strong>{city}</strong>.
+                    Nos experts partenaires en sécurité incendie vous contacteront sous 24h pour votre projet {(!city || city.toLowerCase() === 'france' || city.toLowerCase() === 'national') ? 'en France' : <>à <strong>{city}</strong></>}.
                 </p>
             </div>
         );
