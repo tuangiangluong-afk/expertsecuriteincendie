@@ -171,7 +171,7 @@ export default async function QuartierPage({ params }: { params: Promise<{ slug:
                                 <ul className="space-y-2">
                                     <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Étude technique offerte</li>
                                     <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Matériel certifié (Extincteur, Andrieu, etc.)</li>
-                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Éligible aides Aide / Crédit impôt</li>
+                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Éligible aux aides / Crédit impôt</li>
                                 </ul>
                             </div>
                         </div>

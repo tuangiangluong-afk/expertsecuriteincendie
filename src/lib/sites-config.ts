@@ -195,7 +195,7 @@ const _neuillyConfig: SiteConfig = {
 // 3. Lyon (Capitale Province)
 const _lyonConfig: SiteConfig = {
     slug: "lyon",
-    domain: "expertsecuriteincendie.fr/ville/lyon",
+    domain: "securiteincendielyon.fr",
     aliases: ["extincteur-protection-lyon.fr"],
     city: "Lyon",
     postalCode: "69000",

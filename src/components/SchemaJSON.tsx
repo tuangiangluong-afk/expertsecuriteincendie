@@ -34,7 +34,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
 
         schema = {
             "@context": "https://schema.org",
-            "@type": ["LocalBusiness", "Electrician"],
+            "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
             "name": site.name,
             "image": site.heroImage,
             "@id": canonicalUrl,
@@ -72,11 +72,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "@type": "City",
                 "name": site.city
             },
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "127"
-            }
+            
         };
     } else if (type === "Service" && site && brand) {
         // Schema Service pour les pages Ville x Marque
@@ -89,11 +85,11 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             "@context": "https://schema.org",
             "@type": "Service",
             "serviceType": `maintenance matériel incendie ${brand.name}`,
-            "name": `maintenance extincteur ${brand.name} à ${site.city}`,
-            "description": `maintenance de matériel incendie certifiée Incendie pour locaux ${brand.name} (${brand.models.join(', ')}) à ${site.city}. Devis gratuit.`,
+            "name": `Maintenance extincteurs ${brand.name} à ${site.city}`,
+            "description": `Vérification et maintenance des extincteurs ${brand.name} (${brand.models.join(', ')}) à ${site.city} par des techniciens certifiés. Conformité NF EN3, rapport d'intervention et registre de sécurité inclus. Devis gratuit.`,
             "url": canonicalUrl,
             "provider": {
-                "@type": ["LocalBusiness", "Electrician"],
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
                 "name": site.name || "Expert Sécurité Incendie",
                 "telephone": site.phoneNumber,
                 "address": {
@@ -109,11 +105,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                         "longitude": geoData.lng
                     }
                 } : {}),
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.9",
-                    "reviewCount": "127"
-                }
+                
             },
             "areaServed": {
                 "@type": "City",
@@ -136,9 +128,9 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
         schema = {
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": `maintenance matériel incendie ${vehicle.brand} ${vehicle.model}`,
+            "name": `Maintenance extincteur ${vehicle.brand} ${vehicle.model}`,
             "image": site?.heroImage || "/images/realizations/hero-extincteur.jpg",
-            "description": `maintenance de matériel incendie à domicile pour ${vehicle.brand} ${vehicle.model}. techniciens certifiés Incendie.`,
+            "description": `Vérification et maintenance de l'extincteur ${vehicle.brand} ${vehicle.model} (${(vehicle as any).capacity || ""}) par des techniciens certifiés. Conformité NF EN3, rapport d'intervention et registre de sécurité inclus.`,
             "brand": {
                 "@type": "Brand",
                 "name": vehicle.brand
@@ -147,16 +139,12 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "@type": "Offer",
                 "url": "https://expertsecuriteincendie.fr/simulateur",
                 "priceCurrency": "EUR",
-                "price": "990.00", // Starting price
+                "price": "49", // À partir de 49€ TTC par extincteur
                 "priceValidUntil": "2026-12-31",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition"
             },
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "127"
-            }
+            
         };
     } else if (type === "B2BService" && site && b2bType) {
         const baseUrl = "https://expertsecuriteincendie.fr";
@@ -168,10 +156,10 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             "@type": "Service",
             "serviceType": `maintenance matériel incendie ${b2bType}`,
             "name": `maintenance matériel incendie pour ${b2bType} à ${site.city}`,
-            "description": `Devis gratuit et maintenance de extincteurs pour ${b2bType} à ${site.city}. Conformité, aides Aide, et Tiers-Investisseur.`,
+            "description": `Devis gratuit et maintenance d'extincteurs pour ${b2bType} à ${site.city}. Conformité réglementaire (Code du travail, ERP), registre de sécurité et plan de prévention inclus.`,
             "url": canonicalUrl,
             "provider": {
-                "@type": ["LocalBusiness", "Electrician"],
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
                 "name": site.name || "Expert Sécurité Incendie",
                 "telephone": site.phoneNumber,
                 "address": {

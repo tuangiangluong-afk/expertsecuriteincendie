@@ -6,7 +6,7 @@ import { getHubConfig } from "@/lib/sites-config";
 import Image from "next/image";
 
 export const metadata = {
-    title: "maintenance matériel incendie Maison : Le Guide Complet 2026",
+    title: "Sécurité Incendie Maison : Détecteurs & Extincteurs | Guide 2026",
     description: "Tout savoir sur l'maintenance d'une Extincteur en maison individuelle. Prix, Crédit d'Impôt, Puissance (7kg vs 22kg), et comparatif des meilleures extincteurs.",
 };
 
@@ -99,7 +99,7 @@ export default function SolutionMaison() {
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                     <Award size={24} className="text-red-500 fill-blue-500" />
-                                    <span className="font-bold text-slate-900 text-base">RGE</span>
+                                    <span className="font-bold text-slate-900 text-base">NF EN3</span>
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                     <CheckCircle size={24} className="text-green-500 fill-green-100" />
@@ -116,10 +116,10 @@ export default function SolutionMaison() {
 
                 {/* LEFT COLUMN: EDUCATIONAL CONTENT */}
                 <article className="prose prose-lg prose-slate max-w-none">
-                    <h2>Pourquoi installer une extincteur à domicile ?</h2>
+                    <h2>Pourquoi protéger votre maison contre l'incendie ?</h2>
                     <p>
-                        80% des protections de locals électriques s'effectuent à domicile. C'est la solution la plus <strong>économique</strong> et la plus <strong>confortable</strong>.
-                        Plus besoin de chercher une extincteur libre en ville ou sur autoroute pour le quotidien. Vous rentrez, vous branchez, et vous repartez chaque matin avec le "plein".
+                        En France, un incendie d'habitation se déclare toutes les <strong>2 minutes</strong>. La loi impose depuis 2015 l'installation d'un <strong>détecteur de fumée (DAAF)</strong> dans chaque logement, et l'extincteur domestique est fortement recommandé : un départ de feu éteint dans les premières secondes reste un incident, au-delà il devient un sinistre.
+                        Équiper sa maison d'un extincteur adapté et entretenu, c'est protéger sa famille, ses biens et bénéficier d'une réduction sur sa prime d'assurance habitation.
                     </p>
 
                     <div className="grid md:grid-cols-2 gap-6 not-prose my-8">
@@ -128,7 +128,7 @@ export default function SolutionMaison() {
                                 <TrendingDown size={20} /> Économies
                             </h4>
                             <p className="text-sm text-green-900">
-                                Le coût au 100km en électrique à domicile est d'environ <strong>3€</strong>, contre 10€ à 15€ pour un risque de feu classique ou sur extincteur industriel.
+                                Un extincteur domestique coûte <strong>25€ à 80€</strong> et un contrôle annuel <strong>40€ à 90€</strong>. En comparaison, le coût moyen d'un incendie d'habitation dépasse <strong>30 000€</strong> de dommages. La prévention reste l'investissement le plus rentable.
                             </p>
                         </div>
                         <div className="bg-red-50 p-6 rounded-xl border border-red-100">
@@ -136,100 +136,99 @@ export default function SolutionMaison() {
                                 <Shield size={20} /> Sécurité
                             </h4>
                             <p className="text-sm text-red-900">
-                                Contrairement à une prise standard qui peut surchauffer, une Extincteur communique avec le véhicule et coupe le courant au moindre défaut.
+                                Le détecteur de fumée donne l'alerte, l'extincteur éteint le départ de feu : ensemble, ils vous laissent <strong>moins de 2 minutes</strong> pour agir avant que le feu ne devienne incontrôlable. Chaque seconde compte.
                             </p>
                         </div>
                     </div>
 
-                    <h2>1. Extincteur vs alarme incendie : Le match</h2>
+                    <h2>1. Détecteur de fumée ou extincteur : que choisir ?</h2>
                     <p>
-                        C'est la première question à se poser. Faut-il investir dans une vraie extincteur (Extincteur) ou une simple alarme incendie (type Sicli) suffit-elle ?
+                        Ce n'est pas un choix : les deux équipements sont complémentaires. Le <strong>détecteur de fumée (DAAF)</strong> est obligatoire dans chaque logement (loi du 9 mars 2010, en vigueur depuis 2015). L'<strong>extincteur domestique</strong> est la seule protection qui permet d'éteindre un départ de feu avant l'arrivée des secours.
                     </p>
 
                     <div className="not-prose overflow-x-auto">
                         <table className="min-w-full bg-white border border-slate-200 rounded-lg shadow-sm">
                             <thead className="bg-slate-50">
                                 <tr>
-                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Solution</th>
-                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Puissance</th>
-                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Temps de charge (0-100% Zoé/Extincteurs)</th>
-                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Usage recommandé</th>
+                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Équipement</th>
+                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Rôle</th>
+                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Prix moyen</th>
+                                    <th className="px-6 py-4 text-left font-bold text-slate-700">Recommandation</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 <tr>
-                                    <td className="px-6 py-4 font-medium">Prise Domestique</td>
-                                    <td className="px-6 py-4 text-slate-600">2.3 kg</td>
-                                    <td className="px-6 py-4 text-red-600 font-bold">25h+</td>
-                                    <td className="px-6 py-4 text-slate-600">Dépannage occasionnel</td>
+                                    <td className="px-6 py-4 font-medium">Détecteur de fumée (DAAF)</td>
+                                    <td className="px-6 py-4 text-slate-600">Détecte la fumée et alerte</td>
+                                    <td className="px-6 py-4 text-slate-600">15€ à 30€</td>
+                                    <td className="px-6 py-4 text-slate-600"><strong>Obligatoire</strong> (1 par niveau)</td>
                                 </tr>
                                 <tr>
-                                    <td className="px-6 py-4 font-medium">alarme incendie</td>
-                                    <td className="px-6 py-4 text-slate-600">3.7 kg</td>
-                                    <td className="px-6 py-4 text-orange-600 font-bold">15h</td>
-                                    <td className="px-6 py-4 text-slate-600">Hybrides protectionables / Petits rouleurs</td>
+                                    <td className="px-6 py-4 font-medium">Extincteur eau 6L (NF EN3)</td>
+                                    <td className="px-6 py-4 text-slate-600">Éteint feux secs (bois, tissus, papier)</td>
+                                    <td className="px-6 py-4 text-slate-600">25€ à 60€</td>
+                                    <td className="px-6 py-4 text-slate-600">Le standard idéal pour la maison</td>
                                 </tr>
                                 <tr className="bg-red-50/50">
-                                    <td className="px-6 py-4 font-bold text-red-700">Extincteur 7kg</td>
-                                    <td className="px-6 py-4 text-slate-600">7.4 kg</td>
-                                    <td className="px-6 py-4 text-green-600 font-bold">5h à 8h</td>
-                                    <td className="px-6 py-4 text-slate-600"><strong>Le standard idéal</strong></td>
+                                    <td className="px-6 py-4 font-bold text-red-700">Extincteur poudre ABC 6kg</td>
+                                    <td className="px-6 py-4 text-slate-600">Polyvalent : feux A, B et C</td>
+                                    <td className="px-6 py-4 text-slate-600">30€ à 70€</td>
+                                    <td className="px-6 py-4 text-slate-600"><strong>Idéal garage & cuisine</strong></td>
                                 </tr>
                                 <tr>
-                                    <td className="px-6 py-4 font-medium">Extincteur 11/22kg</td>
-                                    <td className="px-6 py-4 text-slate-600">11-22 kg</td>
-                                    <td className="px-6 py-4 text-green-600 font-bold">3h à 5h</td>
-                                    <td className="px-6 py-4 text-slate-600">Nécessite poudre</td>
+                                    <td className="px-6 py-4 font-medium">Couverture anti-feu</td>
+                                    <td className="px-6 py-4 text-slate-600">Étouffe les feux de friteuse, casserole</td>
+                                    <td className="px-6 py-4 text-slate-600">10€ à 25€</td>
+                                    <td className="px-6 py-4 text-slate-600">Indispensable en cuisine</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <h3>Quelle puissance choisir ?</h3>
+                    <h3>Quel extincteur choisir pour la maison ?</h3>
                     <p>
-                        Pour 90% des maisons en France, la <strong>Extincteur 7.4kg (eau)</strong> est le choix roi.
-                        Elle permet de protectionr n'importe quelle local en une nuit (20h -&gt; 7h).
-                        Le 22kg nécessite une maintenance électrique en poudre, ce qui est rare chez les particuliers et coûte plus cher en contrat de maintenance.
+                        Pour 90% des maisons, l'<strong>extincteur eau 6L avec additif</strong> (classe A : bois, papier, tissus) est le choix roi, complété par un <strong>extincteur CO2</strong> en cuisine pour les feux gras et électriques.
+                        Un extincteur poudre ABC polyvalent reste la meilleure option pour le garage. Notre audit gratuit vous recommande l'équipement adapté à chaque pièce.
                     </p>
 
-                    <h2>2. Combien coûte l'maintenance ?</h2>
+                    <h2>2. Combien coûte la protection incendie d'une maison ?</h2>
                     <p>
-                        Le prix varie selon la distance entre votre registre de sécurité et l'emplacement de la extincteur.
-                        Voici une estimation moyenne constatée en 2026 :
+                        Voici une estimation moyenne constatée en 2026, fourniture et pose par un technicien certifié :
                     </p>
                     <ul>
-                        <li><strong>extincteur seule (Matériel) :</strong> 500€ à 1 200€ selon marque (Copper SB, Extincteurs, Andrieu...)</li>
-                        <li><strong>maintenance (Main d'œuvre + protections) :</strong> 400€ à 800€</li>
-                        <li><strong>Total moyen :</strong> Entre 1 200€ et 1 800€ TTC posé.</li>
+                        <li><strong>Détecteurs de fumée (DAAF) :</strong> 30€ à 90€ pour une maison (2 à 3 détecteurs installés)</li>
+                        <li><strong>Extincteur domestique :</strong> 40€ à 120€ selon le type (eau, poudre, CO2)</li>
+                        <li><strong>Contrôle annuel + maintenance :</strong> 40€ à 90€ par extincteur</li>
+                        <li><strong>Total pour une maison équipée :</strong> Entre 100€ et 300€ TTC, puis moins de 100€ par an d'entretien.</li>
                     </ul>
 
                     <div className="my-8 p-6 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-xl not-prose">
                         <h4 className="font-bold text-yellow-800 mb-2 flex items-center gap-2">
-                            <Euro size={20} /> Aides de l'État 2026
+                            <Euro size={20} /> Aides et fiscalité 2026
                         </h4>
                         <p className="text-yellow-900 mb-2">
-                            Bonne nouvelle ! L'maintenance par un professionnel Incendie déclenche des aides :
+                            Pour les particuliers : pas d'aide d'État dédiée à l'équipement, mais deux leviers réels :
                         </p>
                         <ul className="list-disc pl-5 text-sm text-yellow-900 space-y-1">
-                            <li><strong>Crédit d'impôt :</strong> 500€ par système de charge (pilotable).</li>
-                            <li><strong>TVA Réduite :</strong> 5.5% (au lieu de 20%) sur matériel et main d'œuvre (si habitation +2 ans).</li>
+                            <li><strong>TVA réduite à 5,5%</strong> sur les travaux de mise en sécurité réalisés par un professionnel dans un logement de plus de 2 ans.</li>
+                            <li><strong>Réduction d'assurance :</strong> la plupart des contrats habitation offrent -5% à -10% pour un logement équipé (détecteurs + extincteur).</li>
                         </ul>
                         <p className="text-xs mt-3 text-yellow-800 italic">
-                            *Ces aides sont directement déduites ou remboursées sur votre avis d'imposition.
+                            *Pour les professionnels et copropriétés : l'équipement de sécurité incendie est une charge déductible.
                         </p>
                     </div>
 
                     <div className="not-prose my-12">
                         <h3 className="font-bold text-2xl text-slate-900 mb-6 text-center">Les marques que nous installons</h3>
                         <p className="text-center text-slate-600 mb-8 max-w-xl mx-auto">
-                            Nous ne travaillons qu'avec les leaders mondiaux pour garantir sécurité et longévité.
+                            Nous ne travaillons qu'avec les leaders français de la protection incendie, certifiés NF EN3 et NF Service.
                         </p>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {[
-                                { name: "Extincteurs", color: "bg-slate-900 text-white" },
-                                { name: "Extincteur", color: "bg-green-600 text-white" },
+                                { name: "Desautel", color: "bg-slate-900 text-white" },
+                                { name: "Sicli", color: "bg-green-600 text-white" },
                                 { name: "Andrieu", color: "bg-red-600 text-white" },
-                                { name: "Desautel", color: "bg-green-700 text-white" }
+                                { name: "Eurofeu", color: "bg-green-700 text-white" }
                             ].map((brand, i) => (
                                 <div key={i} className={`h-16 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm ${brand.color}`}>
                                     {brand.name}
@@ -238,19 +237,19 @@ export default function SolutionMaison() {
                         </div>
                     </div>
 
-                    <h2>3. Les étapes de l'maintenance</h2>
+                    <h2>3. Les étapes de la mise en sécurité</h2>
                     <ol>
                         <li>
-                            <strong>Validation technique :</strong> L'électricien vérifie votre registre de sécurité (capacité disponible, mise à la terre).
+                            <strong>Audit de votre logement :</strong> notre technicien identifie les risques (cuisine, garage, tableau électrique, cheminée) et vérifie les équipements existants.
                         </li>
                         <li>
-                            <strong>Choix de l'emplacement :</strong> Garage ou extérieur ? Si extérieur, prévoir une extincteur résistante (IP54/IK08).
+                            <strong>Choix des équipements :</strong> détecteurs DAAF, extincteurs adaptés à chaque pièce, couvertures anti-feu en cuisine.
                         </li>
                         <li>
-                            <strong>Pose et raccordement :</strong> Tirage de ligne dédiée depuis le compteur, pose de l'interrupteur différentiel.
+                            <strong>Pose et mise en service :</strong> installation conforme, test de fonctionnement, formation aux gestes qui sauvent (utilisation d'un extincteur).
                         </li>
                         <li>
-                            <strong>Mise en service :</strong> Tests de charge et remise du certificat de conformité Incendie.
+                            <strong>Suivi annuel :</strong> contrôle périodique des extincteurs, remplacement des piles des détecteurs et mise à jour de votre registre de sécurité.
                         </li>
                     </ol>
 
@@ -258,16 +257,20 @@ export default function SolutionMaison() {
                     <div className="not-prose space-y-4">
                         {[
                             {
-                                q: "Faut-il augmenter mon abonnement EDF ?",
-                                a: "Souvent non. Une extincteur 7kg tire environ 32A. Si vous avez un abonnement 9kg (45A) ou 12kg (60A), ça passe généralement, surtout si vous chargez la nuit. Sinon, on installe un module de sécurité dynamique."
+                                q: "L'extincteur est-il obligatoire à la maison ?",
+                                a: "Non, seul le détecteur de fumée (DAAF) est obligatoire dans chaque logement depuis 2015. L'extincteur domestique est fortement recommandé : il permet d'éteindre un départ de feu avant l'arrivée des secours et réduit votre prime d'assurance."
                             },
                             {
-                                q: "Puis-je installer la extincteur moi-même ?",
-                                a: "Légalement, non. Pour toute puissance > 3.7kg, la loi impose le recours à un électricien qualifié Incendie. De plus, cela conditionne les aides et votre assurance habitation."
+                                q: "Où placer les détecteurs de fumée ?",
+                                a: "Un détecteur par niveau, dans les circulations menant aux chambres, à l'écart de la cuisine et de la salle de bain (pour éviter les fausses alertes). Le plafond est l'emplacement idéal, à plus de 50 cm des murs."
                             },
                             {
-                                q: "La extincteur fonctionne-t-elle avec toutes les locals ?",
-                                a: "Oui. Le standard européen est la prise Type 2. Toutes les Extincteur que nous installons sont compatibles avec 100% des locaux (Extincteurs, Zoé, Peugeot e-208, MG, etc.)."
+                                q: "Quel extincteur pour une maison ?",
+                                a: "Un extincteur eau 6L avec additif (classe A) pour la pièce de vie, un CO2 en cuisine pour les feux gras et électriques, et un poudre ABC polyvalent au garage. Notre audit gratuit recommande l'équipement exact de votre logement."
+                            },
+                            {
+                                q: "Qui peut entretenir mon extincteur ?",
+                                a: "La vérification annuelle doit être réalisée par un technicien certifié (obligatoire en ERP et recommandée à domicile). L'entretien vérifie la pression, l'étanchéité et le bon fonctionnement, et met à jour votre registre de sécurité."
                             }
                         ].map((faq, i) => (
                             <div key={i} className="bg-slate-50 p-4 rounded-xl border border-slate-100">
@@ -287,19 +290,19 @@ export default function SolutionMaison() {
                             <ul className="space-y-3 text-sm text-red-100">
                                 <li className="flex items-start gap-2">
                                     <CheckCircle size={16} className="mt-1 shrink-0 text-red-400" />
-                                    <span>Puissance reco : <strong>7.4kg</strong></span>
+                                    <span>Détecteurs DAAF : <strong>obligatoires</strong></span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <CheckCircle size={16} className="mt-1 shrink-0 text-red-400" />
-                                    <span>Temps charge : <strong>Une nuit</strong></span>
+                                    <span>Extincteur reco : <strong>eau 6L</strong></span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <CheckCircle size={16} className="mt-1 shrink-0 text-red-400" />
-                                    <span>Prix moyen : <strong>1500€</strong> (avant aides)</span>
+                                    <span>Prix moyen : <strong>100 à 300€</strong></span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <CheckCircle size={16} className="mt-1 shrink-0 text-red-400" />
-                                    <span>Aide État : <strong>-500€</strong></span>
+                                    <span>Entretien : <strong>contrôle annuel</strong></span>
                                 </li>
                             </ul>
                             <a href="#simulateur" className="block w-full text-center bg-white text-red-900 font-bold py-3 px-4 rounded-lg mt-6 hover:bg-red-50 transition">
@@ -309,7 +312,7 @@ export default function SolutionMaison() {
 
                         {/* Trust Signals */}
                         <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
-                            <h5 className="font-bold text-slate-800 mb-4 text-center">Pourquoi Expert B.R ?</h5>
+                            <h5 className="font-bold text-slate-800 mb-4 text-center">Pourquoi Expert Sécurité Incendie ?</h5>
                             <ul className="space-y-4">
                                 <li className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">1</div>

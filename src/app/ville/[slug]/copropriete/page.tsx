@@ -130,7 +130,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
 
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                                     Équipez le parking de votre copropriété à {cityName} {dept ? `(${dept})` : ''} sans frais pour l&apos;immeuble.
-                                    Infrastructure collective certifiée Aide, entièrement prise en charge par un Tiers-Investisseur.
+                                    Infrastructure collective certifiée, installée et maintenue par nos techniciens agréés APSAD.
                                 </p>
                             </div>
 
@@ -232,7 +232,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                                 </p>
                                 <ul className="text-sm space-y-2">
                                     <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Solution pérenne et évolutive</li>
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> 0€ pour le syndic (Tiers-Investisseur)</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Financement possible sans avance de trésorerie</li>
                                     <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Facturation individuelle automatique</li>
                                     <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Subventionné Aide à 50%</li>
                                 </ul>
@@ -252,7 +252,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                             </div>
                         </div>
 
-                        <h2>Le modèle Tiers-Investisseur à {cityName}</h2>
+                        <h2>Le financement collectif à {cityName}</h2>
                         <p>
                             La solution plébiscitée par les syndics de {cityName} : un opérateur finance
                             <strong> 100% de l&apos;infrastructure collective</strong>. La copropriété ne paie rien.
@@ -262,7 +262,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                             &ldquo;Zéro frais pour la copropriété, zéro souci de maintenance, et une valorisation immédiate de l&apos;immeuble.&rdquo;
                         </blockquote>
 
-                        <h2>Les aides Aide disponibles à {cityName} {dept ? `(${dept})` : ''}</h2>
+                        <h2>Les aides disponibles à {cityName} {dept ? `(${dept})` : ''}</h2>
                         <div className="not-prose">
                             <table className="min-w-full bg-white border border-slate-200 rounded-lg shadow-sm">
                                 <thead className="bg-slate-50">

@@ -30,12 +30,12 @@ export async function generateMetadata({
 
     if (!city) {
         return {
-            title: "maintenance matériel incendie | Expert Sécurité Incendie",
+            title: "Maintenance extincteurs | Expert Sécurité Incendie",
         };
     }
 
-    const title = `maintenance matériel incendie ${city.name} (${city.department}) | Devis Gratuit`;
-    const description = `maintenance matériel incendie à ${city.name}, ${city.departmentName}. Devis gratuit en 24h. Certifié APSAD Incendie. Mise en conformité jusqu'à 960€. techniciens locaux certifiés.`;
+    const title = `Maintenance extincteurs ${city.name} (${city.department}) | Devis Gratuit`;
+    const description = `Maintenance d'extincteurs et mise en sécurité incendie à ${city.name}, ${city.departmentName}. Devis gratuit en 24h. Certifié APSAD. Contrôle annuel, registre de sécurité et mise en conformité. Techniciens locaux certifiés.`;
 
     return {
         title,
@@ -139,7 +139,7 @@ export default async function CitymaintenancePage({
 
                             {/* H1 */}
                             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
-                                maintenance matériel incendie
+                                Maintenance extincteurs
                                 <span className="block text-red-600">à {city.name}</span>
                             </h1>
 
@@ -267,7 +267,7 @@ export default async function CitymaintenancePage({
                                 icon: Building2,
                                 title: "Copropriété",
                                 desc: `Solution collective ou individuelle pour les copropriétés de ${city.name}. Droit à la prise garanti.`,
-                                features: ["Mise en conformité 960€", "Droit à la prise", "Étude gratuite"]
+                                features: ["Mise en conformité", "Contrôle annuel NF", "Étude gratuite"]
                             },
                             {
                                 icon: Briefcase,
@@ -366,7 +366,7 @@ export default async function CitymaintenancePage({
                         </div>
                     </div>
                     <div className="mt-8 text-center text-sm text-slate-500">
-                        © {new Date().getFullYear()} Expert Sécurité Incendie. maintenance matériel incendie {city.name}.
+                        © {new Date().getFullYear()} Expert Sécurité Incendie. Maintenance extincteurs {city.name}.
                     </div>
                 </div>
             </footer>

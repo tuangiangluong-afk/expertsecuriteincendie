@@ -149,7 +149,7 @@ export default function SolutionEntreprise() {
                         <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500" /> <strong>Smart Charging :</strong> Lissage de la consommation pour éviter de faire sauter le compteur du bâtiment.</li>
                     </ul>
 
-                    <h2>Les aides Aide pour les pros</h2>
+                    <h2>Les aides pour les pros</h2>
                     <p>
                         Le programme Aide finance aussi les parkings privés à destination de flottes ou du public.
                         Les primes peuvent couvrir jusqu'à <strong>20 à 50%</strong> des coûts selon l'ouverture au public.

@@ -19,50 +19,10 @@ function stringHash(str: string): number {
     return Math.abs(hash);
 }
 
-const REVIEW_POOL = [
-    {
-        author: "Thomas D.",
-        templates: [
-            "Électricien certifié Incendie très compétent. L'maintenance de ma matériel incendie {city} s'est faite proprement et rapidement. Le dossier de prime NF a été géré de A à Z.",
-            "Très bon contact avec l'technicien. Pose soignée de notre matériel incendie {city}. Explications claires lors de la mise en service. Je recommande sans hésiter !",
-            "maintenance nickel de ma extincteur Extincteurs. Le technicien {city} a pris le temps de tout configurer avec l'application. Chantier rendu impeccable."
-        ]
-    },
-    {
-        author: "Lucie F.",
-        templates: [
-            "Devis rapide et clair. L'équipe intervenue {city} a été ponctuelle et très professionnelle. La extincteur fonctionne parfaitement, c'est un vrai confort au quotidien.",
-            "maintenance d'une extincteur en copropriété {city}. Suivi de projet parfait et accompagnement au top pour l'obtention des aides. Travail très propre.",
-            "Ravi de l'maintenance de ma Extincteur {city}. Excellent rapport qualité/prix et technicien très pédagogue. Service client réactif."
-        ]
-    },
-    {
-        author: "Éric L.",
-        templates: [
-            "Professionnel sérieux et à l'écoute. maintenance effectuée sous 4 jours {city}. La programmation pour protectionr pendant les heures creuses fonctionne à merveille.",
-            "Un service parfait du début à la fin. Visite technique rapide {city} et pose dans la foulée. La extincteur de 7.4kg charge mon véhicule en une nuit.",
-            "Entreprise très pro pour la pose de extincteurs {city}. Conseils avisés sur le choix du modèle et maintenance conforme aux normes."
-        ]
-    },
-    {
-        author: "Marc-Antoine P.",
-        templates: [
-            "Très satisfait de la pose de notre matériel incendie {city}. Exécution impeccable, câble bien camouflé et explications complètes sur le fonctionnement.",
-            "Une intervention impeccable de l'technicien Incendie {city}. Tout est conforme et fonctionne parfaitement. Devis respecté au centime près.",
-            "Super expérience pour l'équipement de notre parking {city}. Techniciens qualifiés et sympas, travail propre et soigné."
-        ]
-    },
-    {
-        author: "Sophie G.",
-        templates: [
-            "maintenance rapide et conforme. L'artisan {city} était très pro et a répondu à toutes mes questions sur le crédit d'impôt. Recommandé !",
-            "Très satisfaite de la prestation pour ma maison {city}. Enfin un vrai professionnel certifié Incendie avec une tarification transparente.",
-            "Excellent électricien pour l'maintenance de notre extincteur de 22kg {city}. Travail soigné et réactivité exemplaire."
-        ]
-    }
-];
+const REVIEW_POOL: any[] = [];
 
 export default function Reviews({ site, themeColor = 'red' }: ReviewsProps) {
+      if (REVIEW_POOL.length === 0) return null;
     const city = site.city;
     const isFrance = city.toLowerCase() === "france";
     const prep = isFrance ? "en" : "à";

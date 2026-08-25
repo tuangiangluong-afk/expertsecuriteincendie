@@ -278,7 +278,7 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                             <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Reporting RSE :</strong> Tableau de bord CO₂ évité pour votre rapport extra-financier.</span></li>
                         </ul>
 
-                        <h2>Les aides Aide pour les professionnels à {cityName}</h2>
+                        <h2>Les aides pour les professionnels à {cityName}</h2>
                         <div className="not-prose grid sm:grid-cols-2 gap-4 my-6">
                             <div className="border border-slate-200 rounded-xl p-5 text-center bg-white shadow-sm">
                                 <div className="text-sm text-slate-500">Parking Privé (Flotte)</div>

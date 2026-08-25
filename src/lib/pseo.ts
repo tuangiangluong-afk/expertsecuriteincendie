@@ -45,9 +45,9 @@ function getExpertTip(city: string, dept: string, neighborhoods: string[], price
 
     const tips = [
         `${prepCapital} ${city}, ${priceStart && priceStart >= 1000 ? "les villas et maisons individuelles sont majoritaires" : "les copropriétés représentent 60% des demandes"}. Nous recommandons une extincteur ${priceStart && priceStart >= 1000 ? "CO2 ou Poudre" : "eau pulvérisée 6L"} pour un rapport qualité/prix optimal.`,
-        `Les résidents de ${neighborhoods[0] || (isFrance ? "toutes les régions" : city)} privilégient les extincteurs connectées avec suivi de consommation.${isFrance ? "" : ` En ${dept}, le`} délai moyen d'maintenance est de 5 jours ouvrés après validation du devis.`,
+        `Les résidents de ${neighborhoods[0] || (isFrance ? "toutes les régions" : city)} privilégient les extincteurs avec contrat de maintenance annuelle.${isFrance ? "" : ` En ${dept}, le`} délai moyen d'intervention est de 5 jours ouvrés après validation du devis.`,
         `${isFrance ? "Notre réseau national" : city} fait partie des zones à forte adoption de ERP et entreprises. Nos techniciens certifiés interviennent sous 48h pour la visite technique${neighborhoods.length > 1 ? `, de ${neighborhoods[0]} à ${neighborhoods[1]}` : ""}.`,
-        `Pour une maintenance ${prep} ${city}, vérifiez que votre registre de sécurité dispose d'un emplacement libre et que votre abonnement EDF est en 9kg minimum (ou 12kg pour du poudre).`,
+        `Pour une maintenance ${prep} ${city}, vérifiez que votre extincteur est à jour de sa vérification annuelle obligatoire (arrêté du 20 mai 1963) et que le registre de sécurité est accessible.`,
     ];
     return tips[hash % tips.length];
 }
@@ -67,7 +67,7 @@ function getIntroHtml(city: string, dept: string, neighborhoods: string[], posta
     const intros = [
         `<p class="mb-4">
             Vous recherchez un <strong>technicien de matériel incendie certifié Incendie</strong> ${prep} <strong>${city}${postalCodeMention}</strong> ?
-            Nos électriciens qualifiés réalisent l'maintenance complète de votre Extincteur à domicile, en copropriété ou en entreprise.
+            Nos techniciens certifiés APSAD réalisent la maintenance complète de votre extincteur à domicile, en copropriété ou en entreprise.
             ${neighborhoodMention}
         </p>
         <p>
@@ -77,19 +77,19 @@ function getIntroHtml(city: string, dept: string, neighborhoods: string[], posta
 
         `<p class="mb-4">
             <strong>${city}</strong>${dept ? ` (${dept})` : ''} : trouvez votre technicien Incendie de confiance pour la pose de votre matériel incendie.
-            De la visite technique à la mise en service, nos artisans certifiés gèrent l'intégralité du projet en respectant la norme <strong>NF C 15-100</strong>.
+            De la vérification périodique à la révision complète, nos techniciens agréés gèrent l'intégralité du projet en respectant la norme <strong>NF S 61-919</strong>.
         </p>
         <p>
             ${neighborhoodMention} Budget indicatif : <strong>${avgPrice}</strong> tout compris avant aides.
-            Nous nous occupons de votre demande de Certification NF et du Réglementation Incendie.
+            Nous nous occupons de votre dossier de conformité et du registre de sécurité.
         </p>`,
 
         `<p class="mb-4">
-            L'maintenance d'une matériel incendie ${prep} <strong>${city}</strong> par un professionnel <strong>certifié Incendie</strong> est obligatoire au-delà de 3,7 kg.
-            C'est aussi la condition pour bénéficier des aides de l'État et maintenir la garantie constructeur de votre véhicule.
+            La maintenance d'un extincteur ${prep} <strong>${city}</strong> par un professionnel <strong>certifié APSAD</strong> est obligatoire chaque année (arrêté du 20 mai 1963).
+            C'est aussi la condition pour rester en conformité avec le Code du travail et la réglementation ERP.
         </p>
         <p>
-            Nos techniciens ${prep} ${city} proposent des solutions adaptées à chaque situation : maison individuelle (Extincteur murale), parking de copropriété (infrastructure collective), ou flotte d'entreprise.
+            Nos techniciens ${prep} ${city} proposent des solutions adaptées à chaque situation : maison individuelle (extincteur portatif), parking de copropriété (extincteurs sur roues), ou flotte d'entreprise (vérification périodique).
             ${neighborhoodMention} Tarifs constatés : <strong>${avgPrice}</strong>.
         </p>`,
     ];

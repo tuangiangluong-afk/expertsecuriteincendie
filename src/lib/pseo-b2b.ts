@@ -79,8 +79,8 @@ function getCoproIntro(city: string, dept: string, neighborhoods: string[]): str
             de protection collectives adaptées à tous les immeubles de ${city}, y compris sur des secteurs clés comme <strong>${neighborhoodList}</strong>.
         </p>
         <p>
-            Grâce à la solution <strong>Tiers-Investisseur</strong>, le syndic de copropriété peut équiper l'immeuble pour <strong>0€ de reste à charge</strong>.
-            L'infrastructure principale est entièrement financée par l'opérateur partenaire, et chaque utilisateur ne paie que sa propre matériel incendie.
+            Grâce à un <strong>contrat de maintenance tout compris</strong>, le syndic peut équiper l'immeuble sans avance de trésorerie.
+            L'audit initial et le premier équipement sont proposés à tarif préférentiel, avec un échéancier adapté au budget de la copropriété.
         </p>`,
 
         `<p class="mb-4">
@@ -126,10 +126,10 @@ function getCoproTip(city: string, neighborhoods: string[]): string {
     const zone = neighborhoods[0] || "votre quartier";
 
     const tips = [
-        `Conseil Syndic à ${city} : Lors de la prochaine Assemblée Générale, proposez une résolution de 'Tiers-Investisseur'. Cela permet de voter l'équipement global à la majorité simple sans engager la trésorerie de la copropriété.`,
-        `Droit à la Prise à ${city} : Si vous souhaitez installer une extincteur à vos frais vers ${zone}, vous devez notifier votre syndic par lettre recommandée. Le syndic ne peut s'y opposer sans motif sérieux et légitime sous 3 mois.`,
-        `Financement Aide en immeuble : L'aide collective finance 50% des travaux de câblage généraux de la copropriété. C'est le moment idéal pour faire voter l'infrastructure collective avant la baisse progressive des enveloppes nationales.`,
-        `Valorisation immobilière : Un appartement avec place de parking pré-équipée d'une matériel incendie se vend en moyenne 5% à 8% plus cher à ${city} par rapport à un bien non équipé.`
+        `Conseil Syndic à ${city} : Lors de la prochaine Assemblée Générale, proposez un audit de sécurité incendie des parties communes. Le vote à la majorité simple suffit pour les travaux de mise en conformité obligatoires.`,
+        `Obligation extincteurs à ${city} : La réglementation ERP impose un extincteur portatif par tranche de 200 m² dans les parties communes. Nos techniciens APSAD vérifient la conformité lors de l'audit.`,
+        `Maintenance en copropriété : Le contrat annuel de maintenance des extincteurs et du désenfumage est obligatoire (arrêté du 25 juin 1980). Notre forfait syndic couvre l'ensemble des parties communes.`,
+        `Valorisation immobilière : Un immeuble aux normes de sécurité incendie avec carnet de maintenance à jour rassure les acheteurs et évite les réserves lors de la vente d'un lot.`
     ];
 
     return tips[hash % tips.length];
@@ -146,7 +146,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
 
     if (segment === 'ENTREPRISE') {
         const meta_title = `extincteurs Entreprise ${city}${postal ? ` (${postal})` : ''} | Audit Flotte & Loi`;
-        const meta_description = `maintenance extincteurs pour entreprises et flottes à ${city}. Conformité Loi, aides Aide (${regionalInfo.subsidyAmount}), supervision intelligente. Audit gratuit.`;
+        const meta_description = `Maintenance extincteurs pour entreprises à ${city}. Conformité Code du travail, vérification périodique obligatoire. Audit gratuit sous 24h.`;
         const hero_title = `extincteurs <span class="text-emerald-600">entreprise</span> à ${city}`;
         const hero_badge = "Solutions Pro & Flottes";
         const intro_html = getEntrepriseIntro(city, dept, quartiers);
@@ -162,7 +162,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
         };
     } else {
         const meta_title = `maintenance Sécurité Incendie Copropriété ${city} | Étude Gratuite Syndic`;
-        const meta_description = `Infrastructure collective de protection en copropriété à ${city}. Solution Tiers-Investisseur : 0€ pour le syndic. Aides Aide. Étude gratuite.`;
+        const meta_description = `Sécurité incendie en copropriété à ${city}. Audit et maintenance des extincteurs, désenfumage, colonnes sèches. Devis syndic gratuit.`;
         const hero_title = `extincteurs en <span class="text-purple-600">copropriété</span> à ${city}`;
         const hero_badge = "Spécial Syndic & Copropriété";
         const intro_html = getCoproIntro(city, dept, quartiers);

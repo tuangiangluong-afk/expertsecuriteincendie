@@ -39,7 +39,7 @@ export default function SolutionCopro() {
                                     Installer des extincteurs en <span className="text-purple-600">copropriété</span> sans frais pour l'immeuble.
                                 </h1>
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                    La solution Tiers-Investisseur certifiée Aide : Nous finançons l'infrastructure à 100%.
+                                    La solution de financement collectif : nous installons l'infrastructure de sécurité avec un contrat de maintenance tout compris.
                                     <br />
                                     <strong>Le Syndic ne paie rien. Les résidents non-utilisateurs ne paient rien.</strong>
                                 </p>
@@ -172,7 +172,7 @@ export default function SolutionCopro() {
                         </a>
                     </div>
 
-                    <h2>Les aides Aide 2026</h2>
+                    <h2>Les aides 2026</h2>
                     <p>
                         Le programme Aide subventionne lourdement les maintenances en résidentiel collectif.
                         L'objectif est d'accélérer l'équipement des parkings.
