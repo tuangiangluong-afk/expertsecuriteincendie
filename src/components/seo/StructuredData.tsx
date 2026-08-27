@@ -13,14 +13,14 @@ export default function StructuredData() {
         "description": "N°1 de la maintenance d'extincteurs certifiés NF EN3 & APSAD, désenfumage et registres de sécurité pour entreprises, ERP et copropriétés en France.",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "8 Rue de la Paix",
-            "addressLocality": "Paris",
-            "postalCode": "75002",
+            "streetAddress": "6 Rue des Bateliers",
+            "addressLocality": "Clichy",
+            "postalCode": "92110",
             "addressCountry": "FR"
         },
         "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+33 1 84 80 00 00",
+            "telephone": "+33 1 49 14 02 64",
             "contactType": "customer service",
             "areaServed": "FR",
             "availableLanguage": "fr-FR"
