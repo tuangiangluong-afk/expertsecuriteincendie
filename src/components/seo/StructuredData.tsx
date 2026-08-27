@@ -96,7 +96,46 @@ export default function StructuredData() {
                     }
                 }
             }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "95",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+        {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Restaurant Le Gourmet"
+            },
+            "datePublished": "2026-02-02",
+            "reviewBody": "Audit complet et installation des extincteurs et blocs de secours conformes aux normes ERP.",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5",
+                "worstRating": "1"
+            }
+        },
+        {
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": "Cabinet Médical B."
+            },
+            "datePublished": "2026-03-11",
+            "reviewBody": "Vérification annuelle et registre de sécurité mis à jour rapidement par un technicien certifié.",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5",
+                "worstRating": "1"
+            }
         }
+        ]
     };
 
     const websiteSchema = {
