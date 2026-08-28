@@ -4,21 +4,21 @@ export function StructuredData({ city }: { city: CityConfig }) {
     const services = [
         {
             "@type": "Service",
-            "name": "Transport Médical Conventionné",
-            "description": "Transport assis professionnalisé (TAP) vers hôpitaux et cliniques. Agréé CPAM.",
-            "serviceType": "MedicalTransport"
+            "name": "Maintenance des extincteurs",
+            "description": "Vérification et maintenance périodique des extincteurs pour entreprises, ERP et copropriétés.",
+            "serviceType": "FireExtinguisherMaintenance"
         },
         {
             "@type": "Service",
-            "name": "Navette Aéroport",
-            "description": "Transfert privé vers aéroports avec suivi de vol en temps réel.",
-            "serviceType": "AirportTransfer"
+            "name": "Mise en conformité incendie",
+            "description": "Audit et accompagnement pour la conformité des équipements de sécurité incendie.",
+            "serviceType": "FireSafetyCompliance"
         },
         {
             "@type": "Service",
-            "name": "Taxi Gare TGV",
-            "description": "Liaison gare avec attente panneau et aide aux bagages.",
-            "serviceType": "TaxiService"
+            "name": "Désenfumage et équipements de sécurité",
+            "description": "Contrôle et suivi des équipements de sécurité incendie selon les besoins du site.",
+            "serviceType": "FireSafetyInspection"
         }
     ];
 
@@ -27,7 +27,7 @@ export function StructuredData({ city }: { city: CityConfig }) {
         "@graph": [
             {
                 "@type": "LocalBusiness",
-                "additionalType": "https://schema.org/TaxiService",
+                "additionalType": "https://schema.org/ProfessionalService",
                 "@id": `https://${city.domain}/#localbusiness`,
                 "name": city.name,
                 "image": city.heroImage.startsWith('http') ? city.heroImage : `https://${city.domain}${city.heroImage}`,
@@ -72,7 +72,7 @@ export function StructuredData({ city }: { city: CityConfig }) {
                     {
                         "@type": "ListItem",
                         "position": 1,
-                        "name": `Taxi ${city.city}`,
+                        "name": `Sécurité incendie à ${city.city}`,
                         "item": `https://${city.domain}`
                     }
                 ]
@@ -83,10 +83,10 @@ export function StructuredData({ city }: { city: CityConfig }) {
                 "mainEntity": [
                     {
                         "@type": "Question",
-                        "name": `Combien coûte un taxi à ${city.city} ?`,
+                        "name": `Combien coûte une maintenance incendie à ${city.city} ?`,
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": `Le tarif de base est d'environ ${city.pricing.base}. Le prix final dépend de la distance et de l'horaire (jour/nuit).`
+                            "text": `Le prix dépend du nombre et du type d'équipements, de la configuration du site et du niveau de contrôle requis. Un audit permet d'établir un devis adapté à ${city.city}.`
                         }
                     },
                     {
@@ -99,10 +99,10 @@ export function StructuredData({ city }: { city: CityConfig }) {
                     },
                     {
                         "@type": "Question",
-                        "name": `Comment réserver un taxi à ${city.city} ?`,
+                        "name": `Comment demander un devis de sécurité incendie à ${city.city} ?`,
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": `Vous pouvez réserver immédiatement par téléphone au ${city.phoneNumber} ou via notre formulaire de réservation en ligne.`
+                            "text": `Vous pouvez demander un devis via le formulaire du site ou par téléphone au ${city.phoneNumber}. L'étude précise le type de bâtiment, les équipements présents et les obligations applicables.`
                         }
                     }
                 ]
