@@ -1,6 +1,5 @@
 import type { CityConfig } from "@/lib/db";
 
-// Structure d'une page pSEO générée
 export interface PseoPageContent {
     meta_title: string;
     meta_description: string;
@@ -11,129 +10,109 @@ export interface PseoPageContent {
     pricing_estimated: string;
     regional_subsidy: string;
     expert_tip: string;
+    local_climate_info?: string;
+    installation_timeline?: string;
+    local_compliance_info?: string;
 }
-
-// ============================================
-// Données régionales réelles pour enrichir le contenu
-// ============================================
-const REGIONAL_DATA: Record<string, { subsidyName: string; subsidyAmount: string; gridOperator: string; avgPrice: string; }> = {
-    "75": { subsidyName: "Paris Éco-Rénovation", subsidyAmount: "Jusqu'à 4 000€ (Ville de Paris + NF)", gridOperator: "Enedis Île-de-France", avgPrice: "1 200€ – 2 500€" },
-    "69": { subsidyName: "Métropole de Lyon Éco-Énergie", subsidyAmount: "Certification NF + Bonus Métropole Lyon", gridOperator: "Enedis Rhône", avgPrice: "890€ – 1 800€" },
-    "13": { subsidyName: "Région Sud Mobilité Verte", subsidyAmount: "Certification NF + Aide Région Sud", gridOperator: "Enedis Provence", avgPrice: "850€ – 1 700€" },
-    "06": { subsidyName: "Métropole Nice Côte d'Azur", subsidyAmount: "Certification NF + Aide MNCA", gridOperator: "Enedis Alpes-Maritimes", avgPrice: "950€ – 2 200€" },
-    "33": { subsidyName: "Bordeaux Métropole Climat", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Gironde", avgPrice: "890€ – 1 800€" },
-    "31": { subsidyName: "Toulouse Métropole Transition", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Haute-Garonne", avgPrice: "850€ – 1 700€" },
-    "59": { subsidyName: "MEL sécurité incendie", subsidyAmount: "Certification NF + Aide MEL", gridOperator: "Enedis Nord", avgPrice: "890€ – 1 800€" },
-    "67": { subsidyName: "Eurométropole de Strasbourg", subsidyAmount: "Certification NF applicable", gridOperator: "Électricité de Strasbourg", avgPrice: "890€ – 1 800€" },
-    "44": { subsidyName: "Nantes Métropole Climat", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Loire-Atlantique", avgPrice: "850€ – 1 600€" },
-    "34": { subsidyName: "Montpellier Méditerranée Métropole", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Hérault", avgPrice: "850€ – 1 700€" },
-};
 
 const DEFAULT_REGIONAL = {
-    subsidyName: "Programme national Aide",
-    subsidyAmount: "Audit gratuit & conformité NF EN3",
-    gridOperator: "Enedis",
-    avgPrice: "890€ – 1 800€"
+    subsidyName: "Conformité Légale & Assurance",
+    subsidyAmount: "Attestation de conformité pour assurances (APSAD)",
+    avgPrice: "150€ – 1 800€"
 };
 
-// Varier les structures d'expert tips par ville
-function getExpertTip(city: string, dept: string, neighborhoods: string[], priceStart?: number): string {
-    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const isFrance = city.toLowerCase() === "france";
-    const prep = isFrance ? "en" : "à";
-    const prepCapital = isFrance ? "En" : "À";
+const TIPS = [
+        "À {city}, le Code du travail et les arrêtés ERP imposent 1 extincteur à eau pulvérisée de 6L pour 200 m² de surface au sol par niveau.",
+        "Pour les tableaux électriques et locaux serveurs à {city}, l'extincteur au dioxyde de carbone (CO2) est obligatoire pour étouffer le feu sans dégât résiduel.",
+        "Les commerces et établissements recevant du public à {city} doivent procéder à la vérification annuelle obligatoire de leurs extincteurs par un technicien certifié.",
+        "Les Blocs Autonomes d'Éclairage de Sécurité (BAES) doivent assurer 1 heure d'autonomie lumineuse en cas de coupure de courant générale à {city}.",
+        "Les entreprises de {neighborhood_0} doivent maintenir à jour leur Registre de Sécurité sous peine de sanctions lors du passage de la commission de sécurité.",
+        "L'installation d'un système de désenfumage naturel permet d'évacuer les fumées toxiques et facilite l'évacuation rapide des personnes à {city}.",
+        "Nos techniciens réalisent la formation obligatoire à la manipulation des extincteurs pour le personnel de votre entreprise à {city}.",
+        "Chaque appareil vérifié par nos équipes reçoit un plombage horodaté et une étiquette de conformité officielle reconnue par votre compagnie d'assurance."
+];
+const INTROS = [
+        "<p class=\"mb-4 leading-relaxed\">Vous exploitez un commerce, des bureaux, un atelier ou gérez une copropriété à <strong>{city}{postalMention}</strong> ? La <strong>protection contre les risques d'incendie</strong> relève d'une obligation légale stricte régie par le Code du travail et la réglementation des ERP (Établissements Recevant du Public). {neighborhoodMention}</p><p class=\"mb-4 leading-relaxed\">Nos techniciens certifiés en sécurité incendie assurent l'audit gratuit de vos locaux, la fourniture et la pose d'extincteurs certifiés NF EN 3, de blocs d'éclairage de secours (BAES), d'alarmes sonores et de plans d'évacuation normés. Tarif moyen pour une mise en conformité à {city} : <strong>{avgPrice}</strong> selon la surface exploitée.</p><p class=\"leading-relaxed\">Garantissez la sécurité de vos collaborateurs et de vos clients tout en protégeant votre responsabilité juridique vis-à-vis des assurances. Contactez nos experts locaux pour un audit de conformité sous 24h.</p>",
+        "<p class=\"mb-4 leading-relaxed\">Mettez vos installations aux normes incendie à <strong>{city}</strong>{deptMention} avec un partenaire certifié et réactif. Que vous prépariez l'ouverture d'un nouveau local ou le contrôle périodique annuel de vos équipements, nous vous délivrons une attestation de vérification officielle pour votre dossier d'assurance.</p><p class=\"mb-4 leading-relaxed\">{neighborhoodMention} Nous intervenons sur l'ensemble des systèmes de protection : extincteurs à eau, poudre ou CO2, Robinets d'Incendie Armés (RIA) et désenfumage pneumatique. Budget d'intervention moyen : <strong>{avgPrice}</strong>.</p><p class=\"leading-relaxed\">Nos contrats de maintenance annuelle incluent la recharge, le remplacement des joints et le dépannage rapide de vos dispositifs d'alerte en cas de défaillance. Devis immédiat sans engagement.</p>",
+        "<p class=\"mb-4 leading-relaxed\">À <strong>{city}</strong>, anticipez les risques et assurez la conformité de votre bâtiment avant le passage de la commission de sécurité municipale ou départementale. {neighborhoodMention}</p><p class=\"mb-4 leading-relaxed\">Nos spécialistes rédigent vos consignes de sécurité, éditent vos plans d'intervention plastifiés et fournissent un registre de sécurité complet et à jour. Coût indicatif moyen pour les entreprises de votre secteur : <strong>{avgPrice}</strong>.</p><p class=\"leading-relaxed\">Faites confiance à des professionnels aguerris maîtrisant parfaitement les règles de l'art APSAD R4 pour protéger vos biens et vos collaborateurs.</p>",
+        "<p class=\"mb-4 leading-relaxed\">Recherchez-vous une <strong>entreprise de sécurité incendie et maintenance d'extincteurs à {city}{postalMention}</strong> ? Nos techniciens habilités se déplacent rapidement dans tout votre département pour contrôler l'état de votre parc matériel.</p><p class=\"mb-4 leading-relaxed\">{neighborhoodMention} Du remplacement d'une goupille percutée au renouvellement complet de vos têtes de désenfumage, nous garantissons un matériel fiable certifié conforme aux normes françaises et européennes. Investissement moyen : <strong>{avgPrice}</strong>.</p><p class=\"leading-relaxed\">Bénéficiez de tarifs transparents sans mauvaise surprise et d'un suivi informatisé de vos dates de révision périodique. Demandez votre devis gratuit.</p>",
+        "<p class=\"mb-4 leading-relaxed\">Protégez votre activité professionnelle contre le risque de sinistre majeur à <strong>{city}</strong>. Plus de 70% des entreprises touchées par un incendie grave ne rouvrent jamais leurs portes dans les 3 ans.</p><p class=\"mb-4 leading-relaxed\">{neighborhoodMention} En équipant vos locaux de dispositifs de première intervention adaptés et bien signalés, vous neutralisez tout départ de feu avant qu'il ne se propage. Le budget moyen observé s'établit entre <strong>{avgPrice}</strong>.</p><p class=\"leading-relaxed\">Prenez rendez-vous avec l'un de nos conseillers techniques à {city} pour planifier votre visite de conformité sans interruption de votre activité.</p>"
+];
 
-    const tips = [
-        `${prepCapital} ${city}, ${priceStart && priceStart >= 1000 ? "les villas et maisons individuelles sont majoritaires" : "les copropriétés représentent 60% des demandes"}. Nous recommandons une extincteur ${priceStart && priceStart >= 1000 ? "CO2 ou Poudre" : "eau pulvérisée 6L"} pour un rapport qualité/prix optimal.`,
-        `Les résidents de ${neighborhoods[0] || (isFrance ? "toutes les régions" : city)} privilégient les extincteurs avec contrat de maintenance annuelle.${isFrance ? "" : ` En ${dept}, le`} délai moyen d'intervention est de 5 jours ouvrés après validation du devis.`,
-        `${isFrance ? "Notre réseau national" : city} fait partie des zones à forte adoption de ERP et entreprises. Nos techniciens certifiés interviennent sous 48h pour la visite technique${neighborhoods.length > 1 ? `, de ${neighborhoods[0]} à ${neighborhoods[1]}` : ""}.`,
-        `Pour une maintenance ${prep} ${city}, vérifiez que votre extincteur est à jour de sa vérification annuelle obligatoire (arrêté du 20 mai 1963) et que le registre de sécurité est accessible.`,
-    ];
-    return tips[hash % tips.length];
+function getExpertTip(city: string, dept: string, neighborhoods: string[]): string {
+    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+    const n0 = neighborhoods.length > 0 ? neighborhoods[0] : city;
+    const t = TIPS[hash % TIPS.length];
+    return t
+        .replace(/{city}/g, city)
+        .replace(/{dept}/g, dept || "votre département")
+        .replace(/{neighborhood_0}/g, n0);
 }
 
-// Varier les intros par ville avec de vrais éléments locaux
 function getIntroHtml(city: string, dept: string, neighborhoods: string[], postalCode: string, avgPrice: string): string {
     const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
     const isFrance = city.toLowerCase() === "france";
     const prep = isFrance ? "en" : "à";
 
     const neighborhoodMention = neighborhoods.length >= 2
-        ? `Nous intervenons dans tous les quartiers : <strong>${neighborhoods.slice(0, 3).join(', ')}</strong> et alentours.`
-        : "";
+        ? `Nos artisans et techniciens spécialisés interviennent dans tous les secteurs de la commune : <strong>${neighborhoods.slice(0, 3).join(', ')}</strong> ainsi que dans les localités périphériques.`
+        : "Nos spécialistes qualifiés assurent une couverture totale de l'ensemble de votre secteur et de ses environs.";
 
-    const postalCodeMention = postalCode ? ` (${postalCode})` : "";
+    const postalMention = postalCode ? ` (${postalCode})` : "";
+    const deptMention = dept ? ` (${dept})` : "";
 
-    const intros = [
-        `<p class="mb-4">
-            Vous recherchez un <strong>technicien de matériel incendie certifié Incendie</strong> ${prep} <strong>${city}${postalCodeMention}</strong> ?
-            Nos techniciens certifiés APSAD réalisent la maintenance complète de votre extincteur à domicile, en copropriété ou en entreprise.
-            ${neighborhoodMention}
-        </p>
-        <p>
-            Le prix moyen d'une maintenance ${prep} ${city} se situe entre <strong>${avgPrice}</strong> (fourniture et pose incluses, avant déduction des aides).
-            Nous constituons gratuitement votre dossier de subventions pour maximiser vos économies.
-        </p>`,
-
-        `<p class="mb-4">
-            <strong>${city}</strong>${dept ? ` (${dept})` : ''} : trouvez votre technicien Incendie de confiance pour la pose de votre matériel incendie.
-            De la vérification périodique à la révision complète, nos techniciens agréés gèrent l'intégralité du projet en respectant la norme <strong>NF S 61-919</strong>.
-        </p>
-        <p>
-            ${neighborhoodMention} Budget indicatif : <strong>${avgPrice}</strong> tout compris avant aides.
-            Nous nous occupons de votre dossier de conformité et du registre de sécurité.
-        </p>`,
-
-        `<p class="mb-4">
-            La maintenance d'un extincteur ${prep} <strong>${city}</strong> par un professionnel <strong>certifié APSAD</strong> est obligatoire chaque année (arrêté du 20 mai 1963).
-            C'est aussi la condition pour rester en conformité avec le Code du travail et la réglementation ERP.
-        </p>
-        <p>
-            Nos techniciens ${prep} ${city} proposent des solutions adaptées à chaque situation : maison individuelle (extincteur portatif), parking de copropriété (extincteurs sur roues), ou flotte d'entreprise (vérification périodique).
-            ${neighborhoodMention} Tarifs constatés : <strong>${avgPrice}</strong>.
-        </p>`,
-    ];
-
-    return intros[hash % intros.length];
+    const t = INTROS[hash % INTROS.length];
+    return t
+        .replace(/{city}/g, city)
+        .replace(/{prep}/g, prep)
+        .replace(/{postalMention}/g, postalMention)
+        .replace(/{deptMention}/g, deptMention)
+        .replace(/{neighborhoodMention}/g, neighborhoodMention)
+        .replace(/{avgPrice}/g, avgPrice);
 }
 
-// ============================================
-// Génération du contenu pSEO — données réelles
-// ============================================
 export async function getPseoContent(cityConfig: CityConfig, targetType: string = 'MIXED'): Promise<PseoPageContent> {
-    const { city, department, region, postalCode, neighborhoods, pricing } = cityConfig;
+    const { city, department, postalCode, neighborhoods, pricing } = cityConfig;
     const dept = department || "";
     const postal = postalCode || "";
     const quartiers = neighborhoods || [];
 
-    // Récupérer les données régionales réelles
-    const deptCode = dept.length >= 2 ? dept.substring(0, 2) : "";
-    const regionalInfo = REGIONAL_DATA[deptCode] || DEFAULT_REGIONAL;
-
-    // Prix réel depuis la config de la ville
-    const realPrice = pricing?.base || `À partir de ${regionalInfo.avgPrice.split('–')[0].trim()}`;
+    const regionalInfo = DEFAULT_REGIONAL;
+    const realPrice = pricing?.base || regionalInfo.avgPrice;
 
     const isFrance = city.toLowerCase() === "france";
     const prep = isFrance ? "en" : "à";
+    const postalSpan = postal ? ` <span class="text-slate-400 text-3xl">(${postal})</span>` : "";
 
-    // Meta title optimisé pour le CTR
-    const meta_title = `technicien matériel incendie ${isFrance ? "en France" : city}${postal ? ` (${postal})` : ''} | Devis Gratuit Incendie`;
-    const meta_description = `maintenance matériel incendie ${prep} ${city} par un électricien certifié Incendie. ${realPrice} avant aides. ${regionalInfo.subsidyAmount}. Devis gratuit en 2 min.`;
+    const meta_title = `Expert Sécurité Incendie {city}{postal} | Extincteurs & ERP`
+        .replace("{city}", isFrance ? "en France" : city)
+        .replace("{postal}", postal ? ` (${postal})` : "");
 
-    const hero_title = `technicien <span class="text-red-500">matériel incendie</span> ${prep} ${city}${postal ? ` <span class="text-slate-400 text-3xl">(${postal})</span>` : ''}`;
-    const hero_badge = regionalInfo.subsidyName;
+    const meta_description = `Installation et maintenance d'extincteurs, désenfumage, BAES et alarmes incendie à {city}. Conformité stricte ERP/ERT et règles APSAD. Devis gratuit sous 24h.`
+        .replace("{city}", city)
+        .replace("{price}", realPrice)
+        .replace("{prep}", prep);
 
-    const intro_html = getIntroHtml(city, dept, quartiers, postal, regionalInfo.avgPrice);
+    const hero_title = `Expert <span class="text-red-500">Sécurité Incendie</span> {prep} {city}{postalSpan}`
+        .replace("{city}", city)
+        .replace("{prep}", prep)
+        .replace("{postalSpan}", postalSpan);
+
+    const intro_html = getIntroHtml(city, dept, quartiers, postal, realPrice);
+    const expert_tip = getExpertTip(city, dept, quartiers);
 
     return {
         meta_title,
         meta_description,
         hero_title,
-        hero_badge,
+        hero_badge: regionalInfo.subsidyName,
         intro_html,
-        cta_primary: "Obtenir 3 devis gratuits",
+        cta_primary: "Demander un audit sécurité gratuit",
         pricing_estimated: realPrice,
         regional_subsidy: regionalInfo.subsidyAmount,
-        expert_tip: getExpertTip(city, dept, quartiers, parseInt(realPrice.replace(/\D/g, '')) || undefined),
+        expert_tip,
+        local_climate_info: expert_tip,
+        installation_timeline: "Intervention sous 24h à 48h",
+        local_compliance_info: regionalInfo.subsidyAmount
     };
 }

@@ -1,17 +1,21 @@
 import Link from "next/link";
-import { CheckCircle, ShieldCheck, Clock, Award, Euro, ArrowRight, ChevronRight, FileText } from "lucide-react";
+import { CheckCircle, ShieldCheck, Clock, Award, Euro, ArrowRight, ChevronRight, FileText, Landmark, Building2 } from "lucide-react";
 import type { CityConfig } from "@/lib/db";
 
 interface LocalAeoSectionProps {
     site: CityConfig;
 }
 
-const pricingMatrix = [{"name": "Extincteur 6L Eau Pulvérisée / Poudre 6kg", "usage": "Obligatoire tous les 200 m²", "price": "65€ - 110€", "aid": "Fixation murale comprise", "net": "Dès 65€"}, {"name": "Bloc Éclairage de Sécurité (BAES LED)", "usage": "Évacuation de secours obligatoire", "price": "45€ - 85€", "aid": "Norme NF Environnement", "net": "Dès 45€"}, {"name": "Alarme Incendie Type 4 (Sonore & Flash)", "usage": "Signal d'évacuation ERP/ERT", "price": "120€ - 280€", "aid": "Autonomie pile 5 ans", "net": "Dès 120€"}, {"name": "Maintenance Annuelle & Registre", "usage": "Vérification annuelle réglementaire", "price": "15€ - 25€ / app.", "aid": "Attestation Q4 assurance", "net": "Forfait annuel"}];
-const steps = [{"title": "Audit de conformité réglementaire gratuit", "desc": "Visite de vos locaux, comptage des postes d'extinction requis et contrôle des issues de secours."}, {"title": "Proposition chiffrée conforme Code du travail", "desc": "Devis clair sous 24h détaillant l'implantation exacte du matériel NF et des panneaux signalétiques."}, {"title": "Pose et numérotation des équipements", "desc": "Installation soignée à hauteur réglementaire, numérotation des appareils et pose des plans d'évacuation."}, {"title": "Émargement du registre de sécurité & certificat", "desc": "Remise du certificat de conformité APSAD Q4 pour votre assureur et visa du registre officiel."}];
+const pricingMatrix = [{"name": "Pack Extincteur 6L Eau + Panneau NF", "usage": "Bureaux, commerces & dépôts (200 m²)", "price": "89€ - 149€", "aid": "Certification NF EN 3", "net": "Dès 89€"}, {"name": "Extincteur 2 kg / 5 kg CO2 (Électrique)", "usage": "Tableaux électriques, serveurs & cuisines", "price": "95€ - 180€", "aid": "Protection sans résidu", "net": "Dès 95€"}, {"name": "Contrat de maintenance annuelle (Par appareil)", "usage": "Vérification légale, plombage & vignette", "price": "15€ - 28€/unité", "aid": "Attestation d'assurance", "net": "Dès 15€"}, {"name": "Plan d'évacuation & Registre de sécurité", "usage": "Mise en conformité ERP obligatoire", "price": "180€ - 390€", "aid": "Norme NF X 08-070", "net": "Dès 180€"}];
+const steps = [{"title": "Audit de conformité & Étude des risques", "desc": "Visite technique des locaux, analyse des activités et calcul du nombre d'appareils obligatoires."}, {"title": "Devis de mise aux normes ERP/ERT sous 24h", "desc": "Chiffrage transparent détaillé par équipement avec plan d'implantation préconisé."}, {"title": "Installation & Fixation des extincteurs et BAES", "desc": "Pose aux emplacements stratégiques avec signalétique photoluminescente normalisée."}, {"title": "Remise du Registre & Attestation d'assurance", "desc": "Émargement du registre de sécurité et délivrance du certificat officiel pour votre assureur."}];
 
 export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
     const city = site.city;
     const dept = site.department ? ` (${site.department})` : "";
+    const neighborhoods = site.neighborhoods || [];
+    const neighborhoodsText = neighborhoods.length > 0 
+        ? `, notamment dans les quartiers ${neighborhoods.slice(0, 4).join(', ')}` 
+        : "";
 
     return (
         <section className="py-12 bg-slate-50/50 border-t border-slate-200">
@@ -32,33 +36,33 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
                         <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-slate-900 text-white">
                             <FileText size={13} />
-                            Sécurité Incendie & Extincteurs à {city} (2026)
+                            Sécurité Incendie à {city} (2026)
                         </span>
                         <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-                            <Clock size={13} /> Chiffres & Aides certifiés 2026
+                            <Clock size={13} /> Données & Tarifs certifiés 2026
                         </span>
                     </div>
 
                     <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6">
-                        <strong>En résumé : </strong>À {city}{dept}, nos techniciens agréés garantissent la conformité incendie de votre entreprise, commerce ou copropriété (extincteurs NF, blocs BAES, alarmes type 4, désenfumage). Nous réalisons l'audit obligatoire, la pose conforme et l'émargement immédiat de votre registre de sécurité.
+                        <strong>En résumé : </strong>À {city}{dept}, le coût moyen d'une prestation de sécurité incendie réalisée par nos artisans qualifiés s'établit entre 150€ – 1 800€ avant déduction des éventuelles aides financières. Nos techniciens certifiés interviennent sous 24h à 48h avec garantie décennale.
                     </p>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-2">
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Prix estimé</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">65€ – 280€ par équipement</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">150€ – 1 800€</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Aides & Primes</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Conformité Code du travail & Registre de sécurité</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Conformité Légale & Assurance</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Délai d'intervention</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Audit sous 24h, intervention immédiate</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Devis 24h, pose rapide</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Garantie & Norme</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Normes NF S 61-919, NF C 71-800 & Règle APSAD R4</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Garantie Décennale & RGE</div>
                         </div>
                     </div>
                 </div>
@@ -67,10 +71,10 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                 <div className="mb-14">
                     <div className="mb-6">
                         <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-                            Grille tarifaire et aides à {city}
+                            Grille tarifaire et prestations à {city}
                         </h2>
                         <p className="text-slate-600 mt-1 text-sm md:text-base">
-                            Coûts moyens constatés pour une pose réalisée par nos artisans partenaires certifiés.
+                            Coûts indicatifs moyens constatés pour une pose réalisée dans les règles de l'art.
                         </p>
                     </div>
 
@@ -81,7 +85,7 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                                     <th className="px-5 py-4">Équipement / Prestation</th>
                                     <th className="px-5 py-4 hidden md:table-cell">Usage conseillé</th>
                                     <th className="px-5 py-4">Coût indicatif</th>
-                                    <th className="px-5 py-4">Aides déduites</th>
+                                    <th className="px-5 py-4">Avantage & Aides</th>
                                     <th className="px-5 py-4 font-bold text-slate-900">Reste à charge</th>
                                 </tr>
                             </thead>
@@ -100,14 +104,67 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                     </div>
                 </div>
 
+                {/* Guide & Spécificités d'installation à {city} */}
+                <div className="mb-14">
+                    <div className="mb-8">
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                            Réglementation incendie & exigences locales à {city}
+                        </h2>
+                        <p className="text-slate-600 mt-1 text-sm md:text-base">
+                            Conformité ERP/ERT, commission de sécurité et protocoles de protection dans votre commune.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {/* Card 1: Urbanisme & Mairie */}
+                        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-600">
+                                    <Landmark size={20} />
+                                </span>
+                                <h3 className="font-bold text-slate-900 text-base">Conformité ERP & Visite de Sécurité à {city}</h3>
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                                À {city}{dept}, les Établissements Recevant du Public (magasins, restaurants, hôtels, cabinets médicaux) et les locaux professionnels sont soumis aux contrôles stricts de la commission communale ou intercommunale de sécurité présidée par le maire et les officiers du SDIS. Nos techniciens vérifient scrupuleusement la présence et l'accessibilité de vos moyens de secours, l'autonomie de vos blocs BAES et la validité de vos procès-verbaux de contrôle périodique.
+                            </p>
+                        </div>
+
+                        {/* Card 2: Typologie du bâti & Quartiers */}
+                        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
+                                    <Building2 size={20} />
+                                </span>
+                                <h3 className="font-bold text-slate-900 text-base">Secteurs d'activité & Quartiers à {city}</h3>
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                                Nos spécialistes interviennent au sein de tous les pôles économiques de {city}{neighborhoodsText}. Nous adaptons la typologie des agents extincteurs aux risques spécifiques de votre activité (eau avec additif pour les feux de classe A/B, CO2 pour les armoires électriques et serveurs, poudre polyvalente ABC pour les garages et ateliers).
+                            </p>
+                        </div>
+
+                        {/* Card 3: Climat, Performance & Aides */}
+                        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="grid h-10 w-10 place-items-center rounded-xl bg-amber-50 text-amber-600">
+                                    <ShieldCheck size={20} />
+                                </span>
+                                <h3 className="font-bold text-slate-900 text-base">Maintenance APSAD & Matériel certifié à {city}</h3>
+                            </div>
+                            <p className="text-sm text-slate-600 leading-relaxed">
+                                Tous nos extincteurs portent les estampilles NF et CE et répondent aux référentiels de la règle APSAD R4. Nos contrats d'entretien annuel prévoient la vérification mécanique du percuteur, le contrôle de la charge manométrique, le graissage des joints et la réfection de la vignette annuelle, garantissant une couverture juridique sans faille en cas de contrôle ou de sinistre.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Déroulement du chantier en 4 étapes */}
                 <div className="mb-14">
                     <div className="mb-8">
                         <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-                            Votre installation à {city} en 4 étapes
+                            Votre projet à {city} en 4 étapes
                         </h2>
                         <p className="text-slate-600 mt-1 text-sm md:text-base">
-                            Un accompagnement complet et transparent, de l'audit jusqu'à l'obtention des aides.
+                            Un accompagnement transparent de l'étude préliminaire jusqu'à la garantie de parfait achèvement.
                         </p>
                     </div>
 
@@ -127,16 +184,16 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                 {/* Bannière de Réassurance locale */}
                 <div className="rounded-3xl bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg">
                     <div>
-                        <h3 className="text-xl font-bold mb-1">Un projet d'installation à {city} ?</h3>
+                        <h3 className="text-xl font-bold mb-1">Un projet à {city} ?</h3>
                         <p className="text-slate-300 text-sm">
-                            Techniciens certifiés NF & Attestation APSAD. Devis gratuit sous 24h sans aucun engagement.
+                            Garantie décennale & devis gratuit sous 24h sans aucun engagement.
                         </p>
                     </div>
                     <a
                         href="#simulateur"
                         className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-6 py-3.5 font-bold hover:bg-slate-100 transition shadow"
                     >
-                        <span>Estimer mon devis</span>
+                        <span>Estimer mon projet</span>
                         <ArrowRight size={16} />
                     </a>
                 </div>
