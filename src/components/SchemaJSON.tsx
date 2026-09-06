@@ -68,19 +68,12 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "closes": "20:00"
             },
             "priceRange": "€€€",
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "148",
-                "bestRating": "5",
-                "worstRating": "1"
-            },
+            
             "areaServed": {
                 "@type": "City",
                 "name": site.city
-            },
-            
-        };
+            }
+            };
     } else if (type === "Service" && site && brand) {
         // Schema Service pour les pages Ville x Marque
         const baseUrl = "https://expertsecuriteincendie.fr";
@@ -111,8 +104,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                         "latitude": geoData.lat,
                         "longitude": geoData.lng
                     }
-                } : {}),
-                
+                } : {})
             },
             "areaServed": {
                 "@type": "City",
@@ -150,9 +142,8 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "priceValidUntil": "2026-12-31",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition"
-            },
-            
-        };
+            }
+            };
     } else if (type === "B2BService" && site && b2bType) {
         const baseUrl = "https://expertsecuriteincendie.fr";
         const targetSlug = b2bType === "Copropriété" ? "copropriete" : "entreprise";
