@@ -1,3 +1,4 @@
+export const revalidate = 86400; // 24h ISR cache
 import { redirect } from "next/navigation";
 import { getSiteConfig } from "@/lib/sites-config";
 

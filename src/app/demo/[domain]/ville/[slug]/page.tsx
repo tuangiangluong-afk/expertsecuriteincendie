@@ -1,3 +1,4 @@
+export const revalidate = 86400; // 24h ISR cache
 import CityPage from "@/app/ville/[slug]/page";
 
 export default async function DemoVillePage({ params }: { params: Promise<{ domain: string, slug: string }> }) {
