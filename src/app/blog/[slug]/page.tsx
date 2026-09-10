@@ -96,12 +96,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         notFound();
     }
 
-    // Process Content for TOC (Basic Regex)
-    const headers = post.content.match(/<h2.*?>(.*?)<\/h2>/g)?.map(h => {
-        const text = h.replace(/<[^>]+>/g, '');
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        return { text, id };
-    });
+    // Process Content for TOC (HTML and Markdown)
+    const rawHeaders = [
+        ...(post.content.match(/<h2.*?>(.*?)<\/h2>/g) || []).map((h: string) => h.replace(/<[^>]+>/g, '').trim()),
+        ...(post.content.match(/^##\s+(.+)$/gm) || []).map((h: string) => h.replace(/^##\s+/, '').trim())
+    ];
+    const headers = rawHeaders.length > 0 ? rawHeaders.map((text: string) => ({
+        text,
+        id: text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+    })) : undefined;
 
     // Inject IDs (Server Side Hack)
     if (headers) {
@@ -142,7 +145,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
             "@type": "WebPage",
 
-            "@id": "https://expertsecuriteincendie.fr/blog/"
+            "@id": `https://expertsecuriteincendie.fr/blog/${slug}`
 
         },
 
@@ -151,6 +154,20 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             "cssSelector": ["h1", "article h2", "article p:first-of-type", ".prose > p:first-child"]
         }
     };
+    // HowTo Schema for AEO (auto-generated when headings >= 3)
+    const howToSchema = (headers && headers.length >= 3) ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": post.seo_title || post.title,
+        "description": post.excerpt || post.title,
+        "step": headers.map((h: any, i: number) => ({
+            "@type": "HowToStep",
+            "position": i + 1,
+            "name": h.text,
+            "text": h.text,
+            "url": `https://expertsecuriteincendie.fr/blog/${slug}#${h.id}`
+        }))
+    } : null;
 
     return (
         <main className="min-h-screen bg-white text-neutral-900 font-sans selection:bg-red-100 selection:text-red-900 pt-20">
@@ -158,6 +175,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
             />
+            {howToSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+                />
+            )}
 
             {/* Breadcrumb */}
             <nav className="container mx-auto px-4 py-4 border-b border-neutral-100">

@@ -197,6 +197,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             "@type": "HowToStep",
             "position": i + 1,
             "name": h.text,
+            "text": h.text,
             "url": `https://expertsecuriteincendie.fr/guides/${resolvedParams.slug}#${h.id}`
         }))
     } : null;
