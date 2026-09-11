@@ -4,6 +4,7 @@ import { CityConfig } from "@/lib/db";
 import { SiteConfig } from "@/lib/sites-config";
 import { getTheme } from "@/lib/theme";
 import { Mail } from "lucide-react";
+import { AiSummarizeSection } from "./AiSummarizeSection";
 
 function GooglePreferredSourceButton() {
     return <a href="https://www.google.com/preferences/source?q=expertsecuriteincendie.com" target="_blank" rel="noopener noreferrer" aria-label="Ajouter aux sources préférées Google" className="inline-flex items-center gap-3 rounded-xl border-2 bg-neutral-800 text-white border-red-400 hover:bg-red-700 px-4 py-3 font-bold transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-current/30"><span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-full bg-white text-xl font-black text-[#4285F4]">G</span><span>Ajouter aux sources préférées Google</span></a>;
@@ -332,6 +333,7 @@ export function Footer({ config }: FooterProps) {
                     </div>
                 </div>
 
+                <AiSummarizeSection brandName={config.name} />
                 <div className="mb-8 flex justify-center"><GooglePreferredSourceButton /></div>
                 <div className="text-xs border-t border-white/10 pt-8">
                     &copy; {new Date().getFullYear()} {config.name} - Tous droits réservés.
