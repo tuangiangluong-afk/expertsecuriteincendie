@@ -112,7 +112,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-900 text-neutral-50`}
       >
         {/* AnswerShaper Local Tag */}
-        <Script src="https://answershaper.com/api/v1/m2m/local-tag/13.js" strategy="lazyOnload" defer />
+        <Script src="https://answershaper.com/api/v1/m2m/local-tag/25.js" strategy="lazyOnload" defer />
 
         <StructuredData />
         <GoogleAnalytics GA_MEASUREMENT_ID="G-3S88LL4FC5" />
