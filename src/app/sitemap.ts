@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
 import { getAllGuides } from '@/lib/mdx';
-import { getAllVehicles } from '@/data/vehicles';
 import { getHubConfig } from '@/lib/sites-config';
 import { CITIES } from '@/lib/db';
 import { slugify } from '@/lib/slugify';
@@ -10,11 +9,10 @@ import fs from 'fs';
 import path from 'path';
 
 // Base URL (Hub)
-const BASE_URL = 'https://expertsecuriteincendie.fr';
+const BASE_URL = 'https://www.expertsecuriteincendie.fr';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const guides = getAllGuides();
-    const vehicles = getAllVehicles();
 
     // 1. Static Routes (with realistic priorities)
     const routes: MetadataRoute.Sitemap = [
@@ -25,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1,
         },
         {
-            url: `${BASE_URL}/vehicules`,
+            url: `${BASE_URL}/solutions/entreprise`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
@@ -130,14 +128,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         console.warn('[Sitemap] Failed to fetch blog posts:', e);
     }
 
-    // 5. Vehicle Routes
-    const vehicleRoutes: MetadataRoute.Sitemap = vehicles.map((vehicle) => ({
-        url: `${BASE_URL}/vehicules/${vehicle.brand.toLowerCase()}/${vehicle.id}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-    }));
-
     // 6. City Routes (From CITIES Config)
     const uniqueSites = new Map();
     Object.values(CITIES).forEach(site => {
@@ -219,7 +209,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }));
     });
 
-    return [...routes, ...serviceRoutes, ...guideRoutes, ...blogRoutes, ...vehicleRoutes, ...cityRoutes, ...b2bRoutes, ...cityBrandRoutes, ...quartierRoutes, ...marquesRoutes, ...comparatifRoutes, ...puissanceRoutes, ...prisesRoutes].map(item => ({
+    return [...routes, ...serviceRoutes, ...guideRoutes, ...blogRoutes, ...cityRoutes, ...b2bRoutes, ...cityBrandRoutes, ...quartierRoutes, ...marquesRoutes, ...comparatifRoutes, ...puissanceRoutes, ...prisesRoutes].map(item => ({
         ...item,
         url: item.url.toLowerCase()
     }));

@@ -36,14 +36,14 @@ export default function CGV() {
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <p className="text-sm text-neutral-500">Dernière mise à jour : 25/01/2026</p>
                         <p>
-                            Les présentes Conditions Générales de Vente régissent les relations contractuelles entre la société <strong>WELINK TECH</strong>, sise au 6 RUE DES BATELIERS, 92110 CLICHY (SIREN 984 800 136), ci-après &quot;L&apos;Éditeur&quot;, et toute personne utilisant le site <strong>Expert Sécurité Incendie</strong> pour la mise en relation avec des techniciens de extincteurs certifiés.
+                            Les présentes Conditions Générales de Vente régissent les relations contractuelles entre la société <strong>WELINK TECH</strong>, sise au 6 RUE DES BATELIERS, 92110 CLICHY (SIREN 984 800 136), ci-après &quot;L&apos;Éditeur&quot;, et toute personne utilisant le site <strong>Expert Sécurité Incendie</strong> pour la mise en relation avec des techniciens spécialisés en sécurité incendie et maintenance des équipements de protection.
                         </p>
                     </div>
 
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className="mb-4 text-2xl font-bold text-red-900">1. Objet et Acceptation</h2>
                         <p>
-                            Le service proposé est la mise en relation avec des électriciens professionnels certifiés Incendie (Infrastructure de protection pour ERP et entreprises) exerçant sur l&apos;ensemble du territoire national. L&apos;utilisation du service implique l&apos;acceptation sans réserve des présentes CGV.
+                            Le service proposé est la mise en relation avec des professionnels spécialisés en sécurité incendie pour les ERP, entreprises et copropriétés exerçant sur l&apos;ensemble du territoire national. L&apos;utilisation du service implique l&apos;acceptation sans réserve des présentes CGV.
                         </p>
                     </div>
 
@@ -52,14 +52,14 @@ export default function CGV() {
                         <ul className="list-disc pl-5 space-y-2">
                             <li><strong>Demande de mise en relation :</strong> L'utilisateur remplit un formulaire précisant son besoin (maison, copropriété, entreprise).</li>
                             <li><strong>Devis gratuit :</strong> Le service de mise en relation et l'établissement des devis par nos partenaires sont gratuits pour l'utilisateur.</li>
-                            <li><strong>Tarification des travaux :</strong> Le prix final de l'maintenance est déterminé par l'technicien partenaire après visite technique si nécessaire. Les estimations fournies sur le site sont purement indicatives.</li>
+                            <li><strong>Tarification des travaux :</strong> Le prix final de la prestation est déterminé par le technicien partenaire après visite technique si nécessaire. Les estimations fournies sur le site sont purement indicatives.</li>
                         </ul>
                     </div>
 
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className="mb-4 text-2xl font-bold text-red-900">3. Responsabilité</h2>
                         <p>
-                            <strong>WELINK TECH</strong> agit en qualité d&apos;intermédiaire technologique. La responsabilité de l'maintenance, de la conformité aux normes Incendie et des assurances décennales incombe exclusivement à l'technicien partenaire ayant effectué les travaux.
+                            <strong>WELINK TECH</strong> agit en qualité d&apos;intermédiaire technologique. La responsabilité de la prestation, de la conformité aux normes de sécurité incendie et des assurances incombe exclusivement au technicien partenaire ayant effectué les travaux.
                         </p>
                     </div>
 
@@ -76,7 +76,7 @@ export default function CGV() {
                             En conséquence, <strong>WELINK TECH décline toute responsabilité</strong> en cas de litige lié à l&apos;exécution des travaux, incluant mais non limité à : malfaçons, retards de chantier, non-conformité technique ou tout dommage survenu pendant l'maintenance.
                         </p>
                         <p className="mt-4 text-sm text-red-600">
-                            L&apos;utilisateur reconnaît que sa relation contractuelle pour les travaux est établie directement avec l'entreprise d'maintenance sélectionnée.
+                            L&apos;utilisateur reconnaît que sa relation contractuelle pour les travaux est établie directement avec l'entreprise sélectionnée.
                         </p>
                     </div>
 

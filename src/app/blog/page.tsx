@@ -16,12 +16,13 @@ async function getPosts() {
         .from('blog_posts')
         .select('*, category:blog_categories(*)')
         .eq('status', 'published')
+        .contains('tags', ['incendie'])
         .order('published_at', { ascending: false });
     return data || [];
 }
 
 export default async function BlogIndex() {
-    const posts: any[] = [];
+    const posts = await getPosts();
 
     return (
         <main className="min-h-screen bg-stone-50 py-24">

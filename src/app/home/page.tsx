@@ -196,7 +196,7 @@ export default function HomePage() {
                                 { label: "Mise en conformité", value: "960€", detail: "Copropriétés" },
                                 { label: "Crédit d'Impôt", value: "500€", detail: "75% plafonné" },
                                 { label: "TVA Réduite", value: "5.5%", detail: "Au lieu de 20%" },
-                                { label: "MaPrimeRénov'", value: "1000€", detail: "Sous conditions" },
+                                { label: "Référentiel métier", value: "NF / APSAD", detail: "Selon l'équipement et le site" },
                             ].map((aide, i) => (
                                 <div key={i} className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
                                     <div className="text-3xl font-bold text-yellow-400 mb-2">{aide.value}</div>

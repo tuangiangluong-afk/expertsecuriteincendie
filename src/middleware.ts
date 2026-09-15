@@ -48,13 +48,7 @@ export default async function middleware(req: NextRequest) {
     }
 
 
-    // 0.2 Domain Normalization (www -> non-www redirect)
-    if (hostname.startsWith("www.") && !hostname.includes("localhost") && !hostname.includes("192.168.")) {
-        const nonWwwHost = hostname.replace(/^www\./, "");
-        const targetUrl = new URL(url.pathname + url.search, `https://${nonWwwHost}`);
-        return applySecurityHeaders(NextResponse.redirect(targetUrl, 301));
-    }
-
+    // 0.2 Domain Normalization (www -> non-www)
     // Consolidate domain key early for all logic
     let domainKey = hostname;
     if (hostname.includes(".localhost")) {
@@ -96,8 +90,8 @@ export default async function middleware(req: NextRequest) {
     requestHeaders.set("x-incendie-path", cleanPath);
 
     const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur"))
-        ? "expertsecuriteincendie.fr"
-        : domainKey;
+        ? "www.expertsecuriteincendie.fr"
+        : (domainKey === "expertsecuriteincendie.fr" ? "www.expertsecuriteincendie.fr" : "www." + domainKey);
     requestHeaders.set("x-incendie-canonical-domain", canonicalDomain);
 
     // 2. Routing Logic
@@ -114,7 +108,7 @@ export default async function middleware(req: NextRequest) {
             }
         }
 
-        if (path.startsWith("/admin") || path.startsWith("/login") || path.startsWith("/api") || path.startsWith("/leads") || path.startsWith("/guides") || path.startsWith("/outils") || path.startsWith("/vehicules") || path.startsWith("/ville") || path.startsWith("/solutions") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/demo") || path.startsWith("/maintenance") || path.startsWith("/images") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/admin") || path.startsWith("/login") || path.startsWith("/api") || path.startsWith("/leads") || path.startsWith("/guides") || path.startsWith("/outils") || path.startsWith("/vehicules") || path.startsWith("/ville") || path.startsWith("/solutions") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/demo") || path.startsWith("/maintenance") || path.startsWith("/images") || path.startsWith("/fiscalite-entreprise-extincteur")) {
             response = NextResponse.next({ request: { headers: requestHeaders } });
         } else {
             response = NextResponse.rewrite(
@@ -124,7 +118,7 @@ export default async function middleware(req: NextRequest) {
         }
     } else {
         // SATELLITE Logic
-        if (path.startsWith("/guides") || path.startsWith("/leads") || path.startsWith("/vehicules") || path.startsWith("/solutions") || path.startsWith("/ville") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/api") || path.startsWith("/outils") || path.startsWith("/login") || path.startsWith("/admin") || path.startsWith("/maintenance") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/guides") || path.startsWith("/leads") || path.startsWith("/vehicules") || path.startsWith("/solutions") || path.startsWith("/ville") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/api") || path.startsWith("/outils") || path.startsWith("/login") || path.startsWith("/admin") || path.startsWith("/maintenance") || path.startsWith("/fiscalite-entreprise-extincteur")) {
             response = NextResponse.next({ request: { headers: requestHeaders } });
         } else {
             const routeParam = hostname.includes(".localhost") ? domainKey : domainKey;

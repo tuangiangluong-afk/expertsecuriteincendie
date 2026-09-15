@@ -1,18 +1,28 @@
 import Link from "next/link";
 import { CheckCircle, ShieldCheck, Clock, Award, Euro, ArrowRight, ChevronRight, FileText, Landmark, Building2 } from "lucide-react";
 import type { CityConfig } from "@/lib/db";
+import type { PseoPageContent } from "@/lib/pseo";
 
 interface LocalAeoSectionProps {
     site: CityConfig;
+    /** Contenu pSEO local (faits vérifiables, contraintes, délais) */
+    pseo?: PseoPageContent;
 }
 
 const pricingMatrix = [{"name": "Pack Extincteur 6L Eau + Panneau NF", "usage": "Bureaux, commerces & dépôts (200 m²)", "price": "89€ - 149€", "aid": "Certification NF EN 3", "net": "Dès 89€"}, {"name": "Extincteur 2 kg / 5 kg CO2 (Électrique)", "usage": "Tableaux électriques, serveurs & cuisines", "price": "95€ - 180€", "aid": "Protection sans résidu", "net": "Dès 95€"}, {"name": "Contrat de maintenance annuelle (Par appareil)", "usage": "Vérification légale, plombage & vignette", "price": "15€ - 28€/unité", "aid": "Attestation d'assurance", "net": "Dès 15€"}, {"name": "Plan d'évacuation & Registre de sécurité", "usage": "Mise en conformité ERP obligatoire", "price": "180€ - 390€", "aid": "Norme NF X 08-070", "net": "Dès 180€"}];
 const steps = [{"title": "Audit de conformité & Étude des risques", "desc": "Visite technique des locaux, analyse des activités et calcul du nombre d'appareils obligatoires."}, {"title": "Devis de mise aux normes ERP/ERT sous 24h", "desc": "Chiffrage transparent détaillé par équipement avec plan d'implantation préconisé."}, {"title": "Installation & Fixation des extincteurs et BAES", "desc": "Pose aux emplacements stratégiques avec signalétique photoluminescente normalisée."}, {"title": "Remise du Registre & Attestation d'assurance", "desc": "Émargement du registre de sécurité et délivrance du certificat officiel pour votre assureur."}];
 
-export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
+export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
     const city = site.city;
     const dept = site.department ? ` (${site.department})` : "";
     const neighborhoods = site.neighborhoods || [];
+    const facts = pseo?.local_facts || [];
+    const priceLine = pseo?.pricing_estimated && !pseo.pricing_estimated.includes("partir")
+        ? pseo.pricing_estimated
+        : "150€ – 1 800€";
+    const sdis = facts.find(f => f.label === "Service de secours compétent")?.value;
+    const prefecture = facts.find(f => f.label === "Préfecture")?.value;
+    const regionName = facts.find(f => f.label === "Région")?.value;
     const neighborhoodsText = neighborhoods.length > 0 
         ? `, notamment dans les quartiers ${neighborhoods.slice(0, 4).join(', ')}` 
         : "";
@@ -44,17 +54,37 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                     </div>
 
                     <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6">
-                        <strong>En résumé : </strong>À {city}{dept}, le coût moyen d'une prestation de sécurité incendie réalisée par nos artisans qualifiés s'établit entre 150€ – 1 800€ avant déduction des éventuelles aides financières. Nos techniciens certifiés interviennent sous 24h à 48h avec garantie décennale.
+                        <strong>En résumé : </strong>À {city}{dept}, le coût moyen d'une prestation de sécurité incendie réalisée par nos techniciens qualifiés s'établit entre {priceLine}. Nos techniciens certifiés interviennent {pseo?.installation_timeline || "sous 24h à 48h"}
+                        {sdis ? <> — les contrôles du secteur relèvent de <strong>{sdis}</strong>{prefecture ? ` (préfecture : ${prefecture})` : ""}.</> : " avec garantie décennale."}
                     </p>
+
+                    {facts.length > 0 && (
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-2 mb-6">
+                            {facts.slice(0, 8).map((f) => (
+                                <div key={f.label} className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4">
+                                    <div className="text-xs text-slate-500 font-medium">{f.label}</div>
+                                    <div className="text-sm font-bold text-slate-900 mt-1 leading-snug">{f.value}</div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {regionName && (
+                        <p className="text-sm text-slate-600 leading-relaxed mb-6 pt-1 border-t border-slate-100">
+                            <strong>Contexte local : </strong>{city} se situe en {regionName}
+                            {pseo?.local_risk_factor ? `, avec une contrainte technique identifiée : ${pseo.local_risk_factor.toLowerCase()}` : ""}.
+                            {" "}Cette spécificité locale est intégrée à notre protocole de vérification et au choix des équipements installés.
+                        </p>
+                    )}
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-2">
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Prix estimé</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">150€ – 1 800€</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">{priceLine}</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Aides & Primes</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Conformité Légale & Assurance</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">{sdis || "Conformité légale"}</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Délai d'intervention</div>
@@ -62,7 +92,7 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Garantie & Norme</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Garantie Décennale & RGE</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">NF EN 3 & APSAD R4</div>
                         </div>
                     </div>
                 </div>
@@ -125,7 +155,7 @@ export default function LocalAeoSection({ site }: LocalAeoSectionProps) {
                                 <h3 className="font-bold text-slate-900 text-base">Conformité ERP & Visite de Sécurité à {city}</h3>
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
-                                À {city}{dept}, les Établissements Recevant du Public (magasins, restaurants, hôtels, cabinets médicaux) et les locaux professionnels sont soumis aux contrôles stricts de la commission communale ou intercommunale de sécurité présidée par le maire et les officiers du SDIS. Nos techniciens vérifient scrupuleusement la présence et l'accessibilité de vos moyens de secours, l'autonomie de vos blocs BAES et la validité de vos procès-verbaux de contrôle périodique.
+                                À {city}{dept}, les Établissements Recevant du Public (magasins, restaurants, hôtels, cabinets médicaux) et les locaux professionnels sont soumis aux contrôles de la commission de sécurité compétente{sdis ? <> — sur ce secteur, l'autorité opérationnelle est <strong>{sdis}</strong></> : ", présidée par le maire et les officiers du SDIS"}{prefecture ? <>, sous l'autorité du préfet ({prefecture})</> : null}. Nos techniciens vérifient la présence et l'accessibilité de vos moyens de secours, l'autonomie de vos blocs BAES et la validité de vos procès-verbaux de contrôle périodique.
                             </p>
                         </div>
 

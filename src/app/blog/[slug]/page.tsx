@@ -135,7 +135,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                 "@type": "ImageObject",
 
-                "url": "https://expertsecuriteincendie.fr/logo.png"
+                "url": "https://www.expertsecuriteincendie.fr/logo.png"
 
             }
 
@@ -145,7 +145,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
             "@type": "WebPage",
 
-            "@id": `https://expertsecuriteincendie.fr/blog/${slug}`
+            "@id": `https://www.expertsecuriteincendie.fr/blog/${slug}`
 
         },
 
@@ -165,7 +165,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             "position": i + 1,
             "name": h.text,
             "text": h.text,
-            "url": `https://expertsecuriteincendie.fr/blog/${slug}#${h.id}`
+            "url": `https://www.expertsecuriteincendie.fr/blog/${slug}#${h.id}`
         }))
     } : null;
 

@@ -226,37 +226,37 @@ export function Footer({ config }: FooterProps) {
                             <h5 className="text-white font-bold mb-6 text-lg tracking-tight">Nos Solutions</h5>
                             <ul className="space-y-3 text-sm">
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/guides/maintenance-extincteur-protection-copropriete" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/guides/norme-extincteur-obligatoire-entreprise" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
-                                        extincteur en Copropriété
+                                        Norme Extincteur Obligatoire Entreprise 2026
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/guides/cout-maintenance-extincteur-protection" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/guides/prix-maintenance-extincteur-entreprise" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
-                                        Tarifs maintenance
+                                        Prix Maintenance Extincteur ERP 2026
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/guides/aides-subventions-extincteur-protection" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/guides/verification-registre-securite-baes" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
-                                        Aides & Subventions
+                                        Vérification Registre Sécurité Incendie & BAES ERP 2026
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/fiscalite-entreprise-extincteur" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/fiscalite-entreprise-extincteur" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
                                         Fiscalité Entreprise
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/vehicules" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/solutions/entreprise" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
-                                        Solutions & Modèles
+                                        Nos solutions incendie
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="https://expertsecuriteincendie.fr/contact" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/contact" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
                                         Devenir Partenaire
                                     </Link>
@@ -266,19 +266,18 @@ export function Footer({ config }: FooterProps) {
 
                         {/* Column 4: Contact */}
                         <div>
-                            <h5 className="text-white font-bold mb-6 text-lg tracking-tight">Marques à la Une</h5>
+                            <h5 className="text-white font-bold mb-6 text-lg tracking-tight">Nos prestations</h5>
                             <ul className="space-y-3 text-sm mb-8">
                                 {[
-                                    { name: "Extincteurs", slug: "Extincteurs" },
-                                    { name: "Renault", slug: "renault" },
-                                    { name: "Peugeot", slug: "peugeot" },
-                                    { name: "BMW", slug: "bmw" },
-                                    { name: "Audi", slug: "audi" },
+                                    { name: "Extincteurs & RIA", href: "/solutions/entreprise" },
+                                    { name: "Sécurité incendie en copropriété", href: "/solutions/copropriete" },
+                                    { name: "Protection incendie maison", href: "/solutions/maison" },
+                                    { name: "Guides & réglementation", href: "/guides" },
                                 ].map((brand) => (
-                                    <li key={brand.slug}>
-                                        <Link href={`https://expertsecuriteincendie.fr/maintenance/${brand.slug}`} className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <li key={brand.name}>
+                                        <Link href={brand.href} className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                             <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
-                                            extincteur {brand.name}
+                                            {brand.name}
                                         </Link>
                                     </li>
                                 ))}

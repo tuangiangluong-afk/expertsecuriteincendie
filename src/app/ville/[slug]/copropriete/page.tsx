@@ -88,9 +88,9 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
             <SchemaJSON
                 type="Breadcrumb"
                 breadcrumbItems={[
-                    { name: "Accueil", item: "https://expertsecuriteincendie.fr" },
-                    { name: site.city, item: `https://expertsecuriteincendie.fr/ville/${resolvedParams.slug}` },
-                    { name: "Copropriété", item: `https://expertsecuriteincendie.fr/ville/${resolvedParams.slug}/copropriete` }
+                    { name: "Accueil", item: "https://www.expertsecuriteincendie.fr" },
+                    { name: site.city, item: `https://www.expertsecuriteincendie.fr/ville/${resolvedParams.slug}` },
+                    { name: "Copropriété", item: `https://www.expertsecuriteincendie.fr/ville/${resolvedParams.slug}/copropriete` }
                 ]}
             />
 

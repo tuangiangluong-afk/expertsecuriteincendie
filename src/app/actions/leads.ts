@@ -132,7 +132,7 @@ export async function assignLeadToPartners(leadId: string, partnerIds: string[])
                             </div>
 
                             <p style="text-align: center; margin-top: 30px;">
-                                <a href="https://expertsecuriteincendie.fr/leads/unlock/${lead.id}" 
+                                <a href="https://www.expertsecuriteincendie.fr/leads/unlock/${lead.id}" 
                                    style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
                                    DÉBLOQUER LES COORDONNÉES
                                 </a>

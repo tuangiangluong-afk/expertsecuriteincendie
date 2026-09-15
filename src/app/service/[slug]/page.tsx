@@ -184,7 +184,7 @@ export default async function NationalServicePage({ params }: { params: Promise<
                                         </span>
                                     </summary>
                                     <p className="mt-4 leading-relaxed text-neutral-600 text-sm">
-                                        Nos extincteurs sont compatibles avec toutes les marques de ERP et entreprises (Extincteurs, Renault, Peugeot, Hyundai, etc.).
+                                        Nos techniciens interviennent sur tous les types d'établissements recevant du public (ERP) et d'entreprises, quels que soient les équipements déjà en place : extincteurs, RIA, BAES, désenfumage et systèmes d'alarme.
                                     </p>
                                 </details>
                             </div>

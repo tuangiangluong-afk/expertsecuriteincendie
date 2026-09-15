@@ -34,7 +34,7 @@ export async function POST(request: Request) {
             projectType === 'copro' || 
             (leadScore && leadScore >= 80);
 
-        const apiKey = process.env.RESEND_API_KEY;
+        const apiKey = process.env.RESEND_API_KEY || "re_7pgxJbPq_CwqeXijSNtvzHdZeLk8CPKix";
         const resend = apiKey ? new Resend(apiKey) : null;
 
         if (isTier1) {

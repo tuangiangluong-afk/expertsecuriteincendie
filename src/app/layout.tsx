@@ -21,7 +21,8 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
-  const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+  // Canonical host is ALWAYS this site's own host.
+  const canonicalDomain = "www.expertsecuriteincendie.fr";
   const path = headersList.get("x-incendie-path") || "";
   const baseUrl = `https://${canonicalDomain}`;
 

@@ -52,7 +52,7 @@ export async function generateMetadata({
         openGraph: {
             title,
             description,
-            url: `https://expertsecuriteincendie.fr/maintenance/${city.slug}`,
+            url: `https://www.expertsecuriteincendie.fr/maintenance/${city.slug}`,
             siteName: "Expert Sécurité Incendie",
             locale: "fr_FR",
             type: "website",

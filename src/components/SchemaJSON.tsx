@@ -21,8 +21,8 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
 
     if (type === "LocalBusiness" && site) {
         // CLEAN URL LOGIC:
-        // Use /ville/[slug] for local sites, and https://expertsecuriteincendie.fr for Hub
-        const baseUrl = "https://expertsecuriteincendie.fr";
+        // Use /ville/[slug] for local sites, and https://www.expertsecuriteincendie.fr for Hub
+        const baseUrl = "https://www.expertsecuriteincendie.fr";
         const canonicalUrl = site.slug === 'home' || site.slug === 'expertsecuriteincendie.fr'
             ? baseUrl
             : `${baseUrl}/ville/${slugify(site.city)}`;
@@ -76,7 +76,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             };
     } else if (type === "Service" && site && brand) {
         // Schema Service pour les pages Ville x Marque
-        const baseUrl = "https://expertsecuriteincendie.fr";
+        const baseUrl = "https://www.expertsecuriteincendie.fr";
         const canonicalUrl = `${baseUrl}/ville/${slugify(site.city)}/${brand.slug}`;
 
         const geoData = (site as any).geo || null;
@@ -136,7 +136,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             },
             "offers": {
                 "@type": "Offer",
-                "url": "https://expertsecuriteincendie.fr/simulateur",
+                "url": "https://www.expertsecuriteincendie.fr/simulateur",
                 "priceCurrency": "EUR",
                 "price": "49", // À partir de 49€ TTC par extincteur
                 "priceValidUntil": "2026-12-31",
@@ -145,7 +145,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             }
             };
     } else if (type === "B2BService" && site && b2bType) {
-        const baseUrl = "https://expertsecuriteincendie.fr";
+        const baseUrl = "https://www.expertsecuriteincendie.fr";
         const targetSlug = b2bType === "Copropriété" ? "copropriete" : "entreprise";
         const canonicalUrl = `${baseUrl}/ville/${slugify(site.city)}/${targetSlug}`;
 
@@ -177,8 +177,8 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Expert Sécurité Incendie",
-            "url": "https://expertsecuriteincendie.fr",
-            "logo": "https://expertsecuriteincendie.fr/logo.png",
+            "url": "https://www.expertsecuriteincendie.fr",
+            "logo": "https://www.expertsecuriteincendie.fr/logo.png",
             "sameAs": [
                 "https://www.linkedin.com/company/expert-extincteur-protection",
                 "https://www.facebook.com/expertsecuriteincendie"

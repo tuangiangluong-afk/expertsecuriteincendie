@@ -43,13 +43,13 @@ export default async function DepartmentPage({ params }: Props) {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Accueil",
-                "item": "https://expertsecuriteincendie.fr"
+                "item": "https://www.expertsecuriteincendie.fr"
             },
             {
                 "@type": "ListItem",
                 "position": 2,
                 "name": dept.name,
-                "item": `https://expertsecuriteincendie.fr/departement/${dept.slug}`
+                "item": `https://www.expertsecuriteincendie.fr/departement/${dept.slug}`
             }
         ]
 

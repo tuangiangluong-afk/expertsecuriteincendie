@@ -6,8 +6,8 @@ export async function createSupabaseServerClient() {
     const cookieStore = await cookies()
 
     return createServerClient<Database>(
-        process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key",
+        process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co",
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGF0bmF4ZmJqdmpiaWhpcnlpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2OTUxMDEyNiwiZXhwIjoyMDg1MDg2MTI2fQ.zGDisdbGOSMZkT6GHF9kYR1OfQjEml6wJJxbu8PtLb0",
         {
             cookies: {
                 get(name: string) {
@@ -34,8 +34,8 @@ export async function createSupabaseServerClient() {
 
 export function createSupabaseAdmin() {
     return createServerClient<Database>(
-        process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
-        process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-key",
+        process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co",
+        process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGF0bmF4ZmJqdmpiaWhpcnlpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2OTUxMDEyNiwiZXhwIjoyMDg1MDg2MTI2fQ.zGDisdbGOSMZkT6GHF9kYR1OfQjEml6wJJxbu8PtLb0",
         {
             cookies: {
                 get(name: string) {

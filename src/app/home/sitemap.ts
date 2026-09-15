@@ -6,11 +6,10 @@ import { SEO_GARES } from '@/lib/seo-gares';
 import { NATIONAL_CONFIG } from '@/config/national';
 import { slugify } from '@/lib/slugify';
 import { brands } from '@/data/brands';
-import { getAllVehicles } from '@/data/vehicles';
 import { getAllGuides } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://expertsecuriteincendie.fr';
+    const baseUrl = 'https://www.expertsecuriteincendie.fr';
 
     // ========================================
     // 1. CORE STATIC PAGES
@@ -84,17 +83,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
     // ========================================
-    // 8. VEHICLE PAGES (NEW)
-    // ========================================
-    const vehicles = getAllVehicles();
-    const vehicleRoutes: MetadataRoute.Sitemap = vehicles.map((vehicle) => ({
-        url: `${baseUrl}/vehicules/${vehicle.brand.toLowerCase()}/${vehicle.id}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-    }));
-
-    // ========================================
     // 9. BLOG GUIDES (Dynamic)
     // ========================================
     const guides = getAllGuides();
@@ -109,7 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 10. HUB WHITESPACE
     // ========================================
     const extraRoutes: MetadataRoute.Sitemap = [
-        { url: `${baseUrl}/vehicules`, lastModified: new Date(), priority: 0.8 },
+        { url: `${baseUrl}/solutions/entreprise`, lastModified: new Date(), priority: 0.8 },
         { url: `${baseUrl}/guides`, lastModified: new Date(), priority: 0.8 },
         { url: `${baseUrl}/solutions/maison`, lastModified: new Date(), priority: 0.7 },
         { url: `${baseUrl}/solutions/copropriete`, lastModified: new Date(), priority: 0.7 },
@@ -155,7 +143,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...serviceRoutes,
         ...poiRoutes,
         ...maintenanceRoutes,
-        ...vehicleRoutes,
         ...guideRoutes,
         ...extraRoutes,
         ...b2bRoutes,

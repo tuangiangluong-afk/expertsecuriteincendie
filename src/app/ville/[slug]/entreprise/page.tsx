@@ -88,9 +88,9 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
             <SchemaJSON
                 type="Breadcrumb"
                 breadcrumbItems={[
-                    { name: "Accueil", item: "https://expertsecuriteincendie.fr" },
-                    { name: site.city, item: `https://expertsecuriteincendie.fr/ville/${resolvedParams.slug}` },
-                    { name: "Entreprise", item: `https://expertsecuriteincendie.fr/ville/${resolvedParams.slug}/entreprise` }
+                    { name: "Accueil", item: "https://www.expertsecuriteincendie.fr" },
+                    { name: site.city, item: `https://www.expertsecuriteincendie.fr/ville/${resolvedParams.slug}` },
+                    { name: "Entreprise", item: `https://www.expertsecuriteincendie.fr/ville/${resolvedParams.slug}/entreprise` }
                 ]}
             />
 

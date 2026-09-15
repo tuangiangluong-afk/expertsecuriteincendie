@@ -106,9 +106,9 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
                 type="Breadcrumb" 
                 site={site} 
                 breadcrumbItems={[
-                    { name: "Accueil", item: "https://expertsecuriteincendie.fr" },
-                    { name: "Villes", item: "https://expertsecuriteincendie.fr/#villes" },
-                    { name: site.city, item: `https://expertsecuriteincendie.fr/ville/${resolvedParams.slug}` }
+                    { name: "Accueil", item: "https://www.expertsecuriteincendie.fr" },
+                    { name: "Villes", item: "https://www.expertsecuriteincendie.fr/#villes" },
+                    { name: site.city, item: `https://www.expertsecuriteincendie.fr/ville/${resolvedParams.slug}` }
                 ]} 
             />
             <SchemaJSON type="FAQPage" site={site} faqSegment="B2C" />
@@ -168,7 +168,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
 
             <PersonaSelector />
 
-            <LocalAeoSection site={site} />
+            <LocalAeoSection site={site} pseo={pseo} />
 
             <section className="py-16 bg-slate-50 border-y border-slate-200" id="simulateur">
                 <div className="container mx-auto px-4">

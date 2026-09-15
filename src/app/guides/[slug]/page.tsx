@@ -163,7 +163,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         "@type": "Article",
         "headline": guide.meta.title,
         "description": guide.meta.description,
-        "image": guide.meta.image ? `https://expertsecuriteincendie.fr${guide.meta.image}` : undefined,
+        "image": guide.meta.image ? `https://www.expertsecuriteincendie.fr${guide.meta.image}` : undefined,
         "datePublished": guide.meta.date,
         "dateModified": guide.meta.date,
         "author": {
@@ -175,12 +175,12 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             "name": "Expert Sécurité Incendie",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://expertsecuriteincendie.fr/logo.png"
+                "url": "https://www.expertsecuriteincendie.fr/logo.png"
             }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://expertsecuriteincendie.fr/guides/${resolvedParams.slug}`
+            "@id": `https://www.expertsecuriteincendie.fr/guides/${resolvedParams.slug}`
         },
         "speakable": {
             "@type": "SpeakableSpecification",
@@ -198,7 +198,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             "position": i + 1,
             "name": h.text,
             "text": h.text,
-            "url": `https://expertsecuriteincendie.fr/guides/${resolvedParams.slug}#${h.id}`
+            "url": `https://www.expertsecuriteincendie.fr/guides/${resolvedParams.slug}#${h.id}`
         }))
     } : null;
 

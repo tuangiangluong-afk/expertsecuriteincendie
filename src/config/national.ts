@@ -8,15 +8,15 @@ export const NATIONAL_CONFIG: CityConfig = {
     phoneNumber: "01 84 80 00 00",
     email: "contact@expertsecuriteincendie.fr",
     heroImage: "/images/realizations/hero-extincteur.jpg",
-    description: "Le réseau n°1 de techniciens de extincteurs en France. Devis gratuit, maintenance rapide, certifié APSAD Incendie.",
+    description: "Le réseau n°1 de techniciens d'extincteurs en France. Devis gratuit, maintenance rapide, certifié APSAD Incendie.",
     meta: {
-        title: "Expert Sécurité Incendie | maintenance extincteurs Incendie partout en France",
-        description: "maintenance de extincteurs pour ERP et entreprises. Réseau de techniciens certifiés Incendie. Devis gratuit en 24h."
+        title: "Expert Sécurité Incendie | Maintenance Extincteurs & Conformité APSAD",
+        description: "Maintenance d'extincteurs et mise en conformité incendie pour ERP et entreprises. Techniciens certifiés APSAD, devis gratuit en 24h."
     },
     features: [
-        "maintenance Certifiée Incendie",
+        "Maintenance Certifiée APSAD",
         "Devis Gratuit 24h",
-        "Aides & Subventions Aide",
+        "Registre de Sécurité & Traçabilité",
         "Garantie Décennale"
     ],
     pricing: {

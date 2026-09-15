@@ -1,4 +1,5 @@
 import { CityConfig } from "@/lib/db";
+import { DEPARTEMENTS } from "@/data/fr-departements";
 
 interface LocalFAQProps {
     site: CityConfig;
@@ -43,69 +44,78 @@ export function LocalFAQ({ site, segment = "B2C" }: LocalFAQProps) {
 }
 
 /**
- * Deterministic hash for a city name — produces a stable number 
- * without relying on parseInt of department codes (which breaks on "MC", "2A", "2B").
+ * Exported for SchemaJSON to generate FAQPage structured data.
+ *
+ * IMPORTANT : aucune statistique n'est inventée ici. Les réponses s'appuient
+ * uniquement sur des faits vérifiables (département, région, préfecture,
+ * service de secours compétent) afin de rester citable par les moteurs IA.
  */
-function cityHash(city: string): number {
-    let hash = 0;
-    for (let i = 0; i < city.length; i++) {
-        hash = ((hash << 5) - hash + city.charCodeAt(i)) | 0;
-    }
-    return Math.abs(hash);
-}
-
-// Exported for SchemaJSON to generate FAQPage structured data
 export function getLocalFAQData(city: string, department: string | undefined, segment: "B2C" | "COPRO" | "ENTREPRISE") {
-    const dept = department || "votre département";
-    const h = cityHash(city);
+    const dept = department ? DEPARTEMENTS[department] : undefined;
+    const deptName = dept?.name || "votre département";
+    const deptRef = dept ? `${dept.name} (${dept.code})` : deptName;
+    const sdis = dept?.sdis || "le service d'incendie et de secours compétent";
+    const region = dept?.region || "France";
+    const prefecture = dept?.prefecture;
 
     if (segment === "COPRO") {
-        const coproCount = 8 + (h % 25);
         return [
             {
                 question: `Combien coûte une mise en conformité incendie en copropriété à ${city} ?`,
-                answer: `Le coût dépend de la surface des parties communes et du nombre de niveaux. Un audit complet à ${city} incluant les BAES (Blocs Autonomes d'Éclairage de Sécurité), les extincteurs, et la mise à jour des plans d'évacuation coûte généralement entre 1 500€ et 4 500€. Notre étude de faisabilité est 100% gratuite.`
+                answer: `Le coût dépend de la surface des parties communes et du nombre de niveaux. Un audit complet à ${city} incluant les BAES (Blocs Autonomes d'Éclairage de Sécurité), les extincteurs et la mise à jour des plans d'évacuation se situe généralement entre 1 500€ et 4 500€. Notre étude de faisabilité est gratuite et sans engagement.`
             },
             {
                 question: `Quelles démarches pour installer des extincteurs dans ma copropriété à ${city} ?`,
-                answer: `La démarche se fait en 3 étapes : 1) Visite technique gratuite de votre copropriété à ${city}. 2) Préparation du dossier de mise aux normes pour le syndic. 3) Vote en Assemblée Générale (souvent requis pour le budget). Plus de ${coproCount} copropriétés du ${dept} nous confient leur maintenance annuelle.`
+                answer: `La démarche se fait en 3 étapes : 1) Visite technique gratuite de votre copropriété à ${city}. 2) Préparation du dossier de mise aux normes pour le syndic. 3) Vote en Assemblée Générale, souvent requis pour engager le budget. Sur le département ${deptRef}, les moyens de secours des parties communes sont contrôlés par ${sdis}.`
             },
             {
                 question: `Le registre de sécurité est-il obligatoire pour une copropriété à ${city} ?`,
-                answer: `Oui, toutes les copropriétés (selon leur taille et type d'habitation) doivent tenir un registre de sécurité à jour. Nos techniciens certifiés le remplissent et le valident à chaque visite annuelle de maintenance à ${city}.`
-            }
-        ];
-    } else if (segment === "ENTREPRISE") {
-        const entrepriseCount = 15 + (h % 35);
-        return [
-            {
-                question: `Quelles obligations pour les entreprises en matière de sécurité incendie à ${city} ?`,
-                answer: `Le code du travail (Art. R4227-29) exige au moins un extincteur portatif à eau pulvérisée de 6 litres minimum pour 200 m² de plancher, avec un minimum d'un appareil par niveau. Plus de ${entrepriseCount} entreprises du ${dept} se sont mises en conformité avec nous.`
+                answer: `Oui. Les copropriétés concernées doivent tenir un registre de sécurité à jour et présenter les justificatifs de vérification périodique. Nos techniciens le renseignent et le valident à chaque visite annuelle de maintenance à ${city}.`
             },
             {
-                question: `À quelle fréquence dois-je faire vérifier mes extincteurs à ${city} ?`,
-                answer: `La vérification des extincteurs en entreprise est obligatoire au minimum une fois par an par une entreprise qualifiée. Cette maintenance doit être consignée dans votre registre de sécurité pour être couverte par votre assurance en cas de sinistre.`
-            },
-            {
-                question: `Quel type d'extincteur faut-il pour une salle informatique à ${city} ?`,
-                answer: `Pour les salles serveurs et le matériel électrique sous tension, il est impératif d'utiliser des extincteurs au Dioxyde de Carbone (CO2). Ils n'endommagent pas le matériel car ils ne laissent aucun résidu, contrairement à l'eau ou la poudre.`
-            }
-        ];
-    } else {
-        const installCount = 40 + (h % 80);
-        return [
-            {
-                question: `Quel est le prix pour faire vérifier un extincteur à ${city} ?`,
-                answer: `Le forfait de maintenance annuelle préventive à ${city} coûte en moyenne entre 15€ et 25€ HT par appareil. Ce prix est dégressif selon la quantité. S'il faut remplacer des pièces ou recharger le fluide, un devis de maintenance curative est proposé.`
-            },
-            {
-                question: `Combien de temps pour une intervention de maintenance à ${city} ?`,
-                answer: `Nos techniciens certifiés Incendie à ${city} interviennent sous 48 à 72h. La vérification prend environ 5 à 10 minutes par extincteur. Plus de ${installCount} audits ont été réalisés dans le ${dept} le mois dernier.`
-            },
-            {
-                question: `Fournissez-vous les plans d'évacuation obligatoires à ${city} ?`,
-                answer: `Oui, notre bureau d'études conçoit vos plans d'intervention et d'évacuation selon la norme NF X08-070. Nous nous occupons de l'impression et de la pose dans vos locaux à ${city}.`
+                question: `Quelle est la réglementation applicable aux parties communes à ${city} ?`,
+                answer: `À ${city}, dans le département ${deptRef} (région ${region}), les parties communes relèvent du règlement de sécurité contre les risques d'incendie et de panique. Les contrôles sont diligentés par la commission de sécurité compétente, avec l'appui technique de ${sdis}${prefecture ? `, sous l'autorité du préfet (préfecture : ${prefecture})` : ""}.`
             }
         ];
     }
+
+    if (segment === "ENTREPRISE") {
+        return [
+            {
+                question: `Quelles obligations pour les entreprises en matière de sécurité incendie à ${city} ?`,
+                answer: `Le Code du travail (art. R. 4227-28 et suivants) exige au moins un extincteur portatif à eau pulvérisée de 6 litres minimum pour 200 m² de plancher, avec au minimum un appareil par niveau. À ${city}, ces exigences s'appliquent en complément des règles propres aux établissements recevant du public.`
+            },
+            {
+                question: `À quelle fréquence dois-je faire vérifier mes extincteurs à ${city} ?`,
+                answer: `La vérification des extincteurs en entreprise est obligatoire au minimum une fois par an par une entreprise qualifiée. Cette maintenance doit être consignée dans votre registre de sécurité pour être opposable à votre assureur en cas de sinistre.`
+            },
+            {
+                question: `Quel type d'extincteur faut-il pour une salle informatique à ${city} ?`,
+                answer: `Pour les salles serveurs et le matériel électrique sous tension, il faut des extincteurs au dioxyde de carbone (CO2) : ils n'endommagent pas le matériel car ils ne laissent aucun résidu, contrairement à l'eau ou à la poudre.`
+            },
+            {
+                question: `Qui contrôle la conformité incendie de mon établissement dans le ${deptRef} ?`,
+                answer: `Sur le département ${deptRef}, les établissements recevant du public sont visités par la commission de sécurité compétente, avec l'appui opérationnel de ${sdis}${prefecture ? ` (préfecture : ${prefecture})` : ""}. Nos audits préalables permettent d'arriver à cette visite sans observation.`
+            }
+        ];
+    }
+
+    return [
+        {
+            question: `Quel est le prix pour faire vérifier un extincteur à ${city} ?`,
+            answer: `Le forfait de maintenance annuelle préventive à ${city} coûte en moyenne entre 15€ et 28€ HT par appareil. Ce prix est dégressif selon la quantité. Si des pièces doivent être remplacées ou le fluide rechargé, un devis de maintenance curative est proposé.`
+        },
+        {
+            question: `Combien de temps pour une intervention de maintenance à ${city} ?`,
+            answer: `Nos techniciens interviennent à ${city} et sur le département ${deptRef} sous 24 à 72 heures. La vérification prend environ 5 à 10 minutes par extincteur, et un contrat annuel fixe vos dates de passage pour éviter tout oubli.`
+        },
+        {
+            question: `Fournissez-vous les plans d'évacuation obligatoires à ${city} ?`,
+            answer: `Oui. Notre bureau d'études conçoit vos plans d'intervention et d'évacuation selon la norme NF X 08-070, puis assure leur impression et leur pose dans vos locaux à ${city}.`
+        },
+        {
+            question: `Qui intervient en cas de contrôle à ${city} ?`,
+            answer: `À ${city}, dans le département ${deptRef}, le service de secours compétent est ${sdis}${prefecture ? ` et la préfecture de référence est ${prefecture}` : ""}. En tant que prestataire, nous préparons votre dossier, votre registre de sécurité et l'ensemble des justificatifs attendus.`
+        }
+    ];
 }

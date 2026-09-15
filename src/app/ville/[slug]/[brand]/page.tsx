@@ -95,9 +95,9 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                         "@context": "https://schema.org",
                         "@type": "BreadcrumbList",
                         "itemListElement": [
-                            { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://expertsecuriteincendie.fr" },
-                            { "@type": "ListItem", "position": 2, "name": site.city, "item": `https://expertsecuriteincendie.fr/ville/${slug}` },
-                            { "@type": "ListItem", "position": 3, "name": `extincteur ${brand.name}`, "item": `https://expertsecuriteincendie.fr/ville/${slug}/${brand.slug}` }
+                            { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.expertsecuriteincendie.fr" },
+                            { "@type": "ListItem", "position": 2, "name": site.city, "item": `https://www.expertsecuriteincendie.fr/ville/${slug}` },
+                            { "@type": "ListItem", "position": 3, "name": `extincteur ${brand.name}`, "item": `https://www.expertsecuriteincendie.fr/ville/${slug}/${brand.slug}` }
                         ]
                     })
                 }}
