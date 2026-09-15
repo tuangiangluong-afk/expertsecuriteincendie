@@ -69,23 +69,23 @@ export default function StructuredData() {
             "@type": "Offer",
             "priceCurrency": "EUR",
             "price": "250",
-            "availability": "https://schema.org/InStock",
             "validFrom": "2026-01-01"
         }
     };
 
     // Eligible Product Schema: 100% compliant with Google Product & Review Snippets
-    const productSchema = {
+    // « Service » et non « Product » : ce site ne vend pas un produit catalogue,
+    // il met en relation avec des professionnels. Un Product ici est un balisage
+    // inexact (stock, SKU, livraison) que Google peut ignorer ou signaler.
+    const serviceOfferSchema = {
         "@context": "https://schema.org",
-        "@type": "Product",
-        "@id": `${baseUrl}/#product`,
+        "@type": "Service",
+        "@id": `${baseUrl}/#service-offer`,
         "name": "Pack Extincteurs et Sécurité Incendie Normes ERP",
         "image": [
             `${baseUrl}/icon.png`
         ],
         "description": "Pack complet d'extincteurs certifiés NF, blocs d'éclairage de sécurité et signalétique réglementaire ERP.",
-        "sku": "ESI-FIRE-001",
-        "mpn": "ESI-FIRE-001",
         "brand": {
             "@type": "Brand",
             "name": "Expert Sécurité Incendie"
@@ -97,52 +97,7 @@ export default function StructuredData() {
             "price": "250",
             "validFrom": "2026-01-01",
             "priceValidUntil": "2026-12-31",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock",
-            "hasMerchantReturnPolicy": {
-                "@type": "MerchantReturnPolicy",
-                "applicableCountry": "FR",
-                "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
-            },
-            "shippingDetails": {
-                "@type": "OfferShippingDetails",
-                "shippingRate": {
-                    "@type": "MonetaryAmount",
-                    "value": "0",
-                    "currency": "EUR"
-                },
-                "shippingDestination": {
-                    "@type": "DefinedRegion",
-                    "addressCountry": "FR"
-                },
-                "deliveryTime": {
-                    "@type": "ShippingDeliveryTime",
-                    "businessDays": {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": [
-                            "https://schema.org/Monday",
-                            "https://schema.org/Tuesday",
-                            "https://schema.org/Wednesday",
-                            "https://schema.org/Thursday",
-                            "https://schema.org/Friday"
-                        ]
-                    },
-                    "cutoffTime": "18:00:00Z",
-                    "handlingTime": {
-                        "@type": "QuantitativeValue",
-                        "minValue": 1,
-                        "maxValue": 3,
-                        "unitCode": "DAY"
-                    },
-                    "transitTime": {
-                        "@type": "QuantitativeValue",
-                        "minValue": 1,
-                        "maxValue": 5,
-                        "unitCode": "DAY"
-                    }
-                }
-            }
-        },
+                                },
     };
 
     return (
@@ -163,9 +118,9 @@ export default function StructuredData() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
             />
             <Script
-                id="product-schema"
+                id="service-offer-schema"
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceOfferSchema) }}
             />
         </>
     );

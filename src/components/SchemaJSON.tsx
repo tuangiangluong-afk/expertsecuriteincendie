@@ -124,9 +124,11 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             }
         };
     } else if (type === "Product" && vehicle) {
+        // Installation d'un équipement pour un véhicule : c'est un service rendu,
+        // pas un article de catalogue (ni SKU, ni stock, ni livraison).
         schema = {
             "@context": "https://schema.org",
-            "@type": "Product",
+            "@type": "Service",
             "name": `Maintenance extincteur ${vehicle.brand} ${vehicle.model}`,
             "image": site?.heroImage || "/images/realizations/hero-extincteur.jpg",
             "description": `Vérification et maintenance de l'extincteur ${vehicle.brand} ${vehicle.model} (${(vehicle as any).capacity || ""}) par des techniciens certifiés. Conformité NF EN3, rapport d'intervention et registre de sécurité inclus.`,
@@ -140,7 +142,6 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "priceCurrency": "EUR",
                 "price": "49", // À partir de 49€ TTC par extincteur
                 "priceValidUntil": "2026-12-31",
-                "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition"
             }
             };

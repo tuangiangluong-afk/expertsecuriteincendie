@@ -1,5 +1,6 @@
 import type { CityConfig } from "@/lib/db";
 import { departementFromPostal, type Departement } from "@/data/fr-departements";
+import { composeLocalIntro } from "@/lib/pseo-local";
 
 export interface PseoPageContent {
     meta_title: string;
@@ -174,10 +175,36 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
 
     const hero_title = `Expert <span class="text-red-500">Sécurité Incendie</span> ${prep} ${c.city}${postalSpan}`;
 
-    // --- Intro : 3 paragraphes variables et localisés ---
+    // --- Intro : 6 emplacements factuels assemblés (voir pseo-local.ts) ---
     const intro_html =
-        pick(OPENERS, h) (c) +
-        pick(MIDDLES, h >> 5) (c) +
+        composeLocalIntro(
+            {
+                city: c.city,
+                postal: c.postal,
+                deptCode: c.deptCode,
+                deptName: c.deptName,
+                region: c.region,
+                prefecture: c.prefecture,
+                authority: c.sdis,
+                quartiers: c.quartiers,
+                littoral: c.littoral,
+                montagne: c.montagne,
+                dense: c.dense,
+            },
+            {
+                audience: "Les entreprises, commerces et copropriétés",
+                service: "l'audit, la fourniture et la pose d'extincteurs et de blocs d'éclairage de sécurité",
+                norms: "la norme NF EN 3 et les règles APSAD",
+                document: "le registre de sécurité",
+                authorityLabel: "le service d'incendie et de secours compétent",
+                project: "votre mise en conformité",
+            },
+            {
+                openers: OPENERS.map((fn) => () => fn(c)),
+                middles: MIDDLES.map((fn) => () => fn(c)),
+            },
+            hash(c.city, c.postal, c.deptCode),
+        ) +
         riskParagraph(c);
 
     const expert_tip = pick(TIPS, h >> 7)(c);

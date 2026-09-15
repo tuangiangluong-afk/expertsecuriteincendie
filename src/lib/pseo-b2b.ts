@@ -1,4 +1,5 @@
 import type { CityConfig } from "@/lib/db";
+import { composeLocalIntro } from "@/lib/pseo-local";
 
 export interface PseoB2bContent {
     meta_title: string;
@@ -9,130 +10,118 @@ export interface PseoB2bContent {
     expert_tip: string;
 }
 
-const REGIONAL_DATA: Record<string, { subsidyName: string; subsidyAmount: string; gridOperator: string; avgPrice: string; }> = {
-    "75": { subsidyName: "Paris Éco-Rénovation", subsidyAmount: "Jusqu'à 4 000€ (Ville de Paris + NF)", gridOperator: "Enedis Île-de-France", avgPrice: "1 200€ – 2 500€" },
-    "69": { subsidyName: "Métropole de Lyon Éco-Énergie", subsidyAmount: "Certification NF + Bonus Métropole Lyon", gridOperator: "Enedis Rhône", avgPrice: "890€ – 1 800€" },
-    "13": { subsidyName: "Région Sud Mobilité Verte", subsidyAmount: "Certification NF + Aide Région Sud", gridOperator: "Enedis Provence", avgPrice: "850€ – 1 700€" },
-    "06": { subsidyName: "Métropole Nice Côte d'Azur", subsidyAmount: "Certification NF + Aide MNCA", gridOperator: "Enedis Alpes-Maritimes", avgPrice: "950€ – 2 200€" },
-    "33": { subsidyName: "Bordeaux Métropole Climat", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Gironde", avgPrice: "890€ – 1 800€" },
-    "31": { subsidyName: "Toulouse Métropole Transition", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Haute-Garonne", avgPrice: "850€ – 1 700€" },
-    "59": { subsidyName: "MEL sécurité incendie", subsidyAmount: "Certification NF + Aide MEL", gridOperator: "Enedis Nord", avgPrice: "890€ – 1 800€" },
-    "67": { subsidyName: "Eurométropole de Strasbourg", subsidyAmount: "Certification NF applicable", gridOperator: "Électricité de Strasbourg", avgPrice: "890€ – 1 800€" },
-    "44": { subsidyName: "Nantes Métropole Climat", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Loire-Atlantique", avgPrice: "850€ – 1 600€" },
-    "34": { subsidyName: "Montpellier Méditerranée Métropole", subsidyAmount: "Certification NF applicable", gridOperator: "Enedis Hérault", avgPrice: "850€ – 1 700€" },
-};
-
-const DEFAULT_REGIONAL = {
-    subsidyName: "Programme national Aide",
-    subsidyAmount: "Audit gratuit & conformité NF EN3",
-    gridOperator: "Enedis",
-    avgPrice: "890€ – 1 800€"
-};
-
-function getEntrepriseIntro(city: string, dept: string, neighborhoods: string[]): string {
-    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const zones = neighborhoods.length > 0 ? neighborhoods.slice(0, 3).join(', ') : "vos zones d'activité locales";
-
-    const intros = [
-        `<p class="mb-4">
-            L'électrification des flottes professionnelles s'accélère à <strong>${city}</strong>. De la PME locale au grand groupe tertiaire,
-            équiper vos parkings de <strong>extincteurs certifiées Incendie</strong> est un atout stratégique majeur autant qu'une obligation légale.
-            Nos électriciens qualifiés interviennent à ${city} et dans les zones environnantes (comme <strong>${zones}</strong>) pour concevoir votre infrastructure de protection.
-        </p>
-        <p>
-            Nous vous aidons à dimensionner les puissances (extincteurs AC Eau & CO2 ou systèmes d extinction automatique) et à configurer les outils de supervision
-            pour facturer ou offrir la protection de manière intelligente à vos collaborateurs et clients.
-        </p>`,
-
-        `<p class="mb-4">
-            Vous gérez un commerce, des bureaux ou un site industriel à <strong>${city}${dept ? ` (${dept})` : ''}</strong> et souhaitez y installer des points de protection ?
-            Notre équipe locale de techniciens Incendie déploie des solutions clé en main répondant précisément aux exigences de votre activité.
-            Nos chantiers couvrent l'ensemble de l'agglomération, de <strong>${neighborhoods[0] || "centre-ville"}</strong> aux zones logistiques périphériques.
-        </p>
-        <p>
-            Respect de la <strong>Loi</strong>, valorisation de votre démarche RSE et attractivité pour vos salariés en matériel :
-            nous optimisons chaque maintenance pour vous faire bénéficier des aides <strong>Aide</strong> et de la récupération de TVA.
-        </p>`,
-
-        `<p class="mb-4">
-            À <strong>${city}</strong>, l'maintenance de extincteurs pour ERP et entreprises est désormais incontournable pour les entreprises tertiaires et industrielles.
-            Que vous disposiez d'un parking ouvert au public, de locaux de service ou de fonction à charger la nuit, nous concevons des infrastructures sur mesure.
-            Notre accompagnement technique inclut la visite de vos sites à <strong>${city}</strong>, l'audit de surface et la mise en relation avec nos experts certifiés.
-        </p>
-        <p>
-            Nous intégrons du <strong>Smart Charging</strong> (gestion dynamique de charge) pour éviter tout dépassement de votre abonnement d'électricité
-            et lisser la consommation de votre parking professionnel.
-        </p>`
-    ];
-
-    return intros[hash % intros.length];
+/**
+ * Service de secours compétent sur la commune.
+ * Les SDIS sont numérotés par département : « le SDIS 69 » est vérifiable.
+ * Deux exceptions réelles : Paris (BSPP) et Marseille (BMPM).
+ */
+function secours(dept: string, city: string): string {
+    const d = (dept || "").substring(0, 2);
+    if (city.toLowerCase() === "marseille") return "le bataillon de marins-pompiers de Marseille (BMPM)";
+    if (city.toLowerCase() === "paris" || d === "75") return "la brigade de sapeurs-pompiers de Paris (BSPP)";
+    if (!d) return "le service départemental d'incendie et de secours (SDIS)";
+    return `le SDIS ${d}`;
 }
 
-function getCoproIntro(city: string, dept: string, neighborhoods: string[]): string {
-    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const neighborhoodList = neighborhoods.length > 0 ? neighborhoods.slice(0, 3).join(', ') : "les différents quartiers de la ville";
-
-    const intros = [
-        `<p class="mb-4">
-            La transition vers la matériel est une réalité tangible à <strong>${city}</strong>. Pour les copropriétaires et locataires d'immeubles résidentiels,
-            accéder à un point de protection à son propre emplacement est une attente croissante. Notre réseau d'électriciens qualifiés déploie des infrastructures
-            de protection collectives adaptées à tous les immeubles de ${city}, y compris sur des secteurs clés comme <strong>${neighborhoodList}</strong>.
-        </p>
-        <p>
-            Grâce à un <strong>contrat de maintenance tout compris</strong>, le syndic peut équiper l'immeuble sans avance de trésorerie.
-            L'audit initial et le premier équipement sont proposés à tarif préférentiel, avec un échéancier adapté au budget de la copropriété.
-        </p>`,
-
-        `<p class="mb-4">
-            Vous habitez en copropriété à <strong>${city}${dept ? ` (${dept})` : ''}</strong> et vous vous demandez comment installer une matériel incendie pour votre professionnel ?
-            Au-delà du simple <strong>Droit à la Prise</strong> individuel qui peut vite saturer la puissance globale disponible de l'immeuble, nous recommandons une
-            <strong>infrastructure collective (colonne horizontale)</strong> pour une solution propre, pérenne et évolutive.
-        </p>
-        <p>
-            Nos spécialistes interviennent à ${city} pour réaliser des audits techniques gratuits et présenter le dossier de financement en Assemblée Générale.
-            Le projet bénéficie de subventions <strong>Aide</strong> couvrant jusqu'à 50% du montant des travaux collectifs.
-        </p>`,
-
-        `<p class="mb-4">
-            Équiper le parking de votre immeuble résidentiel à <strong>${city}</strong> d'un réseau de extincteurs n'a jamais été aussi simple.
-            Nous accompagnons les syndics de copropriété professionnels et bénévoles dans la mise en conformité et la valorisation de leur patrimoine immobilier.
-            Nos techniciens certifiés se déplacent sur toute la zone de ${city} (notamment <strong>${neighborhoods[0] || "centre-ville"}</strong>) pour étudier la faisabilité technique.
-        </p>
-        <p>
-            De la visite technique initiale à la mise en service, nous gérons l'ensemble des démarches administratives,
-            l'obtention des aides d'État et le mise aux normes public.
-        </p>`
-    ];
-
-    return intros[hash % intros.length];
+function getEntrepriseIntro(city: string, dept: string, quartiers: string[]): string {
+    // L'intro est assemblée à partir de six emplacements factuels (voir
+    // pseo-local.ts) : l'ancienne version piochait 1 texte sur 3 par hash, ce
+    // qui donnait des pages identiques à un mot près sur tout le département.
+    return composeLocalIntro(
+        {
+            city,
+            deptCode: dept,
+            quartiers,
+            authority: secours(dept, city),
+        },
+        {
+            audience: "Les entreprises, commerces et sites industriels",
+            service: "l'audit, la fourniture et la maintenance des moyens de secours",
+            norms: "le règlement de sécurité contre les risques d'incendie et de panique (arrêté du 25 juin 1980 pour les ERP) et le Code du travail pour les lieux de travail",
+            document: "le registre de sécurité de l'établissement",
+            authorityLabel: "le service qui contrôle les établissements",
+            project: "votre mise en conformité",
+        },
+        {
+            openers: [
+                (f) => `Vous exploitez un commerce, des bureaux ou un site industriel à ${f.city} : les extincteurs, le désenfumage et les colonnes sèches relèvent d'une vérification périodique obligatoire.`,
+                (f) => `Un établissement recevant du public ou du personnel à ${f.city} doit pouvoir présenter un registre de sécurité à jour.`,
+                (f) => `L'audit incendie de vos locaux à ${f.city} commence par l'inventaire des moyens de secours existants et de leur date de dernière vérification.`,
+                (f) => `Les obligations de sécurité incendie à ${f.city} dépendent de l'effectif, de l'activité et du classement de votre établissement.`,
+                (f) => `Votre établissement à ${f.city} doit être couvert par des extincteurs adaptés aux risques réels de chaque local, pas seulement présents.`,
+                (f) => `Lors d'un contrôle à ${f.city}, ce sont les moyens de secours, leur maintenance et les consignes affichées qui sont vérifiés.`,
+            ],
+            middles: [
+                (_f, v) =>
+                    `Notre intervention couvre ${v.service} : inventaire, remplacement des extincteurs hors date, vérification du désenfumage et des éclairages de sécurité.`,
+                (f) => `Chaque équipement posé à ${f.city} est répertorié avec sa date de contrôle, de façon à préparer vos vérifications sans recherche dans les factures.`,
+                (f, v) =>
+                    `Le rapport remis après le passage à ${f.city} alimente directement ${v.document} et reste opposable en cas de contrôle.`,
+                (f) => `Les extincteurs proposés à ${f.city} sont choisis selon les classes de feu présentes sur le site (A, B, C, F) et non selon un modèle standard.`,
+                (f) => `Nous vérifions aussi l'adéquation des moyens de secours à l'usage réel des locaux à ${f.city} : atelier, réserve, local technique, parking couvert.`,
+                (f) => `L'audit réalisé à ${f.city} distingue ce qui relève de l'obligation réglementaire et ce que l'exploitant peut programmer plus tard.`,
+            ],
+        },
+    );
 }
 
-function getEntrepriseTip(city: string, neighborhoods: string[]): string {
-    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const zone = neighborhoods[0] || "votre secteur";
+function getCoproIntro(city: string, dept: string, quartiers: string[]): string {
+    return composeLocalIntro(
+        {
+            city,
+            deptCode: dept,
+            quartiers,
+            authority: secours(dept, city),
+        },
+        {
+            audience: "Les copropriétés et leurs syndics",
+            service: "l'audit, la fourniture et la maintenance des équipements de sécurité incendie des parties communes",
+            norms: "l'arrêté du 31 janvier 1986 relatif à la sécurité contre l'incendie des bâtiments d'habitation",
+            document: "le registre de sécurité de l'immeuble",
+            authorityLabel: "l'autorité qui contrôle l'immeuble",
+            project: "la mise en conformité de l'immeuble",
+        },
+        {
+            openers: [
+                (f) => `Dans un immeuble d'habitation à ${f.city}, les extincteurs, le désenfumage et les colonnes sèches des parties communes doivent être maintenus en état et vérifiés périodiquement.`,
+                (f) => `La mise en conformité sécurité incendie d'une copropriété à ${f.city} se décide en assemblée générale, sur la base d'un état des lieux écrit.`,
+                (f) => `Avant l'assemblée générale, l'audit réalisé à ${f.city} chiffre les travaux obligatoires et distingue les améliorations facultatives.`,
+                (f) => `Une copropriété à ${f.city} doit pouvoir présenter au syndic le registre de sécurité des parties communes à jour.`,
+                (f) => `Les obligations incendie d'un immeuble à ${f.city} dépendent de sa date de construction, de sa hauteur et du nombre de niveaux.`,
+                (f) => `Les réserves émises lors d'une vente de lot visent souvent l'absence de registre de sécurité à jour dans les copropriétés de ${f.city}.`,
+            ],
+            middles: [
+                (_f, v) => `L'audit couvre ${v.service} : extincteurs, éclairage de sécurité, désenfumage et issues.`,
+                (f) => `Le rapport remis pour l'immeuble de ${f.city} est présenté en assemblée générale avec la liste des travaux obligatoires et leur ordre de priorité.`,
+                (f, v) => `Chaque passage alimente ${v.document}, ce qui évite au syndic de reconstituer l'historique à chaque contrôle.`,
+                (f) => `Nous vérifions la signalisation, l'accès des secours et l'état des portes coupe-feu des parties communes à ${f.city}.`,
+                (f) => `Le contrat de maintenance proposé à ${f.city} couvre les vérifications périodiques et la fourniture des équipements manquants.`,
+                (f) => `Les comptes rendus sont datés et signés : le conseil syndical de ${f.city} dispose d'une trace pour chaque exercice.`,
+            ],
+        },
+    );
+}
 
+function getEntrepriseTip(city: string, quartiers: string[]): string {
+    const zone = quartiers[0] || "votre secteur";
     const tips = [
-        `Conseil Loi à ${city} : Si votre entreprise gère un parking de plus de 20 places, la loi impose d'équiper 10% des places d'ici 2026. L'Aide finance jusqu'à 2 200€ par extincteur pour les parkings ouverts au public !`,
-        `Optimisation de charge à ${city} : Dans les bureaux situés vers ${zone}, les collaborateurs arrivent souvent à la même heure. Une supervision intelligente permet de charger les locaux par ordre de priorité sans faire sauter le disjoncteur général.`,
-        `Fiscalité Pro à ${city} : Profitez de la récupération de 100% de la TVA sur l'électricité consommée par vos ERP et entreprises d'entreprise et du suramortissement fiscal pour réduire vos coûts opérationnels.`,
-        `Attractivité des talents : Offrir la protection gratuite ou à tarif préférentiel à vos salariés est aujourd'hui l'un des avantages en nature les plus demandés à ${city}.`
+        `À ${city}, les vérifications périodiques des extincteurs et du désenfumage se programment une fois par an : les inscrire au calendrier évite de découvrir une date dépassée pendant un contrôle.`,
+        `Sur la zone de ${zone}, les réserves émises portent le plus souvent sur les extincteurs non signalés et sur les consignes de sécurité absentes.`,
+        `Le registre de sécurité n'est pas un document à reconstituer après coup : chaque passage, chaque remplacement et chaque formation y sont consignés au moment où ils ont lieu à ${city}.`,
+        `Un local technique ou une réserve non déclarés à ${city} changent le classement de votre établissement : l'inventaire des locaux fait partie de l'audit.`,
     ];
-
-    return tips[hash % tips.length];
+    return tips[city.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % tips.length];
 }
 
-function getCoproTip(city: string, neighborhoods: string[]): string {
-    const hash = city.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const zone = neighborhoods[0] || "votre quartier";
-
+function getCoproTip(city: string, quartiers: string[]): string {
+    const zone = quartiers[0] || "votre quartier";
     const tips = [
-        `Conseil Syndic à ${city} : Lors de la prochaine Assemblée Générale, proposez un audit de sécurité incendie des parties communes. Le vote à la majorité simple suffit pour les travaux de mise en conformité obligatoires.`,
-        `Obligation extincteurs à ${city} : La réglementation ERP impose un extincteur portatif par tranche de 200 m² dans les parties communes. Nos techniciens APSAD vérifient la conformité lors de l'audit.`,
-        `Maintenance en copropriété : Le contrat annuel de maintenance des extincteurs et du désenfumage est obligatoire (arrêté du 25 juin 1980). Notre forfait syndic couvre l'ensemble des parties communes.`,
-        `Valorisation immobilière : Un immeuble aux normes de sécurité incendie avec carnet de maintenance à jour rassure les acheteurs et évite les réserves lors de la vente d'un lot.`
+        `À ${city}, un audit avant l'assemblée générale permet de voter les travaux de mise en conformité sur des montants chiffrés plutôt que sur une estimation.`,
+        `Dans les immeubles de ${zone}, l'éclairage de sécurité et le désenfumage sont les deux postes les plus souvent en défaut lors de l'état des lieux.`,
+        `Le contrat de maintenance des équipements de sécurité incendie d'une copropriété se vote en assemblée générale : il couvre les vérifications périodiques et la fourniture des équipements manquants.`,
+        `Tenez le registre de sécurité de l'immeuble à jour : c'est la première pièce demandée lors d'une vérification ou d'une vente de lot à ${city}.`,
     ];
-
-    return tips[hash % tips.length];
+    return tips[city.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % tips.length];
 }
 
 export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREPRISE' | 'COPRO'): Promise<PseoB2bContent> {
@@ -140,41 +129,25 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
     const dept = department || "";
     const postal = postalCode || "";
     const quartiers = neighborhoods || [];
-
-    const deptCode = dept.length >= 2 ? dept.substring(0, 2) : "";
-    const regionalInfo = REGIONAL_DATA[deptCode] || DEFAULT_REGIONAL;
+    const postalMention = postal ? ` (${postal})` : "";
 
     if (segment === 'ENTREPRISE') {
-        const meta_title = `extincteurs Entreprise ${city}${postal ? ` (${postal})` : ''} | Audit Flotte & Loi`;
-        const meta_description = `Maintenance extincteurs pour entreprises à ${city}. Conformité Code du travail, vérification périodique obligatoire. Audit gratuit sous 24h.`;
-        const hero_title = `extincteurs <span class="text-emerald-600">entreprise</span> à ${city}`;
-        const hero_badge = "Solutions Pro & Flottes";
+        const meta_title = `Sécurité incendie entreprise à ${city}${postalMention} | Audit et maintenance des moyens de secours`;
+        const meta_description = `Audit et maintenance des extincteurs, du désenfumage et des éclairages de sécurité pour les entreprises et ERP à ${city}. Conformité règlement de sécurité incendie et Code du travail. Visite technique sur place.`;
+        const hero_title = `Sécurité <span class="text-red-600">incendie en entreprise</span> à ${city}`;
+        const hero_badge = "ERP, commerces, sites industriels";
         const intro_html = getEntrepriseIntro(city, dept, quartiers);
         const expert_tip = getEntrepriseTip(city, quartiers);
 
-        return {
-            meta_title,
-            meta_description,
-            hero_title,
-            hero_badge,
-            intro_html,
-            expert_tip
-        };
-    } else {
-        const meta_title = `maintenance Sécurité Incendie Copropriété ${city} | Étude Gratuite Syndic`;
-        const meta_description = `Sécurité incendie en copropriété à ${city}. Audit et maintenance des extincteurs, désenfumage, colonnes sèches. Devis syndic gratuit.`;
-        const hero_title = `extincteurs en <span class="text-purple-600">copropriété</span> à ${city}`;
-        const hero_badge = "Spécial Syndic & Copropriété";
-        const intro_html = getCoproIntro(city, dept, quartiers);
-        const expert_tip = getCoproTip(city, quartiers);
-
-        return {
-            meta_title,
-            meta_description,
-            hero_title,
-            hero_badge,
-            intro_html,
-            expert_tip
-        };
+        return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
     }
+
+    const meta_title = `Sécurité incendie copropriété à ${city}${postalMention} | Audit pour syndic et conseil syndical`;
+    const meta_description = `Audit et maintenance des extincteurs, du désenfumage et des colonnes sèches des parties communes à ${city}. État des lieux écrit présentable en assemblée générale.`;
+    const hero_title = `Sécurité <span class="text-red-600">incendie en copropriété</span> à ${city}`;
+    const hero_badge = "Syndics et conseils syndicaux";
+    const intro_html = getCoproIntro(city, dept, quartiers);
+    const expert_tip = getCoproTip(city, quartiers);
+
+    return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
 }
