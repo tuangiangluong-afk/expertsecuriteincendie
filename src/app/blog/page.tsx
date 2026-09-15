@@ -5,8 +5,8 @@ import { createClient } from "@supabase/supabase-js";
 import { Calendar, ArrowRight } from "lucide-react";
 
 // Initialize Supabase Client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGF0bmF4ZmJqdmpiaWhpcnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1MTAxMjYsImV4cCI6MjA4NTA4NjEyNn0.T0hltZN3QOA4k3ReFJfRf20ar61rHt_2Ncm_drmCFjU";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const revalidate = 60;
