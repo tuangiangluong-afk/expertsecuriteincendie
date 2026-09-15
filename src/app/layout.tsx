@@ -28,10 +28,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: {
-      template: `%s | Expert Sécurité Incendie®`,
-      default: `Expert Sécurité Incendie® - Réseau National de Conformité & Maintenance Incendie ${getCurrentYearSEO()}`,
+      template: "%s",
+      default: `Expert Sécurité Incendie® - Maintenance & Conformité ${getCurrentYearSEO()}`,
     },
-    description: "Expert Sécurité Incendie : N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises, ERP et copropriétés en France. Devis gratuit sous 24h.",
+    description: "Maintenance d'extincteurs, désenfumage et mise en conformité pour entreprises, ERP et copropriétés. Devis gratuit sous 24h.",
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: `${baseUrl}${path}`,

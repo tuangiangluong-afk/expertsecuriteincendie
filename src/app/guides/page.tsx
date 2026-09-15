@@ -14,7 +14,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export const revalidate = 60; // ISR 60 seconds
 
 export const metadata: Metadata = {
-    title: "Guides et Conseils Sécurité Incendie | Réglementation ERP & Entreprise",
+    title: "Guides sécurité incendie : ERP et entreprises",
     description: "Tout comprendre sur les extincteurs, désenfumage, blocs BAES, SSI et commissions de sécurité en ERP et copropriétés.",
 };
 

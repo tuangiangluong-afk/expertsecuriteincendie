@@ -132,7 +132,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
     const postalMention = postal ? ` (${postal})` : "";
 
     if (segment === 'ENTREPRISE') {
-        const meta_title = `Sécurité incendie entreprise à ${city}${postalMention} | Audit et maintenance des moyens de secours`;
+        const meta_title = `Sécurité incendie entreprise à ${city} | Audit et conformité`;
         const meta_description = `Audit et maintenance des extincteurs, du désenfumage et des éclairages de sécurité pour les entreprises et ERP à ${city}. Conformité règlement de sécurité incendie et Code du travail. Visite technique sur place.`;
         const hero_title = `Sécurité <span class="text-red-600">incendie en entreprise</span> à ${city}`;
         const hero_badge = "ERP, commerces, sites industriels";
@@ -142,7 +142,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
         return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
     }
 
-    const meta_title = `Sécurité incendie copropriété à ${city}${postalMention} | Audit pour syndic et conseil syndical`;
+    const meta_title = `Sécurité incendie copropriété à ${city} | Audit syndic`;
     const meta_description = `Audit et maintenance des extincteurs, du désenfumage et des colonnes sèches des parties communes à ${city}. État des lieux écrit présentable en assemblée générale.`;
     const hero_title = `Sécurité <span class="text-red-600">incendie en copropriété</span> à ${city}`;
     const hero_badge = "Syndics et conseils syndicaux";

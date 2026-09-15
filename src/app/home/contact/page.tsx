@@ -6,6 +6,12 @@ import { ArrowLeft, Mail, Phone, MapPin, Zap, CheckCircle } from "lucide-react";
 import { getTheme } from "@/lib/theme";
 import Header from "@/components/Header";
 
+export const metadata = {
+    title: "Contact : audit de sécurité incendie",
+    description: "Contactez nos techniciens pour un audit de conformité incendie : extincteurs, désenfumage, registre de sécurité. Réponse sous 24h.",
+};
+
+
 export default function HubContactPage() {
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-red-500 selection:text-white">
