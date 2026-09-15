@@ -10,9 +10,9 @@ function cleanEnv(val: string | undefined): string | null {
 }
 
 async function getAccessToken(): Promise<string | null> {
-  const CLIENT_ID = cleanEnv(process.env.GOOGLE_OAUTH_CLIENT_ID) || "437336036294-ignimb5cdhurrkebd9r9jk6qplum3ttu.apps.googleusercontent.com";
-  const CLIENT_SECRET = cleanEnv(process.env.GOOGLE_OAUTH_CLIENT_SECRET) || "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";
-  const REFRESH_TOKEN = cleanEnv(process.env.GOOGLE_OAUTH_REFRESH_TOKEN) || "1//04SQlcyF7QjlzCgYIARAAGAQSNwF-L9Ir_vI_yE2L5j-9SKB8wkMkka-DRnUD_KEaRdAEcBPFG8XXqNqVG3YZUI_ZqDQedeYOdY0";
+  const CLIENT_ID = cleanEnv(process.env.GOOGLE_OAUTH_CLIENT_ID);
+  const CLIENT_SECRET = cleanEnv(process.env.GOOGLE_OAUTH_CLIENT_SECRET);
+  const REFRESH_TOKEN = cleanEnv(process.env.GOOGLE_OAUTH_REFRESH_TOKEN);
 
   if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
     return null;
