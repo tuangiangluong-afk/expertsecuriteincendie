@@ -42,8 +42,8 @@ export async function POST(request: Request) {
             
             if (resend) {
                 await resend.emails.send({
-                    from: 'Leads Incendie <contact@expertsecuriteincendie.fr>',
-                    to: ['hello@expertsecuriteincendie.fr'],
+                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
+                    to: ['hello@expertbornerecharge.com', 'hello@expertsecuriteincendie.fr'],
                     subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
                     html: `
                         <div style="background-color: #fef2f2; border: 2px solid #ef4444; padding: 20px; border-radius: 12px; font-family: sans-serif;">
@@ -89,9 +89,22 @@ export async function POST(request: Request) {
                 console.log("⚠️ [MOCK] No Resend API Key. Email mock printed.");
             }
         } else {
-            console.log("🗑️ [ARBITRAGE] TIER 2 DETECTED -> Envoi API Companeo (B2B Lead gen marketplace)");
-            // Simulate Companeo API Webhook
-            console.log("Simulating fetch('https://api.companeo.com/leads/v1/import', { method: 'POST', body: ... })");
+            console.log("🗑️ [ARBITRAGE] TIER 2 DETECTED -> Notification email + API");
+            if (resend) {
+                await resend.emails.send({
+                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
+                    to: ['hello@expertbornerecharge.com', 'hello@expertsecuriteincendie.fr'],
+                    subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
+                    html: `
+                        <div style="background-color: #f8fafc; border: 2px solid #64748b; padding: 20px; border-radius: 12px; font-family: sans-serif;">
+                            <h2 style="color: #334155; margin-top: 0;">📋 NOUVEAU LEAD INCENDIE (TIER 2)</h2>
+                            <p><strong>Contact :</strong> ${name} | ${phone} | ${email}</p>
+                            <p><strong>Société :</strong> ${company || 'N/A'} (${city})</p>
+                            <p><strong>Type :</strong> ${projectType} | Surface : ${surface}</p>
+                        </div>
+                    `,
+                });
+            }
         }
 
         return NextResponse.json({ 
