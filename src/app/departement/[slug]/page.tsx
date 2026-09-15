@@ -198,7 +198,7 @@ export default async function DepartmentPage({ params }: Props) {
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 mb-2">Zone en cours de déploiement</h3>
                                 <p className="text-slate-500 mb-8">Aucun technicien partenaire référencé sur cette zone pour le moment.</p>
-                                <a href="mailto:contact@expertsecuriteincendie.fr" className="inline-flex items-center font-bold text-red-600 hover:text-red-800 transition">
+                                <a href="/contact" className="inline-flex items-center font-bold text-red-600 hover:text-red-800 transition">
                                     Devenir partenaire sur le {dept.code} <ArrowUpRight size={16} className="ml-1" />
                                 </a>
                             </div>

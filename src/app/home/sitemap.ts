@@ -88,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const guides = getAllGuides();
     const guideRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
         url: `${baseUrl}/guides/${guide.slug}`,
-        lastModified: new Date(guide.date),
+        lastModified: (guide.date && !isNaN(new Date(guide.date).getTime())) ? new Date(guide.date) : new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
     }));

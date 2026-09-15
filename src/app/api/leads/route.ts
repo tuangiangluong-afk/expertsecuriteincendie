@@ -34,7 +34,7 @@ export async function POST(request: Request) {
             projectType === 'copro' || 
             (leadScore && leadScore >= 80);
 
-        const apiKey = process.env.RESEND_API_KEY || "re_7pgxJbPq_CwqeXijSNtvzHdZeLk8CPKix";
+        const apiKey = process.env.RESEND_API_KEY;
         const resend = apiKey ? new Resend(apiKey) : null;
 
         if (isTier1) {
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
             if (resend) {
                 await resend.emails.send({
                     from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertbornerecharge.com', 'hello@expertsecuriteincendie.fr'],
+                    to: ['hello@expertbornerecharge.com'],
                     subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
                     html: `
                         <div style="background-color: #fef2f2; border: 2px solid #ef4444; padding: 20px; border-radius: 12px; font-family: sans-serif;">
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
             if (resend) {
                 await resend.emails.send({
                     from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertbornerecharge.com', 'hello@expertsecuriteincendie.fr'],
+                    to: ['hello@expertbornerecharge.com'],
                     subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
                     html: `
                         <div style="background-color: #f8fafc; border: 2px solid #64748b; padding: 20px; border-radius: 12px; font-family: sans-serif;">

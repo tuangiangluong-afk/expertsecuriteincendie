@@ -96,7 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 3. Guide Routes (static MDX)
     const guideRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
         url: `${BASE_URL}/guides/${guide.slug}`,
-        lastModified: new Date(guide.date),
+        lastModified: (guide.date && !isNaN(new Date(guide.date).getTime())) ? new Date(guide.date) : new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));

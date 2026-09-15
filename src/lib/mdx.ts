@@ -36,7 +36,7 @@ export function getAllGuides() {
             slug: file.replace(/\.mdx$/, ''),
             title: data.title,
             description: data.description,
-            date: data.date,
+            date: data.date || data.publishedAt || "2026-03-01",
             ...data
         };
     });
