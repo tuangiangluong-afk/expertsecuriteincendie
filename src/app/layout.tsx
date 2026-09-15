@@ -56,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: `${baseUrl}${path}`,
       images: [
         {
-          url: `${baseUrl}/images/realizations/hero-extincteur.jpg`,
+          url: `${baseUrl}/api/og`,
           width: 1200,
           height: 630,
           alt: "Expert Sécurité Incendie® - Maintenance Extincteurs",
@@ -67,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
       description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises et ERP.",
-      images: [`${baseUrl}/images/realizations/hero-extincteur.jpg`],
+      images: [`${baseUrl}/api/og`],
     },
     icons: {
       icon: "/icon.png",
