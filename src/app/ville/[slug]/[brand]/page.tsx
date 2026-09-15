@@ -53,6 +53,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         description,
         alternates: {
             canonical: canonicalUrl,
+            languages: {
+                "fr-FR": canonicalUrl,
+                "x-default": canonicalUrl,
+            },
         },
         openGraph: {
             title,
@@ -62,7 +66,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             type: "website",
             images: [
                 {
-                    url: site.heroImage,
+                    url: `https://www.expertsecuriteincendie.fr/api/og?q=${slug}`,
                     width: 1200,
                     height: 630,
                     alt: `maintenance extincteur ${brandData.name} ${site.city}`
