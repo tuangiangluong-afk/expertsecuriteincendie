@@ -33,6 +33,7 @@ export async function generateStaticParams() {
 }
 
 import { headers } from "next/headers";
+import LocalSources from "@/components/LocalSources";
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const { slug, brand: brandSlug } = await params;
@@ -206,6 +207,7 @@ export default async function CityBrandPage({ params }: { params: Params }) {
             <FAQ themeColor="red" />
             <Reviews site={site} themeColor="red" />
             <InternalMesh city={site.city} config={site} />
+            <LocalSources site={site} path={`/ville/${slug}/${brandSlug}`} />
             <Footer config={site} />
         </div>
     );

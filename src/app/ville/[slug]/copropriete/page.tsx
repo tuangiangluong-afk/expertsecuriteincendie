@@ -34,6 +34,7 @@ export async function generateStaticParams() {
 }
 
 import { headers } from "next/headers";
+import LocalSources from "@/components/LocalSources";
 
 export async function generateMetadata({
     params,
@@ -331,6 +332,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
             <LocalFAQ site={site} />
             <VillesVoisines currentCitySlug={slugify(site.city)} department={site.department || ""} cityName={cityName} />
             <InternalMesh city={cityName} config={site} />
+            <LocalSources site={site} path={`/ville/${resolvedParams.slug}/copropriete`} />
             <Footer config={site} />
         </div>
     );
