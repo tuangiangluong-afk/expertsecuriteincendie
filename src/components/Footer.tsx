@@ -272,7 +272,7 @@ export function Footer({ config }: FooterProps) {
                                     { name: "Extincteurs & RIA", href: "/solutions/entreprise" },
                                     { name: "Sécurité incendie en copropriété", href: "/solutions/copropriete" },
                                     { name: "Protection incendie maison", href: "/solutions/maison" },
-                                    { name: "Guides & réglementation", href: "/guides" },
+                                    { name: "Guides & réglementation", href: "/blog" },
                                 ].map((brand) => (
                                     <li key={brand.name}>
                                         <Link href={brand.href} className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">

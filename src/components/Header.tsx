@@ -44,8 +44,8 @@ export default function Header({
             text: "Solutions B2B"
         },
         {
-            href: "/guides",
-            text: "Guides & Normes"
+            href: "/blog",
+            text: "Guides & Réglementation"
         }
     ];
 

@@ -7,23 +7,47 @@ import type { Metadata } from 'next';
 import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase Client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGF0bmF4ZmJqdmpiaWhpcnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1MTAxMjYsImV4cCI6MjA4NTA4NjEyNn0.T0hltZN3QOA4k3ReFJfRf20ar61rHt_2Ncm_drmCFjU";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const revalidate = 60; // ISR 60 seconds
 
 export const metadata: Metadata = {
-    title: "Guides et Conseils matériel incendie | Expert Incendie",
-    description: "Tout comprendre sur l'maintenance de extincteurs. Guides experts pour copropriété, maison individuelle et entreprises.",
+    title: "Guides et Conseils Sécurité Incendie | Réglementation ERP & Entreprise",
+    description: "Tout comprendre sur les extincteurs, désenfumage, blocs BAES, SSI et commissions de sécurité en ERP et copropriétés.",
 };
 
 export default async function GuidesIndex() {
     // 1. Fetch Static MDX Guides
     const staticGuides = getAllGuides();
 
-    // 2. Normalize
-    const allGuides = [...staticGuides].sort((a: any, b: any) => 
+    // 2. Fetch Dynamic Blog Posts from Supabase
+    const { data: dbPosts } = await supabase
+        .from('blog_posts')
+        .select(`
+            title, 
+            slug, 
+            excerpt, 
+            published_at, 
+            read_time_minutes,
+            category:blog_categories(name)
+        `)
+        .eq('status', 'published')
+        .contains('tags', ['incendie'])
+        .order('published_at', { ascending: false });
+
+    // 3. Normalize & Merge
+    const dynamicGuides = (dbPosts || []).map((post: any) => ({
+        slug: post.slug,
+        title: post.title,
+        description: post.excerpt,
+        date: post.published_at,
+        category: post.category?.name || 'Guide',
+        readTime: post.read_time_minutes ? `${post.read_time_minutes} min` : '5 min'
+    }));
+
+    const allGuides = [...staticGuides, ...dynamicGuides].sort((a: any, b: any) => 
         new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
