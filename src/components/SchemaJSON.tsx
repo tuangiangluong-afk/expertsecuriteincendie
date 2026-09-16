@@ -136,14 +136,6 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
                 "@type": "Brand",
                 "name": vehicle.brand
             },
-            "offers": {
-                "@type": "Offer",
-                "url": "https://www.expertsecuriteincendie.fr/simulateur",
-                "priceCurrency": "EUR",
-                "price": "49", // À partir de 49€ TTC par extincteur
-                "priceValidUntil": "2026-12-31",
-                "itemCondition": "https://schema.org/NewCondition"
-            }
             };
     } else if (type === "B2BService" && site && b2bType) {
         const baseUrl = "https://www.expertsecuriteincendie.fr";
