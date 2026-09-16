@@ -150,7 +150,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                             <div className="relative h-[320px] w-full rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 border border-slate-100 bg-white p-2">
                                 <div className="relative w-full h-full rounded-xl overflow-hidden bg-purple-100">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=3540&auto=format&fit=crop"
+                                        src="/images/realizations/hero-extincteur.jpg"
                                         alt={`Copropriété extincteur protection ${cityName}`}
                                         fill
                                         className="object-cover"
@@ -241,7 +241,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                             </div>
                             <div className="border border-slate-200 rounded-2xl p-6">
                                 <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
-                                    <Users className="text-red-500" /> Droit à la Prise individuel
+                                    <Users className="text-red-500" /> Équipement par lot
                                 </h3>
                                 <p className="text-sm text-slate-600 mb-4">
                                     Chaque résident fait sa propre demande. Un compteur dédié est ajouté pour sa place.

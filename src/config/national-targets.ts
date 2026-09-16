@@ -1703,7 +1703,7 @@ export function getTargetAsCityConfig(slug: string): CityConfig | undefined {
 
     // Standardized EV Description
     const uniqueDescription = `Expert maintenance matériel incendie à ${target.name} (${target.zip}). Devis gratuit pour particuliers (maison, copropriété) et entreprises. techniciens certifiés Incendie.`;
-    const uniqueMetaDescription = `maintenance matériel incendie ${target.name}. Devis gratuit technicien Incendie. Aides Aide et Crédit d'impôt déduits.`;
+    const uniqueMetaDescription = `maintenance matériel incendie ${target.name}. Devis gratuit technicien Incendie. Tarifs HT et contrat de suivi annuel.`;
 
     return {
         slug: target.slug,

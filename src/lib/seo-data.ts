@@ -32,7 +32,7 @@ export const SEO_SERVICES: SeoService[] = [
     {
         slug: 'maintenance-extincteur-copropriete',
         title: 'extincteur en Copropriété',
-        description: 'Solutions pour syndics et résidents. Droit à la prise et facturation individuelle.',
+        description: 'Solutions pour syndics et résidents : extincteurs, BAES et registre de sécurité.',
         keywords: ['copropriété', 'syndic', 'immeuble', 'parking souterrain']
     },
     {
@@ -44,7 +44,7 @@ export const SEO_SERVICES: SeoService[] = [
     {
         slug: 'maintenance-rapide',
         title: 'Dépannage & Maintenance',
-        description: 'Service de maintenance et réparation de extincteurs toutes marques certifié Incendie.',
+        description: 'Service de maintenance et réparation d\'extincteurs toutes marques certifié Incendie.',
         keywords: ['dépannage', 'maintenance', 'sav', 'réparation']
     }
 ];

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     return {
         title: `maintenance matériel incendie ${brand.name} : Prix & Devis ${year}`,
-        description: `technicien certifié Incendie pour votre ${brand.name} (${brand.models.join(', ')}). Devis gratuit, crédit d'impôt et maintenance sous 7 jours. Expert ${brand.name} ${year}.`,
+        description: `technicien certifié Incendie pour votre ${brand.name} (${brand.models.join(', ')}). Devis gratuit, vérification annuelle et recharge sous 7 jours. Expert ${brand.name} ${year}.`,
     };
 }
 
@@ -74,12 +74,12 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                         Expert {brand.name} {year}
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-                        maintenance de extincteur <br />
+                        maintenance d'extincteur <br />
                         pour <span className="text-red-500">{brand.name}</span>
                     </h1>
                     <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
                         Vous avez une {brand.models[0]} ou une {brand.models[1]} ?
-                        Nos électriciens certifiés Incendie installent la extincteur parfaite pour votre {brand.name}.
+                        Nos techniciens certifiés Incendie installent l'extincteur parfaite pour votre {brand.name}.
                     </p>
                 </div>
             </div>
@@ -129,11 +129,9 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                                 L'installation respecte scrupuleusement le Code du Travail (article R4227-29) et les règles d'implantation APSAD R4.
                             </p>
 
-                            <h3>Faut-il installer un disjoncteur spécifique ?</h3>
+                            <h3>Que vérifie le technicien lors du passage annuel ?</h3>
                             <p>
-                                Oui. La norme NF C 15-100 impose une ligne dédiée pour la protection de votre professionnel.
-                                Votre maintenance devra comporter un interrupteur différentiel Type A ou B (selon la extincteur) et un disjoncteur adapté à la puissance (32A ou 40A).
-                                Nos devis incluent systématiquement ces protections obligatoires.
+                                La vérification porte sur l'état du corps et de la tête de l'appareil, le poids et la pression de l'agent extincteur, la goupille et le plombage, l'accessibilité et la signalisation, puis la mise à jour du registre de sécurité. Toute anomalie est consignée sur l'étiquette datée et l'attestation est remise au responsable de l'établissement.
                             </p>
                         </div>
 

@@ -2,16 +2,16 @@
 
 export default function MaintenanceSteps() {
     const steps = [
-        { title: "1. Visite Technique", desc: "Vérification de la terre et du tableau (obligatoire)." },
-        { title: "2. Devis & Aides", desc: "Calcul immédiat de votre prime NF et Crédit d'Impôt." },
-        { title: "3. maintenance", desc: "Pose en 4h par un technicien APSAD Incendie." },
-        { title: "4. Mise en service", desc: "Tests de charge et remise du certificat de conformité." }
+        { title: "1. Visite technique", desc: "Relevé des équipements existants et du registre de sécurité (obligatoire)." },
+        { title: "2. Devis détaillé", desc: "Chiffrage du matériel, de la pose et du contrat de suivi annuel." },
+        { title: "3. Mise en conformité", desc: "Pose et vérification par un technicien certifié APSAD." },
+        { title: "4. Suivi annuel", desc: "Vérification annuelle, étiquetage daté et attestation remise au responsable." }
     ];
 
     return (
         <section className="py-16 bg-slate-50">
             <div className="container mx-auto px-4 max-w-5xl">
-                <h2 className="text-3xl font-bold text-center mb-10 text-slate-900">Comment se passe l'maintenance ?</h2>
+                <h2 className="text-3xl font-bold text-center mb-10 text-slate-900">Comment se passe la maintenance ?</h2>
                 <div className="grid md:grid-cols-4 gap-6">
                     {steps.map((s, i) => (
                         <div key={i} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">

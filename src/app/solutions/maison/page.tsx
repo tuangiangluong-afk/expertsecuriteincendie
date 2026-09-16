@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const metadata = {
     title: "Sécurité Incendie Maison : Détecteurs & Extincteurs | Guide 2026",
-    description: "Tout savoir sur l'maintenance d'une Extincteur en maison individuelle. Prix, Crédit d'Impôt, Puissance (7kg vs 22kg), et comparatif des meilleures extincteurs.",
+    description: "Tout savoir sur l'équipement d'une maison en extincteurs : prix, agents extincteurs (eau, CO2, poudre), obligations et comparatif des marques.",
 };
 
 export default function SolutionMaison() {
@@ -35,8 +35,8 @@ export default function SolutionMaison() {
                                     Installer une matériel incendie en <span className="text-red-600">maison individuelle</span>
                                 </h1>
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                    Finies les protections lentes. Passez à la sécurité maximale avec une Extincteur sécurisée.
-                                    Ce guide vous explique tout : choix du matériel, aides de l'État et coût d'maintenance.
+                                    Finies les protections lentes. Passez à la sécurité maximale avec un extincteur sécurisée.
+                                    Ce guide vous explique tout : choix du matériel, aides de l'État et coût de maintenance.
                                 </p>
                                 <div className="flex items-center gap-4 text-sm font-medium text-slate-500 justify-center lg:justify-start">
                                     <span className="flex items-center gap-1"><Clock size={16} /> Lecture : 8 min</span>
@@ -211,7 +211,7 @@ export default function SolutionMaison() {
                             Pour les particuliers : pas d'aide d'État dédiée à l'équipement, mais deux leviers réels :
                         </p>
                         <ul className="list-disc pl-5 text-sm text-yellow-900 space-y-1">
-                            <li><strong>TVA réduite à 5,5%</strong> sur les travaux de mise en sécurité réalisés par un professionnel dans un logement de plus de 2 ans.</li>
+                            <li><strong>Devis clair</strong> : matériel, main-d'œuvre et contrat d'entretien annuel chiffrés séparément, sans frais cachés.</li>
                             <li><strong>Réduction d'assurance :</strong> la plupart des contrats habitation offrent -5% à -10% pour un logement équipé (détecteurs + extincteur).</li>
                         </ul>
                         <p className="text-xs mt-3 text-yellow-800 italic">

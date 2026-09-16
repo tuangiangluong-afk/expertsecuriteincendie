@@ -12,24 +12,24 @@ interface FAQProps {
 export default function FAQ({ city, type, themeColor = 'red' }: FAQProps) {
     const questions = [
         {
-            q: "Combien coûte l'maintenance d'une matériel incendie ?",
-            a: "Le prix moyen d'une maintenance clé en main (extincteur + Pose) varie entre 900€ et 1500€ TTC après déduction du crédit d'impôt. Le coût dépend de la distance entre votre registre de sécurité et la place de parking, ainsi que de la puissance de la extincteur (7kg ou 11kg)."
+            q: "Combien coûte la maintenance d'une matériel incendie ?",
+            a: "Le prix d'une mise en conformité complète (extincteurs, supports, signalétique et vérification) se situe le plus souvent entre 300 € et 1 500 € HT pour un ERP de petite surface. Le montant dépend du nombre d'appareils nécessaires et du niveau de risque de vos locaux."
         },
         {
             q: "Puis-je installer une extincteur en copropriété ?",
-            a: "Oui, grâce au 'Droit à la Prise'. Vous pouvez faire installer une extincteur à vos frais sur votre place de parking. Vous devez simplement notifier votre syndic par lettre recommandée (nous avons un outil gratuit pour générer ce courrier)."
+            a: "Oui. Le matériel de sécurité incendie des parties communes relève du syndicat de copropriété, mais rien ne vous empêche d'équiper votre logement ou votre box : extincteur adapté au risque, détecteur de fumée et, si besoin, porte coupe-feu. Nous fournissons le dossier technique à présenter en assemblée générale."
         },
         {
             q: "Quelles sont les aides de l'État en 2026 ?",
-            a: "Les particuliers bénéficient d'un Crédit d'Impôt de 500€ par système de charge (pilotable). La TVA est réduite à 5,5% si l'maintenance est réalisée par un professionnel qualifié Incendie."
+            a: "Aucune aide d'État n'est fléchée sur l'achat ou l'entretien d'extincteurs pour les particuliers. Le seul gain concret est la réduction de prime accordée par certains contrats d'assurance habitation, et pour les entreprises la déductibilité de la dépense."
         },
         {
             q: "Combien de temps faut-il pour une maintenance ?",
-            a: "Une fois le devis validé, l'maintenance prend généralement une demi-journée (3 à 4 heures). Nos techniciens s'occupent de tout : fixation, raccordement, mise en service et explications."
+            a: "Une fois le devis validé, la maintenance prend généralement une demi-journée (3 à 4 heures). Nos techniciens s'occupent de tout : fixation, raccordement, mise en service et explications."
         },
         {
             q: "Pourquoi choisir un technicien certifié Incendie ?",
-            a: "La certification Incendie est obligatoire pour toute maintenance supérieure à 3,7kg. Elle garantit la conformité de l'maintenance, votre sécurité, et elle est indispensable pour obtenir le crédit d'impôt et pour que votre assurance habitation vous couvre en cas de sinistre."
+            a: "La vérification annuelle est obligatoire pour tous les extincteurs, quelle que soit leur capacité, et elle doit être consignée dans le registre de sécurité. C'est ce suivi qui garantit la conformité de l'établissement et permet à l'assureur de couvrir un sinistre."
         }
     ];
 

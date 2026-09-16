@@ -96,7 +96,7 @@ export default async function NationalGuidePage({ params }: { params: Promise<{ 
 
             {/* Header */}
             <header className="bg-neutral-900 text-white pt-24 pb-32 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2621&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
+                <div className="absolute inset-0 bg-[url('/images/realizations/hero-extincteur.jpg')] bg-cover bg-center opacity-30"></div>
                 <div className="cube-pattern absolute inset-0 opacity-10"></div>
 
                 <div className="container mx-auto px-4 relative z-10 text-center">
@@ -133,7 +133,7 @@ export default async function NationalGuidePage({ params }: { params: Promise<{ 
                             </p>
                             <h2 className="text-xl font-bold text-neutral-900 mt-6 mb-3">Les avantages Expert Sécurité Incendie</h2>
                             <ul className="space-y-2">
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500" /> Électriciens Certifiés Incendie</li>
+                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500" /> Techniciens Certifiés Incendie</li>
                                 <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500" /> Devis Gratuit sous 24h</li>
                                 <li className="flex items-center gap-2"><CheckCircle size={16} className="text-green-500" /> Garantie Matériel &amp; Main d&apos;œuvre</li>
                             </ul>
@@ -141,7 +141,7 @@ export default async function NationalGuidePage({ params }: { params: Promise<{ 
 
                         {/* Reviews mockup for this POI */}
                         <div className="bg-white rounded-3xl p-8 shadow-sm border border-neutral-100">
-                                    <p className="text-sm italic text-neutral-700">&quot;Droit à la prise respecté, maintenance propre dans mon parking souterrain. Je recommande.&quot;</p>
+                                    <p className="text-sm italic text-neutral-700">&quot;Extincteurs vérifiés chaque année, registre à jour dans mon parking souterrain. Je recommande.&quot;</p>
                                 </div>
                             </div>
 

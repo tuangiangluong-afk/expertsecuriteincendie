@@ -2,7 +2,6 @@ import { MetadataRoute } from 'next';
 import { NATIONAL_TARGETS } from '@/config/national-targets';
 import { SEO_ROUTES } from '@/lib/seo-routes';
 import { SEO_SERVICES } from '@/lib/seo-data';
-import { SEO_GARES } from '@/lib/seo-gares';
 import { NATIONAL_CONFIG } from '@/config/national';
 import { slugify } from '@/lib/slugify';
 import { brands } from '@/data/brands';

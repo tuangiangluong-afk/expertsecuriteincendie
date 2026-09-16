@@ -68,7 +68,7 @@ export default async function ContactPage({ params }: { params: Promise<{ domain
                     <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
                         Vous avez un projet d&apos;maintenance ? Une question sur les aides ?
                         <br />
-                        Nos électriciens certifiés Incendie vous répondent.
+                        Nos techniciens certifiés Incendie vous répondent.
                     </p>
                 </div>
 

@@ -52,7 +52,7 @@ export default function MentionsLegales() {
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className="mb-4 text-2xl font-bold text-red-900">2. Service Proposé</h2>
                         <p>
-                            Expert Sécurité Incendie est une plateforme nationale de mise en relation entre les particuliers, les copropriétés ou les entreprises et des électriciens certifiés Incendie (Infrastructure de protection pour ERP et entreprises).
+                            Expert Sécurité Incendie est une plateforme nationale de mise en relation entre les particuliers, les copropriétés ou les entreprises et des techniciens certifiés Incendie (Infrastructure de protection pour ERP et entreprises).
                         </p>
                     </div>
 
@@ -77,7 +77,7 @@ export default function MentionsLegales() {
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className="mb-4 text-2xl font-bold text-red-900">5. Données Personnelles (RGPD)</h2>
                         <p>
-                            Les données collectées (nom, téléphone, adresse d'maintenance, type de extincteur) sont utilisées uniquement pour l'établissement de devis et la mise en relation avec nos partenaires techniciens certifiés.
+                            Les données collectées (nom, téléphone, adresse de maintenance, type d'extincteur) sont utilisées uniquement pour l'établissement de devis et la mise en relation avec nos partenaires techniciens certifiés.
                         </p>
                         <p>
                             Vous disposez d&apos;un droit d&apos;accès, de rectification et de suppression de vos données. Pour l&apos;exercer, contactez-nous via la page contact.

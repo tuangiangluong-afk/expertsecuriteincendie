@@ -151,7 +151,7 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                             <div className="relative h-[320px] w-full rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/10 border border-slate-100 bg-white p-2">
                                 <div className="relative w-full h-full rounded-xl overflow-hidden bg-emerald-100">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=3540&auto=format&fit=crop"
+                                        src="/images/realizations/hero-extincteur.jpg"
                                         alt={`Parking entreprise extincteur protection ${cityName}`}
                                         fill
                                         className="object-cover"
@@ -183,8 +183,8 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                                     <div className="text-[10px] text-slate-500 mt-1">Aide Aide/extincteur</div>
                                 </div>
                                 <div className="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-2xl font-black text-amber-600">100%</div>
-                                    <div className="text-[10px] text-slate-500 mt-1">TVA récupérable</div>
+                                    <div className="text-2xl font-black text-amber-600">24h</div>
+                                    <div className="text-[10px] text-slate-500 mt-1">Devis remis</div>
                                 </div>
                             </div>
 
@@ -246,8 +246,8 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                                 <TrendingUp className="text-emerald-600 mb-3" size={28} />
                                 <h4 className="font-bold text-slate-900 mb-2">Avantages Fiscaux</h4>
                                 <p className="text-xs text-slate-600">
-                                    Amortissement accéléré, TVA 100% récupérable sur l&apos;électricité,
-                                    primes Aide jusqu&apos;à 2 200€/extincteur.
+                                    Facturation HT, contrat annuel et attestation de vérification
+                                    remise après chaque passage de nos techniciens.
                                 </p>
                             </div>
                             <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
@@ -260,7 +260,7 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                             </div>
                         </div>
 
-                        <h2>Types de extincteurs pour les entreprises à {cityName}</h2>
+                        <h2>Types d'extincteurs pour les entreprises à {cityName}</h2>
                         <p>
                             Nos experts à {cityName} dimensionnent l&apos;infrastructure selon votre usage :
                         </p>

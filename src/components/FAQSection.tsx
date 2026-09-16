@@ -15,7 +15,7 @@ export default function FAQSection({ city }: { city?: string }) {
         },
         {
             question: `Quel est le prix moyen d'une maintenance de matériel incendie${cityText} ?`,
-            answer: `Le prix moyen d'une maintenance complète (extincteur + pose) se situe entre 990€ et 1500€ TTC, aides déduites. Ce coût varie selon la marque de la extincteur, la distance entre le registre de sécurité et l'emplacement de charge, et les éventuels travaux de mise aux normes${cityPlural}.`
+            answer: `Le prix moyen d'une maintenance complète (extincteur + pose) se situe entre 990€ et 1500€ TTC, aides déduites. Ce coût varie selon la marque de l'extincteur, la distance entre le registre de sécurité et l'emplacement de charge, et les éventuels travaux de mise aux normes${cityPlural}.`
         },
         {
             question: "Quelle puissance pour charger une matériel à la maison ?",

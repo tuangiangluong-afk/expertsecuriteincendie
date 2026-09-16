@@ -194,8 +194,8 @@ export default function HomePage() {
                         <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
                             {[
                                 { label: "Mise en conformité", value: "960€", detail: "Copropriétés" },
-                                { label: "Crédit d'Impôt", value: "500€", detail: "75% plafonné" },
-                                { label: "TVA Réduite", value: "5.5%", detail: "Au lieu de 20%" },
+                                { label: "Vérification annuelle", value: "dès 12,50€", detail: "par extincteur, HT" },
+                                { label: "Intervention", value: "48h", detail: "Partout en France" },
                                 { label: "Référentiel métier", value: "NF / APSAD", detail: "Selon l'équipement et le site" },
                             ].map((aide, i) => (
                                 <div key={i} className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
@@ -313,7 +313,7 @@ export default function HomePage() {
 
                         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                             {[
-                                { icon: Home, title: "Maison", desc: "Extincteur 7 à 22kg. maintenance rapide en 48h.", href: "/solutions/maison" },
+                                { icon: Home, title: "Maison", desc: "Extincteurs 1 à 6 kg. Vérification sous 48h.", href: "/solutions/maison" },
                                 { icon: Building2, title: "Copropriété", desc: "Solution collective. Mise en conformité jusqu'à 960€.", href: "/solutions/copropriete" },
                                 { icon: Briefcase, title: "Entreprise", desc: "Flotte & collaborateurs. Supervision à distance.", href: "/solutions/entreprise" },
                             ].map((service, i) => (

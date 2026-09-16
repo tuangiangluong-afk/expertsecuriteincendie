@@ -231,7 +231,7 @@ export function BookingWidget({ city, compact = false }: BookingWidgetProps) {
                 </button>
 
                 <p className="text-[10px] text-center text-neutral-400 mt-4 leading-relaxed">
-                    Vos données sont protégées. En validant, vous acceptez d&apos;être recontacté pour votre projet de extincteur.
+                    Vos données sont protégées. En validant, vous acceptez d&apos;être recontacté pour votre projet d'extincteur.
                 </p>
 
                 {/* Trust Badges */}

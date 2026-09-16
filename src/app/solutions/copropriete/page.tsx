@@ -7,8 +7,8 @@ import { getHubConfig } from "@/lib/sites-config";
 import Image from "next/image";
 
 export const metadata = {
-    title: "maintenance Sécurité Incendie Copropriété : Guide Syndic & Droit à la Prise",
-    description: "Tout comprendre sur la protection en copropriété. Droit à la prise, infrastructure collective, subventions Aide et gestion de la facturation.",
+    title: "Sécurité incendie en copropriété : guide du syndic",
+    description: "Tout comprendre sur la protection incendie en copropriété : équipement lot par lot ou collectif, obligations du syndic et budget à prévoir.",
 };
 
 export default function SolutionCopro() {
@@ -67,7 +67,7 @@ export default function SolutionCopro() {
                                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20 border border-slate-100 bg-white p-2">
                                     <div className="relative w-full h-full rounded-xl overflow-hidden bg-purple-100">
                                         <Image
-                                            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=3540&auto=format&fit=crop"
+                                            src="/images/realizations/hero-extincteur.jpg"
                                             alt="Copropriété Sécurité Incendie"
                                             fill
                                             className="object-cover hover:scale-105 transition-transform duration-700"
@@ -115,13 +115,13 @@ export default function SolutionCopro() {
                     <h2>Le défi de la protection en immeuble</h2>
                     <p>
                         Contrairement à une maison individuelle, on ne peut pas simplement se brancher sur une prise du garage. Il faut acheminer l'électricité depuis une source commune tout en individualisant la facturation.
-                        Deux approches existent : le <strong>Droit à la Prise</strong> (individuel) et l'<strong>Infrastructure Collective</strong> (solution globale).
+                        Deux approches existent : l'<strong>équipement lot par lot</strong>, à l'initiative d'un copropriétaire, et l'<strong>équipement collectif</strong> voté en assemblée générale.
                     </p>
 
                     <div className="not-prose grid md:grid-cols-2 gap-6 my-10">
                         <div className="border border-slate-200 rounded-2xl p-6 hover:shadow-md transition">
                             <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
-                                <Users className="text-red-500" /> Droit à la prise
+                                <Users className="text-red-500" /> Équipement par lot
                             </h3>
                             <p className="text-sm text-slate-600 mb-4">
                                 Chaque résident fait sa demande individuelle. Un compteur est ajouté pour sa place.
@@ -150,7 +150,7 @@ export default function SolutionCopro() {
                     <h2>La solution préférée des syndics : Le Tiers-Investissement</h2>
                     <p>
                         Aujourd'hui, des opérateurs (partenaires d'Expert Sécurité Incendie) proposent de financer à <strong>100% l'infrastructure collective</strong>.
-                        La copropriété ne paie RIEN. C'est l'utilisateur final qui paie son maintenance de extincteur et un abonnement pour le service.
+                        La copropriété ne paie RIEN. C'est l'utilisateur final qui paie son maintenance d'extincteur et un abonnement pour le service.
                     </p>
                     <blockquote>
                         "C'est la solution zéro souci : pas de frais pour la copro, maintenance gérée par l'opérateur, et valorisation immédiate de l'immeuble."
@@ -217,7 +217,7 @@ export default function SolutionCopro() {
                         </div>
                         <div className="bg-white p-4 rounded-xl border border-slate-200">
                             <h4 className="font-bold mb-1">Si je n'ai pas de matériel, je paie ?</h4>
-                            <p className="text-sm text-slate-600">Non ! C'est le principe de l'utilisateur-payeur. Les résidents sans matériel ne paient absolument rien, ni pour l'maintenance, ni pour l'usage.</p>
+                            <p className="text-sm text-slate-600">Non ! C'est le principe de l'utilisateur-payeur. Les résidents sans matériel ne paient absolument rien, ni pour la maintenance, ni pour l'usage.</p>
                         </div>
                     </div>
                 </article>

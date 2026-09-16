@@ -62,14 +62,14 @@ export default async function CGV({ params }: { params: Promise<{ domain: string
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <p className="text-sm text-neutral-500">Dernière mise à jour : 25/01/2026</p>
                         <p>
-                            Les présentes Conditions Générales de Vente (ci-après &quot;CGV&quot;) régissent les relations contractuelles entre la société <strong>WELINK TECH</strong>, sise au 6 RUE DES BATELIERS, 92110 CLICHY (SIREN 984 800 136), ci-après &quot;L&apos;Éditeur&quot;, et toute personne utilisant le site <strong>{city.domain}</strong> pour la mise en relation avec des techniciens de extincteurs certifiés, ci-après &quot;Le Client&quot;.
+                            Les présentes Conditions Générales de Vente (ci-après &quot;CGV&quot;) régissent les relations contractuelles entre la société <strong>WELINK TECH</strong>, sise au 6 RUE DES BATELIERS, 92110 CLICHY (SIREN 984 800 136), ci-après &quot;L&apos;Éditeur&quot;, et toute personne utilisant le site <strong>{city.domain}</strong> pour la mise en relation avec des techniciens d'extincteurs certifiés, ci-après &quot;Le Client&quot;.
                         </p>
                     </div>
 
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className={`mb-4 text-2xl font-bold ${theme.text}`}>1. Objet et Acceptation</h2>
                         <p>
-                            Le service proposé est la mise en relation avec des électriciens professionnels certifiés Incendie (Infrastructure de protection pour ERP et entreprises) exerçant sur la commune de <strong>{city.city}</strong>. L'utilisation du formulaire de demande de devis ou l'appel téléphonique via le site implique l'acceptation sans réserve des présentes CGV.
+                            Le service proposé est la mise en relation avec des techniciens professionnels certifiés Incendie (Infrastructure de protection pour ERP et entreprises) exerçant sur la commune de <strong>{city.city}</strong>. L'utilisation du formulaire de demande de devis ou l'appel téléphonique via le site implique l'acceptation sans réserve des présentes CGV.
                         </p>
                     </div>
 

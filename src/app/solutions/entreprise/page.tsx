@@ -60,7 +60,7 @@ export default function SolutionEntreprise() {
                                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20 border border-slate-100 bg-white p-2">
                                     <div className="relative w-full h-full rounded-xl overflow-hidden bg-emerald-100">
                                         <Image
-                                            src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=3540&auto=format&fit=crop"
+                                            src="/images/realizations/hero-extincteur.jpg"
                                             alt="Parking Entreprise matériel incendie"
                                             fill
                                             className="object-cover hover:scale-105 transition-transform duration-700"
@@ -120,7 +120,7 @@ export default function SolutionEntreprise() {
                         <div className="p-4 bg-slate-100 rounded-xl">
                             <TrendingUp className="text-emerald-600 mb-3" size={28} />
                             <h4 className="font-bold text-slate-900 mb-2">Avantages Fiscaux</h4>
-                            <p className="text-xs text-slate-600">Amortissement possible, TVA récupérable sur l'électricité (selon cas), Aides Aide.</p>
+                            <p className="text-xs text-slate-600">La maintenance préventive évite les rappels de mise en conformité et les interventions d'urgence facturées au déplacement.</p>
                         </div>
                         <div className="p-4 bg-slate-100 rounded-xl">
                             <Globe className="text-emerald-600 mb-3" size={28} />
@@ -129,19 +129,19 @@ export default function SolutionEntreprise() {
                         </div>
                     </div>
 
-                    <h2>Quels types de extincteurs pour une entreprise ?</h2>
+                    <h2>Quels types d'extincteurs pour une entreprise ?</h2>
                     <p>
                         Contrairement au domicile où la charge lente suffit, l'entreprise a des besoins variés.
                         On mixe souvent AC (Charge normale) et DC (Charge rapide).
                     </p>
                     <ul>
-                        <li><strong>extincteurs AC 7kg à 22kg :</strong> Pour les collaborateurs qui restent la journée (8h). Idéal pour les flottes de fonction.</li>
+                        <li><strong>Extincteurs à pression auxiliaire 6 à 9 kg :</strong> pour les ERP de petite capacité et les locaux de bureaux.</li>
                         <li><strong>extincteurs DC 50kg+ :</strong> Pour les visiteurs, commerciaux de passage ou logistique. protection 80% en 40 min.</li>
                     </ul>
 
                     <h2>Supervision et Monétisation</h2>
                     <p>
-                        Installer la extincteur n'est que la première étape. Il faut ensuite la <strong>gérer</strong>.
+                        Installer l'extincteur n'est que la première étape. Il faut ensuite la <strong>gérer</strong>.
                         Nos solutions incluent des logiciels de supervision :
                     </p>
                     <ul className="list-none pl-0 space-y-2">

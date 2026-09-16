@@ -36,7 +36,7 @@ const timelineSteps: TimelineStep[] = [
         icon: <Phone className="w-5 h-5" />,
         title: "Appel d'un expert",
         timing: "Sous 24h",
-        description: "Nous confirmerons vos besoins d'maintenance et répondrons à vos questions initiales.",
+        description: "Nous confirmerons vos besoins de maintenance et répondrons à vos questions initiales.",
         active: true,
     },
     {
@@ -50,7 +50,7 @@ const timelineSteps: TimelineStep[] = [
         icon: <FileText className="w-5 h-5" />,
         title: "Devis personnalisé",
         timing: "Adapté à vos besoins",
-        description: "Vous recevrez un devis détaillé incluant le matériel, l'maintenance et les aides éligibles.",
+        description: "Vous recevrez un devis détaillé incluant le matériel, la maintenance et les aides éligibles.",
         active: false,
     },
 ];

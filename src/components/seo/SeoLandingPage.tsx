@@ -28,7 +28,7 @@ export default function SeoLandingPage({ page, tenant }: SeoPageProps) {
             {/* Hero Section with Booking Widget */}
             <section className="relative bg-neutral-900 text-white pt-24 pb-32 overflow-hidden">
                 {/* Background Pattern */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
+                <div className="absolute inset-0 bg-[url('/images/realizations/hero-extincteur.jpg')] bg-cover bg-center opacity-20"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/80 to-transparent"></div>
 
                 <div className="container mx-auto px-4 relative z-10">

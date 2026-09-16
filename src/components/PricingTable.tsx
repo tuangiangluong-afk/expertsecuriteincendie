@@ -13,7 +13,7 @@ export default function PricingTable() {
                     <table className="w-full max-w-4xl mx-auto text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-100 text-slate-700">
-                                <th className="p-4 border-b">Type d'maintenance</th>
+                                <th className="p-4 border-b">Type de maintenance</th>
                                 <th className="p-4 border-b">Matériel (extincteur)</th>
                                 <th className="p-4 border-b">maintenance (Main d'œuvre)</th>
                                 <th className="p-4 border-b">Aides Déduites*</th>
@@ -42,7 +42,7 @@ export default function PricingTable() {
                     </table>
                 </div>
                 <p className="text-center text-sm text-slate-500 mt-4 italic">
-                    *Estimations moyennes 2026 incluant Crédit d'Impôt et TVA 5.5%. Le prix final dépend de votre registre de sécurité.
+                    *Estimations moyennes 2026 hors taxes, constatées en France métropolitaine. Le prix final dépend du nombre d'équipements et de leur implantation.
                 </p>
             </div>
         </section>

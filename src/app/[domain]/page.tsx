@@ -37,7 +37,7 @@ export async function generateMetadata({
     if (!site) {
         return {
             title: "Expert Sécurité Incendie | Maintenance Incendie",
-            description: "maintenance de extincteurs pour ERP et entreprises.",
+            description: "maintenance d'extincteurs pour ERP et entreprises.",
         };
     }
  
@@ -283,8 +283,8 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                         <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
                             {[
                                 { label: "Mise en conformité", value: "960€", detail: "Copropriétés" },
-                                { label: "Crédit d'Impôt", value: "500€", detail: "75% plafonné" },
-                                { label: "TVA Réduite", value: "5.5%", detail: "Au lieu de 20%" },
+                                { label: "Vérification annuelle", value: "dès 12,50€", detail: "par extincteur, HT" },
+                                { label: "Intervention", value: "48h", detail: "Partout en France" },
                                 { label: "Référentiel métier", value: "NF / APSAD", detail: "Selon l'équipement et le site" },
                             ].map((aide, i) => (
                                 <div key={i} className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
@@ -391,7 +391,7 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                         </div>
                                     </div>
                                     <p className="text-sm text-green-200 mt-3">
-                                        *Tarif heures creuses EDF. La extincteur programme automatiquement la protection aux heures les moins chères.
+                                        *Vérification annuelle obligatoire (Code du travail, art. R4227-28). Comptez 15 à 30 € HT par extincteur, main-d'œuvre et attestation incluses.
                                     </p>
                                 </div>
                             </div>
@@ -416,7 +416,7 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                 {
                                     icon: Home,
                                     title: "Maison Individuelle",
-                                    description: "Pour les particuliers. extincteur 7kg à 22kg. Garage ou extérieur.",
+                                    description: "Pour les particuliers : extincteurs 1 à 6 kg, cuisine, garage ou chaufferie.",
                                     features: ["maintenance sous 48h", "Éligible Crédit Impôt", "Devis gratuits"],
                                     color: "blue",
                                     href: "/solutions/maison"
@@ -424,8 +424,8 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                 {
                                     icon: Building2,
                                     title: "Copropriété",
-                                    description: "Pour syndics et résidents. Droit à la prise ou infrastructure collective.",
-                                    features: ["Étude technique offerte", "Dossier AG clé en main", "Aides Aide"],
+                                    description: "Pour syndics et résidents : équipement lot par lot ou contrat collectif.",
+                                    features: ["Étude technique offerte", "Dossier AG clé en main", "Aides cumulées"],
                                     color: "purple",
                                     highlight: true,
                                     href: "/solutions/copropriete"

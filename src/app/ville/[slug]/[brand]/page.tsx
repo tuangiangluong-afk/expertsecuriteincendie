@@ -133,7 +133,7 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                             à {site.city}
                         </h1>
                         <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
-                            Vous roulez en {brand.models[0]}{brand.models[1] ? ` ou ${brand.models[1]}` : ''} ? Nos électriciens certifiés installent la extincteur parfaitement adaptée à votre {brand.name} à {site.city}.
+                            Vos locaux sont équipés d'extincteurs {brand.models[0]}{brand.models[1] ? ` ou ${brand.models[1]}` : ''} ? Nos techniciens certifiés Incendie assurent la vérification annuelle et la remise en état de votre matériel {brand.name} à {site.city}.
                         </p>
                         <a href="#devis" className="bg-red-600 hover:bg-red-500 text-white px-8 py-4 rounded-xl font-bold inline-flex items-center gap-2 transition">
                             Obtenir un devis gratuit

@@ -104,10 +104,10 @@ const _hubConfig: SiteConfig = {
     priceRange: 'STANDARD',
     theme: 'premium', // Vaisseau Mère = Dark/Tech
     heroImage: "/images/realizations/hero-extincteur.jpg",
-    description: "Le réseau n°1 de techniciens de extincteurs en France. Devis gratuit, maintenance rapide, certifié APSAD Incendie.",
+    description: "Le réseau n°1 de techniciens d'extincteurs en France. Devis gratuit, maintenance rapide, certifié APSAD Incendie.",
     meta: {
         title: "Expert Sécurité Incendie | maintenance matériel incendie France",
-        description: "maintenance de extincteurs pour ERP et entreprises partout en France. Devis gratuit en 24h. Certifié APSAD Incendie & NF. Audit & Devis Gratuit 24h."
+        description: "maintenance d'extincteurs pour ERP et entreprises partout en France. Devis gratuit en 24h. Certifié APSAD Incendie & NF. Audit & Devis Gratuit 24h."
     },
     certifications: TEMPLATE_CERTIFICATIONS,
     aidesDisponibles: TEMPLATE_AIDES,
@@ -176,7 +176,7 @@ const _neuillyConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'LUXE',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1594535182308-8ff240fde6a6?q=80&w=2865&auto=format&fit=crop", // Porsche Taycan Charging vibe
+    heroImage: "/images/realizations/hero-extincteur.jpg", // Porsche Taycan Charging vibe
     description: "maintenance matériel incendie Neuilly-sur-Seine. Service premium.",
     meta: {
         title: "matériel incendie Neuilly-sur-Seine | maintenance Premium",
@@ -208,7 +208,7 @@ const _lyonConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1629816677935-716447c23bc4?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance matériel incendie à Lyon et région Rhône.",
     meta: {
         title: "maintenance matériel incendie Lyon | technicien Incendie 69",
@@ -239,7 +239,7 @@ const _boulogneConfig: SiteConfig = {
     targetType: 'COPRO',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1565514020176-857de743ebc9?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "Spécialiste matériel incendie Boulogne-Billancourt.",
     meta: {
         title: "maintenance matériel incendie Boulogne-Billancourt",
@@ -270,7 +270,7 @@ const _bordeauxConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1598155523122-38423bb4d6c1?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur Bordeaux et Gironde.",
     meta: {
         title: "maintenance matériel incendie Bordeaux | Expert 33",
@@ -301,7 +301,7 @@ const _toulouseConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1549241517-385d883cb0d0?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance matériel incendie Toulouse.",
     meta: {
         title: "maintenance matériel incendie Toulouse | Devis Gratuit",
@@ -331,11 +331,11 @@ const _annecyConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'LUXE',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1548777123-e216912df7d8?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Annecy et Haute-Savoie.",
     meta: {
         title: "matériel incendie Annecy | maintenance Haute-Savoie",
-        description: "maintenance de extincteurs à Annecy. Service premium pour frontaliers. Devis gratuit."
+        description: "maintenance d'extincteurs à Annecy. Service premium pour frontaliers. Devis gratuit."
     },
     certifications: TEMPLATE_CERTIFICATIONS,
     aidesDisponibles: TEMPLATE_AIDES,
@@ -362,7 +362,7 @@ const _stgermainConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1563720743-7f215d2e7d77?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Saint-Germain-en-Laye.",
     meta: {
         title: "matériel incendie Saint-Germain-en-Laye | 78",
@@ -392,8 +392,8 @@ const _niceConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1533512930330-4ac257c86793?q=80&w=2940&auto=format&fit=crop",
-    description: "maintenance de extincteurs à Nice et Côte d'Azur.",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
+    description: "maintenance d'extincteurs à Nice et Côte d'Azur.",
     meta: {
         title: "maintenance matériel incendie Nice | Côte d'Azur",
         description: "technicien Incendie Nice. Devis gratuit pour particuliers et copropriétés niçoises."
@@ -423,7 +423,7 @@ const _nantesConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1572273614138-0382343a411e?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Nantes.",
     meta: {
         title: "maintenance matériel incendie Nantes | Loire-Atlantique",
@@ -454,11 +454,11 @@ const _aixConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1596323605664-558c490bc89c?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Aix-en-Provence.",
     meta: {
         title: "matériel incendie Aix-en-Provence | maintenance",
-        description: "maintenance de extincteurs à Aix-en-Provence. Villas et résidences. Devis gratuit."
+        description: "maintenance d'extincteurs à Aix-en-Provence. Villas et résidences. Devis gratuit."
     },
     certifications: TEMPLATE_CERTIFICATIONS,
     aidesDisponibles: TEMPLATE_AIDES,
@@ -485,7 +485,7 @@ const _strasbourgConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1568225556276-888e7d8d2146?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Strasbourg.",
     meta: {
         title: "maintenance matériel incendie Strasbourg | Alsace",
@@ -515,7 +515,7 @@ const _lilleConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1502484214532-6a84ebfa21ec?q=80&w=2940&auto=format&fit=crop", // Lille Architecture
+    heroImage: "/images/realizations/hero-extincteur.jpg", // Lille Architecture
     description: "maintenance extincteur protection Lille et métropole.",
     meta: {
         title: "maintenance matériel incendie Lille | Nord",
@@ -546,7 +546,7 @@ const _montpellierConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1563294379-cb2563d72221?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Montpellier.",
     meta: {
         title: "maintenance matériel incendie Montpellier | Hérault",
@@ -576,7 +576,7 @@ const _versaillesConfig: SiteConfig = {
     targetType: 'COPRO',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1549272658-95493c048704?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Versailles.",
     meta: {
         title: "maintenance matériel incendie Versailles | 78",
@@ -606,7 +606,7 @@ const _stmaurConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2940&auto=format&fit=crop", // Suburb House
+    heroImage: "/images/realizations/hero-extincteur.jpg", // Suburb House
     description: "maintenance extincteur protection Saint-Maur-des-Fossés.",
     meta: {
         title: "matériel incendie Saint-Maur-des-Fossés | 94",
@@ -636,7 +636,7 @@ const _levalloisConfig: SiteConfig = {
     targetType: 'COPRO',
     priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2940&auto=format&fit=crop", // Modern buildings
+    heroImage: "/images/realizations/hero-extincteur.jpg", // Modern buildings
     description: "maintenance extincteur protection Levallois-Perret.",
     meta: {
         title: "maintenance matériel incendie Levallois-Perret",
@@ -666,7 +666,7 @@ const _rennesConfig: SiteConfig = {
     targetType: 'MIXED',
     priceRange: 'STANDARD',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Rennes.",
     meta: {
         title: "maintenance matériel incendie Rennes | Bretagne",
@@ -696,7 +696,7 @@ const _cannesConfig: SiteConfig = {
     targetType: 'COPRO',
     priceRange: 'LUXE',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1545622080-60b545d19ec6?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Cannes.",
     meta: {
         title: "matériel incendie Cannes | maintenance Luxe",
@@ -727,7 +727,7 @@ const _biarritzConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'LUXE',
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1579489569080-87a30349312c?q=80&w=2940&auto=format&fit=crop",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance extincteur protection Biarritz.",
     meta: {
         title: "matériel incendie Biarritz | Pays Basque",
@@ -758,7 +758,7 @@ const _marseilleConfig: SiteConfig = {
     targetType: 'MAISON', // On vise les villas et le Solaire
     priceRange: 'PREMIUM', // On monte en gamme pour l'upsell Solaire
     theme: 'trust',
-    heroImage: "https://images.unsplash.com/photo-1559441142-e1d51a665243?q=80&w=2940&auto=format&fit=crop", // Vieux Port ou Calanques
+    heroImage: "/images/realizations/hero-extincteur.jpg", // Vieux Port ou Calanques
     description: "maintenance matériel incendie et Carport Solaire à Marseille, Cassis, Carry. Roulez gratuit au soleil.",
     meta: {
         title: "maintenance Sécurité Incendie & Carport Solaire Marseille | 13",

@@ -235,7 +235,7 @@ export default function LeadUnlockPage() {
                                                     {lead.housing_type === 'copro' ? <Building size={24} /> : <Home size={24} />}
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm text-slate-500 font-bold mb-1">Type d'maintenance</p>
+                                                    <p className="text-sm text-slate-500 font-bold mb-1">Type de maintenance</p>
                                                     <p className="text-xl font-black text-slate-900 leading-tight capitalize">{lead.housing_type === 'copro' ? 'Copropriété' : 'Maison individuelle'}</p>
                                                 </div>
                                             </div>

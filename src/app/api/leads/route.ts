@@ -42,8 +42,8 @@ export async function POST(request: Request) {
             
             if (resend) {
                 await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertbornerecharge.com'],
+                    from: 'Leads Incendie <hello@expertsecuriteincendie.fr>',
+                    to: ['hello@expertsecuriteincendie.fr'],
                     subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
                     html: `
                         <div style="background-color: #fef2f2; border: 2px solid #ef4444; padding: 20px; border-radius: 12px; font-family: sans-serif;">
@@ -92,8 +92,8 @@ export async function POST(request: Request) {
             console.log("🗑️ [ARBITRAGE] TIER 2 DETECTED -> Notification email + API");
             if (resend) {
                 await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertbornerecharge.com'],
+                    from: 'Leads Incendie <hello@expertsecuriteincendie.fr>',
+                    to: ['hello@expertsecuriteincendie.fr'],
                     subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
                     html: `
                         <div style="background-color: #f8fafc; border: 2px solid #64748b; padding: 20px; border-radius: 12px; font-family: sans-serif;">

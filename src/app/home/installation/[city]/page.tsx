@@ -261,13 +261,13 @@ export default async function CitymaintenancePage({
                             {
                                 icon: Home,
                                 title: "Maison individuelle",
-                                desc: `maintenance rapide d'une Extincteur 7 à 22kg dans votre garage ou parking à ${city.name}. Intervention en 48h.`,
-                                features: ["Extincteur 7-22kg", "maintenance 48h", "Crédit d'impôt 75%"]
+                                desc: `Vérification et maintenance d'extincteurs portatifs (eau, CO2, poudre) dans votre maison ou votre garage à ${city.name}. Intervention en 48h.`,
+                                features: ["Extincteurs eau / CO2 / poudre", "Intervention 48h", "Registre de sécurité à jour"]
                             },
                             {
                                 icon: Building2,
                                 title: "Copropriété",
-                                desc: `Solution collective ou individuelle pour les copropriétés de ${city.name}. Droit à la prise garanti.`,
+                                desc: `Solution collective ou individuelle pour les copropriétés de ${city.name}. Registre de sécurité tenu à jour.`,
                                 features: ["Mise en conformité", "Contrôle annuel NF", "Étude gratuite"]
                             },
                             {

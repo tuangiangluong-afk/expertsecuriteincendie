@@ -67,13 +67,13 @@ export default function CGV() {
                     <div className="mb-8 rounded-2xl border-2 border-red-200 bg-red-50 p-8 shadow-sm">
                         <h2 className="mb-4 text-2xl font-bold text-red-900">4. Nature du Service - Mise en Relation</h2>
                         <p className="font-semibold text-red-800">
-                            Expert Sécurité Incendie est une <strong>plateforme de mise en relation technique</strong> entre les utilisateurs et des techniciens électriciens indépendants.
+                            Expert Sécurité Incendie est une <strong>plateforme de mise en relation technique</strong> entre les utilisateurs et des techniciens techniciens indépendants.
                         </p>
                         <p className="mt-4 text-red-700">
                             <strong>Expert Sécurité Incendie n&apos;est pas une entreprise d&apos;maintenance.</strong> Les prestations de pose sont effectuées par des professionnels indépendants ou des sociétés tierces, dûment certifiés Incendie et assurés.
                         </p>
                         <p className="mt-4 text-red-700">
-                            En conséquence, <strong>WELINK TECH décline toute responsabilité</strong> en cas de litige lié à l&apos;exécution des travaux, incluant mais non limité à : malfaçons, retards de chantier, non-conformité technique ou tout dommage survenu pendant l'maintenance.
+                            En conséquence, <strong>WELINK TECH décline toute responsabilité</strong> en cas de litige lié à l&apos;exécution des travaux, incluant mais non limité à : malfaçons, retards de chantier, non-conformité technique ou tout dommage survenu pendant la maintenance.
                         </p>
                         <p className="mt-4 text-sm text-red-600">
                             L&apos;utilisateur reconnaît que sa relation contractuelle pour les travaux est établie directement avec l'entreprise sélectionnée.

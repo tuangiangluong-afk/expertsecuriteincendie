@@ -16,9 +16,9 @@ export function HeroCarousel({ images, alt }: HeroCarouselProps) {
 
     // Fallback images if not enough provided
     const fallbacks = [
-        "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2940&auto=format&fit=crop", // Mercedes Tunnel
-        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2621&auto=format&fit=crop", // Road Trip
-        "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2670&auto=format&fit=crop"  // Luxury Steering Wheel
+        "/images/realizations/hero-extincteur.jpg", // Mercedes Tunnel
+        "/images/realizations/extincteur-bureau.jpg", // Road Trip
+        "/images/realizations/extincteur-hopital.jpg"  // Luxury Steering Wheel
     ];
 
     const finalImages = uniqueImages.length > 0 ? uniqueImages : fallbacks;
