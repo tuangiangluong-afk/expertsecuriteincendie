@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createSupabaseAdmin } from '@/lib/supabase-server';
+import { getSiteConfig } from '@/lib/sites-config';
 
 export async function POST(request: Request) {
     try {
@@ -42,7 +44,7 @@ export async function POST(request: Request) {
             
             if (resend) {
                 await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertsecuriteincendie.fr>',
+                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
                     to: ['hello@expertsecuriteincendie.fr'],
                     subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
                     html: `
@@ -92,7 +94,7 @@ export async function POST(request: Request) {
             console.log("🗑️ [ARBITRAGE] TIER 2 DETECTED -> Notification email + API");
             if (resend) {
                 await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertsecuriteincendie.fr>',
+                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
                     to: ['hello@expertsecuriteincendie.fr'],
                     subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
                     html: `
@@ -107,8 +109,42 @@ export async function POST(request: Request) {
             }
         }
 
-        return NextResponse.json({ 
-            success: true, 
+        // 1. SAVE TO DATABASE (Supabase) — le lead doit toujours être tracé,
+        // même si l'email partenaire échoue (perte silencieuse = bug classique).
+        try {
+            const supabase = createSupabaseAdmin();
+            const siteConfig = getSiteConfig(domain || 'expertsecuriteincendie.fr');
+            const region = siteConfig?.region || 'National';
+            const department = siteConfig?.department || (zipCode ? zipCode.substring(0, 2) : null);
+
+            const { error: dbError } = await supabase
+                .from('leads')
+                .insert({
+                    name,
+                    email,
+                    phone,
+                    company: company || null,
+                    city,
+                    postal_code: zipCode,
+                    tenant_id: domain || 'expertsecuriteincendie.fr',
+                    type: 'incendie_lead',
+                    housing_type: projectType,
+                    status: 'new',
+                    region,
+                    department,
+                    message: JSON.stringify({ projectType, needType, surface, company, leadScore, tier: isTier1 ? 'TIER_1' : 'TIER_2' }, null, 2),
+                    is_paid: false
+                });
+
+            if (dbError) {
+                console.error('Supabase DB Error:', dbError);
+            }
+        } catch (dbErr) {
+            console.error('Supabase insert exception:', dbErr);
+        }
+
+        return NextResponse.json({
+            success: true,
             message: "Lead arbitré avec succès."
         });
 

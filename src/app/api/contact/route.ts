@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         }
 
         const data = await resend.emails.send({
-            from: 'Expert Sécurité Incendie <contact@expertsecuriteincendie.fr>',
+            from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
             to: ['hello@expertsecuriteincendie.fr'],
             replyTo: email,
             subject: `[${postalCode || city}] Contact: ${subject} - ${name}`,
@@ -47,7 +47,10 @@ export async function POST(req: Request) {
 
         if (data.error) {
             console.error("Resend API Error:", data.error);
-            return NextResponse.json({ error: data.error.message || "Erreur d'envoi Resend" }, { status: 400 });
+            return NextResponse.json({
+                success: false,
+                error: `Email non envoyé: ${data.error.message}. Le message a bien été enregistré côté serveur, nous vous répondrons par email.`
+            }, { status: 502 });
         }
 
         return NextResponse.json(data);
