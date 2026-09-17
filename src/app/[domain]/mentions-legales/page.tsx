@@ -75,10 +75,10 @@ export default async function MentionsLegales({ params }: { params: Promise<{ do
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className={`mb-4 text-2xl font-bold ${theme.text}`}>2. Service Proposé</h2>
                         <p>
-                            Le Site a pour objet de fournir une plateforme de mise en relation et d'obtention de devis pour la maintenance d'extincteurs électrique sur la commune de <strong>{city.city}</strong> et ses environs ({city.neighborhoods.join(", ") || "agglomération"}).
+                            Le Site a pour objet de fournir une plateforme de mise en relation et d'obtention de devis pour la maintenance du matériel incendie (extincteurs, blocs d'éclairage de sécurité, désenfumage) sur la commune de <strong>{city.city}</strong> et ses environs ({city.neighborhoods.slice(0, 6).join(", ") || "agglomération"}).
                         </p>
                         <p>
-                            Les services de maintenance sont assurés par des techniciens indépendants ou des sociétés spécialisées, titulaires des certifications Incendie (Infrastructure de protection pour ERP et entreprises) et des assurances obligatoires.
+                            Les services de maintenance sont assurés par des techniciens indépendants ou des sociétés spécialisées, titulaires des qualifications du secteur (règles APSAD R4 pour les extincteurs, APSAD R12 pour les blocs d'éclairage de sécurité) et des assurances professionnelles obligatoires.
                         </p>
                     </div>
 

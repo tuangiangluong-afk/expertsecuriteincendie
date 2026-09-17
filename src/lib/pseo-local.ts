@@ -46,7 +46,8 @@ export interface LocalFacts {
     prefecture?: string;
     /** Organisme compétent local (SDIS, gestionnaire de réseau, mairie…) */
     authority?: string;
-    quartiers?: string[];
+    /** Communes limitrophes réelles (zones d'intervention), jamais des quartiers inventés */
+    zones?: string[];
     littoral?: boolean;
     montagne?: boolean;
     dense?: boolean;
@@ -114,8 +115,8 @@ const deptTxt = (f: LocalFacts, v: LocalVoice) => {
 };
 const regionOk = (f: LocalFacts) => !!f.region && f.region !== "France" && f.region !== "Suisse";
 const authority = (f: LocalFacts) => f.authority || "l'organisme compétent local";
-const hasQuartiers = (f: LocalFacts) => (f.quartiers?.length ?? 0) >= 2;
-const quartiers = (f: LocalFacts) => (f.quartiers ?? []).slice(0, 3).join(", ");
+const hasZones = (f: LocalFacts) => (f.zones?.length ?? 0) >= 2;
+const zones = (f: LocalFacts) => (f.zones ?? []).slice(0, 3).join(", ");
 
 // ---------------------------------------------------------------- ANCRAGE
 const ANCRAGE: SlotFn[] = [
@@ -142,12 +143,12 @@ const AUTORITE: SlotFn[] = [
 
 // --------------------------------------------------------------- COUVERTURE
 const COUVERTURE: SlotFn[] = [
-    (f) => (hasQuartiers(f) ? `Nous intervenons dans les secteurs de ${quartiers(f)} et alentours.` : `Nous couvrons l'ensemble de la commune et les communes voisines.`),
-    (f) => (hasQuartiers(f) ? `Déplacements réguliers à ${quartiers(f)}.` : `Déplacements possibles sur toute la commune.`),
-    (f) => (hasQuartiers(f) ? `Secteurs traités en priorité : ${quartiers(f)}, à ${f.city}.` : `Aucun secteur de ${f.city} n'est exclu de notre zone d'intervention.`),
-    (f) => (hasQuartiers(f) ? `Du centre de ${f.city} aux quartiers de ${quartiers(f)}.` : `Interventions sur ${f.city} et les communes limitrophes.`),
-    (f) => (hasQuartiers(f) ? `Zones d'activité et quartiers suivis : ${quartiers(f)}.` : `Zone d'activité couverte en totalité.`),
-    (f) => (hasQuartiers(f) ? `Nos équipes connaissent ${quartiers(f)} et les accès de ce secteur.` : `Nos équipes connaissent les contraintes d'accès de ${f.city}.`),
+    (f) => (hasZones(f) ? `Communes limitrophes couvertes : ${zones(f)}.` : `Nous couvrons l'ensemble de la commune et les communes voisines.`),
+    (f) => (hasZones(f) ? `Déplacements réguliers entre ${f.city} et ${zones(f)}.` : `Déplacements possibles sur toute la commune.`),
+    (f) => (hasZones(f) ? `Communes traitées en priorité : ${zones(f)}, autour de ${f.city}.` : `Aucun secteur de ${f.city} n'est exclu de notre zone d'intervention.`),
+    (f) => (hasZones(f) ? `Interventions à ${f.city} et dans les communes voisines : ${zones(f)}.` : `Interventions sur ${f.city} et les communes limitrophes.`),
+    (f) => (hasZones(f) ? `Zones couvertes : ${zones(f)} et environs.` : `Zone couverte en totalité.`),
+    (f) => (hasZones(f) ? `Nos équipes connaissent les contraintes d'accès de ce secteur : ${zones(f)}.` : `Nos équipes connaissent les contraintes d'accès de ${f.city}.`),
 ];
 
 // -------------------------------------------------------------- TRAÇABILITÉ
@@ -176,7 +177,7 @@ export function composeLocalIntro(
 ): string {
     const base =
         seed ??
-        fnv(facts.city, facts.postal, facts.deptCode, facts.deptName, facts.quartiers?.length ?? 0);
+        fnv(facts.city, facts.postal, facts.deptCode, facts.deptName, facts.zones?.length ?? 0);
 
     const accroche = site.openers[slot(base, 1, site.openers.length)]?.(facts, voice) ?? "";
     const ancrage = ANCRAGE[slot(base, 2, ANCRAGE.length)](facts, voice);

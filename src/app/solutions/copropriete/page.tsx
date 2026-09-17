@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const metadata = {
     title: "Sécurité incendie en copropriété : guide du syndic",
-    description: "Tout comprendre sur la protection incendie en copropriété : équipement lot par lot ou collectif, obligations du syndic et budget à prévoir.",
+    description: "Protection incendie en copropriété : extincteurs, blocs d'éclairage de sécurité et désenfumage des parties communes, obligations du syndic, vote en assemblée générale et budget à prévoir.",
 };
 
 export default function SolutionCopro() {
@@ -33,16 +33,17 @@ export default function SolutionCopro() {
                                     </div>
                                     <div className="inline-flex items-center rounded-full bg-green-100 px-4 py-1.5 text-sm font-bold text-green-800 border border-green-200">
                                         <Euro size={16} className="mr-2" />
-                                        0€ pour la Copropriété
+                                        État des lieux écrit remis au syndic
                                     </div>
                                 </div>
                                 <h1 className="text-4xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                                    Installer des extincteurs en <span className="text-purple-600">copropriété</span> sans frais pour l'immeuble.
+                                    Mettre en conformité la <span className="text-purple-600">sécurité incendie</span> de votre copropriété.
                                 </h1>
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                    La solution de financement collectif : nous installons l'infrastructure de sécurité avec un contrat de maintenance tout compris.
+                                    Extincteurs, blocs d&apos;éclairage de sécurité et désenfumage des parties communes : nous auditions, chiffrons et maintenons l&apos;ensemble,
+                                    avec un registre de sécurité de l&apos;immeuble tenu à jour.
                                     <br />
-                                    <strong>Le Syndic ne paie rien. Les résidents non-utilisateurs ne paient rien.</strong>
+                                    <strong>Un dossier complet, présentable en assemblée générale.</strong>
                                 </p>
                             </div>
 
@@ -84,8 +85,8 @@ export default function SolutionCopro() {
                                                     <CheckCircle className="w-6 h-6 text-purple-600" />
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold text-lg text-slate-900">Programme Aide</div>
-                                                    <div className="text-sm font-medium text-slate-500">Financement jusqu'à 50%</div>
+                                                    <div className="font-bold text-lg text-slate-900">Registre de sécurité remis</div>
+                                                    <div className="text-sm font-medium text-slate-500">Attestation annuelle incluse</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +102,7 @@ export default function SolutionCopro() {
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                     <CheckCircle size={24} className="text-green-500 fill-green-100" />
-                                    <span className="font-bold text-slate-900 text-base">Garantie Décennale</span>
+                                    <span className="font-bold text-slate-900 text-base">NF EN 3 & APSAD R4</span>
                                 </div>
                             </div>
                         </div>
@@ -112,48 +113,50 @@ export default function SolutionCopro() {
             {/* CONTENT */}
             <div className="container mx-auto px-4 py-16 grid lg:grid-cols-[1fr_350px] gap-12">
                 <article className="prose prose-lg prose-slate max-w-none">
-                    <h2>Le défi de la protection en immeuble</h2>
+                    <h2>Le défi de la conformité incendie en immeuble collectif</h2>
                     <p>
-                        Contrairement à une maison individuelle, on ne peut pas simplement se brancher sur une prise du garage. Il faut acheminer l'électricité depuis une source commune tout en individualisant la facturation.
-                        Deux approches existent : l'<strong>équipement lot par lot</strong>, à l'initiative d'un copropriétaire, et l'<strong>équipement collectif</strong> voté en assemblée générale.
+                        Contrairement à une maison individuelle, les moyens de secours relèvent ici des <strong>parties communes</strong> : ce sont le syndicat des copropriétaires et son syndic
+                        qui doivent les maintenir en état et pouvoir en justifier. L&apos;arrêté du 31 janvier 1986 fixe le cadre applicable aux bâtiments d&apos;habitation, et le registre de sécurité de l&apos;immeuble
+                        centralise les vérifications. Deux approches existent : la <strong>prise en charge au coup par coup</strong>, déclenchée par un copropriétaire, et le <strong>contrat collectif</strong> voté en assemblée générale.
                     </p>
 
                     <div className="not-prose grid md:grid-cols-2 gap-6 my-10">
                         <div className="border border-slate-200 rounded-2xl p-6 hover:shadow-md transition">
                             <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
-                                <Users className="text-red-500" /> Équipement par lot
+                                <Users className="text-red-500" /> Vérification au coup par coup
                             </h3>
                             <p className="text-sm text-slate-600 mb-4">
-                                Chaque résident fait sa demande individuelle. Un compteur est ajouté pour sa place.
+                                Chaque copropriétaire fait vérifier, à sa demande, l&apos;appareil dont il a la charge.
                             </p>
                             <ul className="text-sm space-y-2">
-                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Rapide pour 1 demande</li>
-                                <li className="text-red-500 flex gap-2"><AlertCircle size={16} /> Vite limité en puissance</li>
-                                <li className="text-red-500 flex gap-2"><AlertCircle size={16} /> "Plat de nouilles" de câbles</li>
+                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Souple pour un besoin isolé</li>
+                                <li className="text-red-500 flex gap-2"><AlertCircle size={16} /> Historique de vérification dispersé</li>
+                                <li className="text-red-500 flex gap-2"><AlertCircle size={16} /> Tarif unitaire plus élevé, registre incomplet</li>
                             </ul>
                         </div>
                         <div className="border-2 border-purple-200 bg-purple-50/30 rounded-2xl p-6 shadow-sm">
                             <h3 className="font-bold text-xl mb-3 flex items-center gap-2 text-purple-800">
-                                <Building2 className="text-purple-600" /> Infrastructure Collective
+                                <Building2 className="text-purple-600" /> Contrat collectif de l&apos;immeuble
                             </h3>
                             <p className="text-sm text-slate-600 mb-4">
-                                Une artère électrique principale parcourt le parking. Les extincteurs s'y raccordent au fur et à mesure.
+                                Une seule visite annuelle couvre l&apos;ensemble des extincteurs, blocs d&apos;éclairage de sécurité et dispositifs de désenfumage des parties communes.
                             </p>
                             <ul className="text-sm space-y-2">
-                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Solution pérenne et propre</li>
-                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Evolutif (1 à 100 extincteurs)</li>
-                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Souvent 0€ pour le syndic</li>
+                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Registre de sécurité tenu par le prestataire</li>
+                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Tarif dégressif au-delà de 20 appareils</li>
+                                <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Attestation annuelle pour le syndic et l&apos;assureur</li>
                             </ul>
                         </div>
                     </div>
 
-                    <h2>La solution préférée des syndics : Le Tiers-Investissement</h2>
+                    <h2>Ce que la copropriété doit vraiment entretenir</h2>
                     <p>
-                        Aujourd'hui, des opérateurs (partenaires d'Expert Sécurité Incendie) proposent de financer à <strong>100% l'infrastructure collective</strong>.
-                        La copropriété ne paie RIEN. C'est l'utilisateur final qui paie son maintenance d'extincteur et un abonnement pour le service.
+                        Les moyens de secours d&apos;un immeuble collectif imposent chacun leur périodicité : <strong>extincteurs</strong> vérifiés une fois par an (règle APSAD R4, NF EN 3),
+                        <strong>blocs autonomes d&apos;éclairage de sécurité</strong> avec essai mensuel de fonctionnement assuré par l&apos;exploitant et essai annuel d&apos;autonomie par un prestataire (NF C 71-820),
+                        <strong>désenfumage</strong> des circulations et parkings couverts avec vérification semestrielle des commandes et annuelle de l&apos;installation, sans oublier les <strong>portes coupe-feu</strong> et l&apos;affichage des consignes.
                     </p>
                     <blockquote>
-                        "C'est la solution zéro souci : pas de frais pour la copro, maintenance gérée par l'opérateur, et valorisation immédiate de l'immeuble."
+                        &ldquo;Le registre de sécurité de l&apos;immeuble est la première pièce demandée lors d&apos;un contrôle de la commission de sécurité ou d&apos;une vente de lot. L&apos;alimenter à chaque passage coûte moins cher que de le reconstituer après coup.&rdquo;
                     </blockquote>
 
                     <div className="bg-red-600 text-white p-8 rounded-2xl shadow-xl my-10 not-prose flex flex-col md:flex-row items-center gap-6">
@@ -173,26 +176,34 @@ export default function SolutionCopro() {
                         </a>
                     </div>
 
-                    <h2>Les aides 2026</h2>
+                    <h2>Budget de conformité constaté</h2>
                     <p>
-                        Le programme Aide subventionne lourdement les maintenances en résidentiel collectif.
-                        L'objectif est d'accélérer l'équipement des parkings.
+                        Les travaux de mise en conformité des moyens de secours relèvent de l&apos;entretien de l&apos;immeuble. Ils ne bénéficient pas des dispositifs d&apos;aide annoncés pour d&apos;autres
+                        équipements : les fourchettes ci-dessous sont les montants réellement constatés sur le marché en 2026.
                     </p>
                     <table className="not-prose min-w-full bg-white border border-slate-200 rounded-lg shadow-sm">
                         <thead className="bg-slate-50">
                             <tr>
-                                <th className="px-4 py-3 text-left">Type de travaux</th>
-                                <th className="px-4 py-3 text-left">Montant de l'aide</th>
+                                <th className="px-4 py-3 text-left">Prestation</th>
+                                <th className="px-4 py-3 text-left">Coût indicatif HT</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             <tr>
-                                <td className="px-4 py-3">Infrastructure collective</td>
-                                <td className="px-4 py-3 font-bold text-purple-700">50% du montant HT (Plafonné à 8000€ jusqu'à 100 places)</td>
+                                <td className="px-4 py-3">Vérification annuelle des extincteurs</td>
+                                <td className="px-4 py-3 font-bold text-purple-700">15 € à 30 € par appareil</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-3">maintenance point de charge (Individuel)</td>
-                                <td className="px-4 py-3 font-bold text-green-700">50% du montant HT (Max 960€)</td>
+                                <td className="px-4 py-3">Vérification annuelle des blocs d&apos;éclairage de sécurité</td>
+                                <td className="px-4 py-3 font-bold text-purple-700">15 € à 30 € par bloc</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3">Remplacement d&apos;un extincteur hors d&apos;usage</td>
+                                <td className="px-4 py-3 font-bold text-purple-700">89 € à 149 € (6 L eau + support)</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3">Audit écrit présentable en assemblée générale</td>
+                                <td className="px-4 py-3 font-bold text-purple-700">250 € à 600 €</td>
                             </tr>
                         </tbody>
                     </table>
@@ -212,12 +223,12 @@ export default function SolutionCopro() {
                     <h3>Questions Fréquentes</h3>
                     <div className="not-prose space-y-4">
                         <div className="bg-white p-4 rounded-xl border border-slate-200">
-                            <h4 className="font-bold mb-1">Qui paie l'électricité ?</h4>
-                            <p className="text-sm text-slate-600">Chaque extincteur possède son propre sous-compteur certifié (MID). L'opérateur relève la consommation et facture directement l'utilisateur. Le syndic est remboursé au centime près ou ne paie rien (selon contrat).</p>
+                            <h4 className="font-bold mb-1">Qui paie la vérification des extincteurs des parties communes ?</h4>
+                            <p className="text-sm text-slate-600">Le syndicat des copropriétaires : c&apos;est une dépense d&apos;entretien des parties communes, répartie selon les clés prévues par le règlement de copropriété. Le contrat collectif est voté en assemblée générale et facturé au syndic, jamais individuellement aux résidents.</p>
                         </div>
                         <div className="bg-white p-4 rounded-xl border border-slate-200">
-                            <h4 className="font-bold mb-1">Si je n'ai pas de matériel, je paie ?</h4>
-                            <p className="text-sm text-slate-600">Non ! C'est le principe de l'utilisateur-payeur. Les résidents sans matériel ne paient absolument rien, ni pour la maintenance, ni pour l'usage.</p>
+                            <h4 className="font-bold mb-1">Que se passe-t-il si l&apos;immeuble n&apos;est pas à jour ?</h4>
+                            <p className="text-sm text-slate-600">Une vérification dépassée, un registre de sécurité incomplet ou des blocs d&apos;éclairage hors service peuvent entraîner des réserves lors d&apos;une visite de la commission de sécurité, une mise en demeure du maire, et une réduction de la couverture d&apos;assurance en cas de sinistre.</p>
                         </div>
                     </div>
                 </article>

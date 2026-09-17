@@ -42,9 +42,14 @@ export function StructuredData({ city }: { city: CityConfig }) {
                     "addressLocality": city.city,
                     "addressCountry": "FR"
                 },
+                // Zones desservies : la commune réelle et ses communes limitrophes
+                // (données IGN/Etalab). Ne pas préfixer le nom de la ville :
+                // « Saint-Cloud - Garches » ne désigne aucune entité administrative.
                 "areaServed": [
                     { "@type": "City", "name": city.city },
-                    ...(city.neighborhoods || []).map(n => ({ "@type": "City", "name": `${city.city} - ${n}` })),
+                    ...(city.neighborhoods || []).map(n => ({ "@type": "City", "name": n })),
+                    ...(city.epci ? [{ "@type": "AdministrativeArea", "name": city.epci }] : []),
+                    ...(city.deptName ? [{ "@type": "AdministrativeArea", "name": city.deptName }] : []),
                     { "@type": "AdministrativeArea", "name": "France" }
                 ],
                 "openingHoursSpecification": [
@@ -57,7 +62,7 @@ export function StructuredData({ city }: { city: CityConfig }) {
                 ],
                 "hasOfferCatalog": {
                     "@type": "OfferCatalog",
-                    "name": "Services de Transport",
+                    "name": "Maintenance et conformité sécurité incendie",
                     "itemListElement": services.map((service, index) => ({
                         "@type": "Offer",
                         "itemOffered": service,

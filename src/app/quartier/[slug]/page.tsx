@@ -90,8 +90,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const canonicalUrl = `https://${canonicalDomain}/quartier/${resolvedParams.slug}`;
 
     return {
-        title: `maintenance extincteur ${quartier.name} - ${quartier.city} | Devis Gratuit`,
-        description: `maintenance de matériel incendie électrique à ${quartier.name} (${quartier.city}). Expert Incendie local, devis gratuit sous 24h, matériel garanti.`,
+        title: `Maintenance extincteurs ${quartier.name} - ${quartier.city} | Devis gratuit`,
+        description: `Vérification annuelle des extincteurs et des blocs d'éclairage de sécurité à ${quartier.name} (${quartier.city}). Techniciens certifiés APSAD, registre de sécurité remis, devis gratuit sous 24h.`,
         alternates: {
             canonical: canonicalUrl,
         },
@@ -141,7 +141,7 @@ export default async function QuartierPage({ params }: { params: Promise<{ slug:
 
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <span className="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs font-bold uppercase tracking-widest mb-6">
-                        Quartier & Zone Locale
+                        Zone d'intervention locale
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black mb-6">
                         maintenance extincteur <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{quartier.name}</span>
@@ -171,7 +171,7 @@ export default async function QuartierPage({ params }: { params: Promise<{ slug:
                                 <h3 className="font-bold text-neutral-900 mt-6 mb-3">Service de proximité</h3>
                                 <ul className="space-y-2">
                                     <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Étude technique offerte</li>
-                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Matériel certifié (Extincteur, Andrieu, etc.)</li>
+                                    <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Matériel certifié (Desautel, Sicli, Eurofeu)</li>
                                     <li className="flex items-center gap-2"><CheckCircle size={16} className="text-emerald-500" /> Éligible aux aides / Crédit impôt</li>
                                 </ul>
                             </div>

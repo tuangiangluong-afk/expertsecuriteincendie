@@ -23,7 +23,7 @@ function secours(dept: string, city: string): string {
     return `le SDIS ${d}`;
 }
 
-function getEntrepriseIntro(city: string, dept: string, quartiers: string[]): string {
+function getEntrepriseIntro(city: string, dept: string, zones: string[]): string {
     // L'intro est assemblée à partir de six emplacements factuels (voir
     // pseo-local.ts) : l'ancienne version piochait 1 texte sur 3 par hash, ce
     // qui donnait des pages identiques à un mot près sur tout le département.
@@ -31,7 +31,7 @@ function getEntrepriseIntro(city: string, dept: string, quartiers: string[]): st
         {
             city,
             deptCode: dept,
-            quartiers,
+            zones,
             authority: secours(dept, city),
         },
         {
@@ -65,12 +65,12 @@ function getEntrepriseIntro(city: string, dept: string, quartiers: string[]): st
     );
 }
 
-function getCoproIntro(city: string, dept: string, quartiers: string[]): string {
+function getCoproIntro(city: string, dept: string, zones: string[]): string {
     return composeLocalIntro(
         {
             city,
             deptCode: dept,
-            quartiers,
+            zones,
             authority: secours(dept, city),
         },
         {
@@ -102,8 +102,8 @@ function getCoproIntro(city: string, dept: string, quartiers: string[]): string 
     );
 }
 
-function getEntrepriseTip(city: string, quartiers: string[]): string {
-    const zone = quartiers[0] || "votre secteur";
+function getEntrepriseTip(city: string, zones: string[]): string {
+    const zone = zones[0] || "votre secteur";
     const tips = [
         `À ${city}, les vérifications périodiques des extincteurs et du désenfumage se programment une fois par an : les inscrire au calendrier évite de découvrir une date dépassée pendant un contrôle.`,
         `Sur la zone de ${zone}, les réserves émises portent le plus souvent sur les extincteurs non signalés et sur les consignes de sécurité absentes.`,
@@ -113,8 +113,8 @@ function getEntrepriseTip(city: string, quartiers: string[]): string {
     return tips[city.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % tips.length];
 }
 
-function getCoproTip(city: string, quartiers: string[]): string {
-    const zone = quartiers[0] || "votre quartier";
+function getCoproTip(city: string, zones: string[]): string {
+    const zone = zones[0] || "votre secteur";
     const tips = [
         `À ${city}, un audit avant l'assemblée générale permet de voter les travaux de mise en conformité sur des montants chiffrés plutôt que sur une estimation.`,
         `Dans les immeubles de ${zone}, l'éclairage de sécurité et le désenfumage sont les deux postes les plus souvent en défaut lors de l'état des lieux.`,
@@ -128,7 +128,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
     const { city, department, neighborhoods, postalCode } = cityConfig;
     const dept = department || "";
     const postal = postalCode || "";
-    const quartiers = neighborhoods || [];
+    const zones = neighborhoods || [];
     const postalMention = postal ? ` (${postal})` : "";
 
     if (segment === 'ENTREPRISE') {
@@ -136,8 +136,8 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
         const meta_description = `Audit des extincteurs, du désenfumage et des éclairages de sécurité pour les ERP à ${city}. Visite technique sur place.`;
         const hero_title = `Sécurité <span class="text-red-600">incendie en entreprise</span> à ${city}`;
         const hero_badge = "ERP, commerces, sites industriels";
-        const intro_html = getEntrepriseIntro(city, dept, quartiers);
-        const expert_tip = getEntrepriseTip(city, quartiers);
+        const intro_html = getEntrepriseIntro(city, dept, zones);
+        const expert_tip = getEntrepriseTip(city, zones);
 
         return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
     }
@@ -146,8 +146,8 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
     const meta_description = `Audit des extincteurs, du désenfumage et des colonnes sèches des parties communes à ${city}. État des lieux écrit présentable en AG.`;
     const hero_title = `Sécurité <span class="text-red-600">incendie en copropriété</span> à ${city}`;
     const hero_badge = "Syndics et conseils syndicaux";
-    const intro_html = getCoproIntro(city, dept, quartiers);
-    const expert_tip = getCoproTip(city, quartiers);
+    const intro_html = getCoproIntro(city, dept, zones);
+    const expert_tip = getCoproTip(city, zones);
 
     return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
 }

@@ -167,15 +167,14 @@ export default async function SuccessPage({ searchParams }: PageProps) {
                                     Ressource gratuite
                                 </div>
                                 <h3 className="text-xl md:text-2xl font-bold mb-2">
-                                    Optimisez votre budget
+                                    Préparez votre budget
                                 </h3>
                                 <p className="text-slate-300 text-sm mb-6">
-                                    Téléchargez notre guide complet sur les aides gouvernementales
-                                    comme <strong>Aide</strong> et le <strong>Crédit d&apos;impôt</strong> pour
-                                    économiser jusqu&apos;à 960€.
+                                    Consultez notre guide des prix 2026 : tarifs de vérification par appareil,
+                                    forfaits annuels et opérations facturées en supplément.
                                 </p>
                                 <Link
-                                    href={`/${domain}/guides/subventions-extincteurs-protection`}
+                                    href={`/guides/prix-maintenance-extincteur-entreprise`}
                                     className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-all w-full"
                                 >
                                     <Download className="w-4 h-4" />

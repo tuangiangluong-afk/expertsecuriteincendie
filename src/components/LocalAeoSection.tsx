@@ -16,6 +16,7 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
     const city = site.city;
     const dept = site.department ? ` (${site.department})` : "";
     const neighborhoods = site.neighborhoods || [];
+    const zones = site.zones || [];
     const facts = pseo?.local_facts || [];
     const priceLine = pseo?.pricing_estimated && !pseo.pricing_estimated.includes("partir")
         ? pseo.pricing_estimated
@@ -23,9 +24,16 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
     const sdis = facts.find(f => f.label === "Service de secours compétent")?.value;
     const prefecture = facts.find(f => f.label === "Préfecture")?.value;
     const regionName = facts.find(f => f.label === "Région")?.value;
-    const neighborhoodsText = neighborhoods.length > 0 
-        ? `, notamment dans les quartiers ${neighborhoods.slice(0, 4).join(', ')}` 
+    // Zones d'intervention : communes limitrophes réelles (source IGN/Etalab),
+    // jamais des quartiers inventés. Voir src/config/national-targets.ts.
+    const neighborhoodsText = neighborhoods.length > 0
+        ? `, ainsi que dans les communes limitrophes de ${neighborhoods.slice(0, 3).join(', ')}`
         : "";
+    const identityText = [
+        site.insee ? `code INSEE ${site.insee}` : null,
+        site.population ? `${site.population.toLocaleString("fr-FR")} habitants` : null,
+        site.epci ? `membre de ${site.epci}` : null,
+    ].filter(Boolean).join(", ");
 
     return (
         <section className="py-12 bg-slate-50/50 border-t border-slate-200">
@@ -83,8 +91,8 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                             <div className="text-sm md:text-base font-bold text-slate-900 mt-1">{priceLine}</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
-                            <div className="text-xs text-slate-500 font-medium">Aides & Primes</div>
-                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">{sdis || "Conformité légale"}</div>
+                            <div className="text-xs text-slate-500 font-medium">Cadre réglementaire</div>
+                            <div className="text-sm md:text-base font-bold text-slate-900 mt-1">Code du travail & règlement ERP</div>
                         </div>
                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-center">
                             <div className="text-xs text-slate-500 font-medium">Délai d'intervention</div>
@@ -152,7 +160,7 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-600">
                                     <Landmark size={20} />
                                 </span>
-                                <h3 className="font-bold text-slate-900 text-base">Conformité ERP & Visite de Sécurité à {city}</h3>
+                                <h3 className="font-bold text-slate-900 text-base">Conformité ERP & visite de sécurité à {city}</h3>
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                                 À {city}{dept}, les Établissements Recevant du Public (magasins, restaurants, hôtels, cabinets médicaux) et les locaux professionnels sont soumis aux contrôles de la commission de sécurité compétente{sdis ? <> — sur ce secteur, l'autorité opérationnelle est <strong>{sdis}</strong></> : ", présidée par le maire et les officiers du SDIS"}{prefecture ? <>, sous l'autorité du préfet ({prefecture})</> : null}. Nos techniciens vérifient la présence et l'accessibilité de vos moyens de secours, l'autonomie de vos blocs BAES et la validité de vos procès-verbaux de contrôle périodique.
@@ -165,8 +173,23 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
                                     <Building2 size={20} />
                                 </span>
-                                <h3 className="font-bold text-slate-900 text-base">Secteurs d'activité & Quartiers à {city}</h3>
+                                <h3 className="font-bold text-slate-900 text-base">Communes desservies autour de {city}</h3>
                             </div>
+                            {identityText && (
+                                <p className="text-xs text-slate-500 mb-3">
+                                    {city} : {identityText}.
+                                </p>
+                            )}
+                            {zones.length > 0 && (
+                                <ul className="text-sm text-slate-600 leading-relaxed mb-3 space-y-1">
+                                    {zones.slice(0, 4).map((z) => (
+                                        <li key={z.nom} className="flex justify-between gap-3">
+                                            <span>{z.nom}</span>
+                                            <span className="text-slate-400 shrink-0">à {String(z.km).replace(".", ",")} km</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                             <p className="text-sm text-slate-600 leading-relaxed">
                                 Nos spécialistes interviennent au sein de tous les pôles économiques de {city}{neighborhoodsText}. Nous adaptons la typologie des agents extincteurs aux risques spécifiques de votre activité (eau avec additif pour les feux de classe A/B, CO2 pour les armoires électriques et serveurs, poudre polyvalente ABC pour les garages et ateliers).
                             </p>
@@ -178,7 +201,7 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-amber-50 text-amber-600">
                                     <ShieldCheck size={20} />
                                 </span>
-                                <h3 className="font-bold text-slate-900 text-base">Maintenance APSAD & Matériel certifié à {city}</h3>
+                                <h3 className="font-bold text-slate-900 text-base">Maintenance APSAD & matériel certifié à {city}</h3>
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed">
                                 Tous nos extincteurs portent les estampilles NF et CE et répondent aux référentiels de la règle APSAD R4. Nos contrats d'entretien annuel prévoient la vérification mécanique du percuteur, le contrôle de la charge manométrique, le graissage des joints et la réfection de la vignette annuelle, garantissant une couverture juridique sans faille en cas de contrôle ou de sinistre.
@@ -216,7 +239,7 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                     <div>
                         <h3 className="text-xl font-bold mb-1">Un projet à {city} ?</h3>
                         <p className="text-slate-300 text-sm">
-                            Garantie décennale & devis gratuit sous 24h sans aucun engagement.
+                            NF EN 3 & APSAD R4 & devis gratuit sous 24h sans aucun engagement.
                         </p>
                     </div>
                     <a

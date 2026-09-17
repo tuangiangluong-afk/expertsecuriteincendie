@@ -1,5 +1,6 @@
 import { CityConfig } from "@/lib/db";
 import { DEPARTEMENTS } from "@/data/fr-departements";
+import { agentMid, type Brand } from "@/data/brands";
 
 interface LocalFAQProps {
     site: CityConfig;
@@ -41,6 +42,69 @@ export function LocalFAQ({ site, segment = "B2C" }: LocalFAQProps) {
             </div>
         </section>
     );
+}
+
+/**
+ * FAQ d'une page ville x marque.
+ *
+ * Chaque réponse est fabriquée à partir de deux ensembles de faits réels :
+ * les gammes publiées par le constructeur, et le territoire de la commune
+ * (département, région, service de secours compétent). Aucune statistique
+ * n'est inventée, et aucune marque ne reçoit de contenu par défaut : quand
+ * le constructeur ne publie rien, la réponse est simplement absente.
+ */
+export function getBrandFAQData(
+    city: string,
+    department: string | undefined,
+    brand: Brand,
+) {
+    const dept = department ? DEPARTEMENTS[department] : undefined;
+    const deptRef = dept ? `${dept.name} (${dept.code})` : "votre département";
+    const sdis = dept?.sdis || "le service d'incendie et de secours compétent";
+
+    const faqs: { question: string; answer: string }[] = [];
+
+    // 1. Ce que couvre réellement la marque
+    faqs.push({
+        question: `Que vérifient vos techniciens sur un extincteur ${brand.name} à ${city} ?`,
+        answer: `La marque ne change pas la nature du contrôle, mais les agents extincteurs qu'elle met en œuvre, oui. Sur un parc ${brand.name} à ${city}, le passage annuel porte sur ${brand.ranges.length === 1 ? "un type d'appareil" : `${brand.ranges.length} types d'appareils`} : ${brand.ranges.map((r) => `${r.agent} (${r.classes})`).join(", ")}. Chaque appareil reçoit le geste correspondant à son agent, et non un contrôle générique.`,
+    });
+
+    // 2. Le geste technique, qui est la vraie différence entre deux marques
+    brand.ranges.forEach((r) => {
+        faqs.push({
+            question: `Comment se vérifie un extincteur ${brand.name} à ${agentMid(r.agent)} à ${city} ?`,
+            answer: `Pour un appareil à ${agentMid(r.agent)} de capacités usuelles ${r.capacites.join(", ")}, couvrant les feux de classe ${r.classes} : ${r.controle}. L'opération est consignée sur l'étiquette de l'appareil et reportée au registre de sécurité de l'établissement à ${city}.`,
+        });
+    });
+
+    // 3. Le constructeur, uniquement quand il publie l'information
+    if (brand.verifieConstructeur && brand.groupe) {
+        faqs.push({
+            question: `Qui fabrique et exploite la marque ${brand.name} aujourd'hui ?`,
+            answer: `${brand.name} est exploitée par ${brand.groupe}. ${brand.perimetre} ${brand.reseau}`.trim(),
+        });
+    }
+
+    // 4. Le cadre local, identique pour tous les parcs d'une même commune
+    faqs.push({
+        question: `La vérification annuelle des extincteurs ${brand.name} est-elle obligatoire à ${city} ?`,
+        answer: `Oui, quelle que soit la marque. Dans le département ${deptRef}, un établissement doit pouvoir présenter la vérification annuelle de ses extincteurs et son registre de sécurité à jour. Les ERP sont contrôlés par la commission de sécurité compétente, avec l'appui opérationnel de ${sdis}. Un appareil ${brand.name} non vérifié est un point de non-conformité au même titre qu'un appareil de n'importe quelle autre marque.`,
+    });
+
+    // 5. Le prix, sur la fourchette publiée sur le site
+    faqs.push({
+        question: `Combien coûte la vérification d'un extincteur ${brand.name} à ${city} ?`,
+        answer: `Le forfait de maintenance annuelle préventive se situe entre 15 € et 28 € HT par appareil à ${city}, dégressif selon la quantité. Au-delà du contrôle, une remise en état peut être nécessaire (recharge d'agent, remplacement du flexible, de la goupille ou du joint de tête) : elle est alors chiffrée séparément avant toute intervention.`,
+    });
+
+    // 6. Que faire d'un appareil recalé
+    faqs.push({
+        question: `Que se passe-t-il si un appareil ${brand.name} est déclaré non conforme à ${city} ?`,
+        answer: `Trois issues selon l'état réel de l'appareil : la remise en état (recharge ou remplacement de pièce d'usure), le remplacement à l'identique, ou le retrait si le corps est corrodé ou que l'épreuve périodique n'est plus valable. Dans les trois cas, l'opération est tracée au registre de sécurité et l'anomalie est signalée sur place, par écrit, au responsable de l'établissement à ${city}.`,
+    });
+
+    return faqs;
 }
 
 /**

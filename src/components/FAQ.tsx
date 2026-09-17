@@ -3,20 +3,34 @@
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
+interface FAQItem {
+    q: string;
+    a: string;
+}
+
 interface FAQProps {
     city?: string;
     type?: string;
     themeColor?: 'red' | 'emerald' | 'amber' | 'purple';
+    /**
+     * Questions propres à la page.
+     * Les pages ville x marque passent leur propre jeu, assemblé à partir des
+     * gammes réelles du constructeur et des faits de la commune. Sans cela,
+     * les 644 pages partageaient le même bloc de cinq questions identiques.
+     */
+    items?: FAQItem[];
+    /** Titre de section, quand la page a un angle plus précis */
+    heading?: string;
 }
 
-export default function FAQ({ city, type, themeColor = 'red' }: FAQProps) {
-    const questions = [
+export default function FAQ({ city, type, themeColor = 'red', items, heading }: FAQProps) {
+    const defaultQuestions: FAQItem[] = [
         {
-            q: "Combien coûte la maintenance d'une matériel incendie ?",
+            q: "Combien coûte la maintenance d'un matériel incendie ?",
             a: "Le prix d'une mise en conformité complète (extincteurs, supports, signalétique et vérification) se situe le plus souvent entre 300 € et 1 500 € HT pour un ERP de petite surface. Le montant dépend du nombre d'appareils nécessaires et du niveau de risque de vos locaux."
         },
         {
-            q: "Puis-je installer une extincteur en copropriété ?",
+            q: "Puis-je installer un extincteur en copropriété ?",
             a: "Oui. Le matériel de sécurité incendie des parties communes relève du syndicat de copropriété, mais rien ne vous empêche d'équiper votre logement ou votre box : extincteur adapté au risque, détecteur de fumée et, si besoin, porte coupe-feu. Nous fournissons le dossier technique à présenter en assemblée générale."
         },
         {
@@ -32,6 +46,8 @@ export default function FAQ({ city, type, themeColor = 'red' }: FAQProps) {
             a: "La vérification annuelle est obligatoire pour tous les extincteurs, quelle que soit leur capacité, et elle doit être consignée dans le registre de sécurité. C'est ce suivi qui garantit la conformité de l'établissement et permet à l'assureur de couvrir un sinistre."
         }
     ];
+
+    const questions = items && items.length > 0 ? items : defaultQuestions;
 
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -68,7 +84,7 @@ export default function FAQ({ city, type, themeColor = 'red' }: FAQProps) {
                         Questions Fréquentes
                     </span>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
-                        Vous avez des questions ?
+                        {heading || "Vous avez des questions ?"}
                     </h2>
                     <p className="text-xl text-slate-600 mt-4">
                         Nous avons les réponses pour votre projet de protection.

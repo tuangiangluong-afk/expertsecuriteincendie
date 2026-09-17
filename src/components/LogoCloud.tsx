@@ -1,13 +1,18 @@
-import { Shield, CheckCircle } from "lucide-react";
+/**
+ * Bandeau des constructeurs réellement pris en charge.
+ *
+ * Historique : cette bande affichait « Renault », « Peugeot », « Legrand » et
+ * un « hager » en dur à côté du nom Andrieu — des marques automobiles et de
+ * tableau électrique, héritées du gabarit borne de recharge. Aucune n'a de
+ * rapport avec la sécurité incendie.
+ */
 
 const BRANDS = [
-    { name: "Extincteurs", tier: "Premium" },
-    { name: "Renault", tier: "Standard" },
-    { name: "Peugeot", tier: "Standard" },
-    { name: "Extincteur", tier: "extincteur" },
-    { name: "Desautel", tier: "extincteur" },
-    { name: "Andrieu", tier: "extincteur" },
-    { name: "Legrand", tier: "extincteur" }
+    { name: "Desautel", style: "font-bold text-lg text-green-700/80 group-hover:text-green-600" },
+    { name: "Sicli", style: "font-bold text-xl tracking-wide text-slate-800/80 group-hover:text-slate-900" },
+    { name: "Eurofeu", style: "font-bold text-lg tracking-tight text-red-700/80 group-hover:text-red-600" },
+    { name: "Extincteurs & RIA", style: "font-bold text-base uppercase tracking-widest text-slate-600" },
+    { name: "BAES & éclairage de sécurité", style: "font-bold text-base tracking-tight text-slate-600" },
 ];
 
 export default function LogoCloud() {
@@ -16,19 +21,14 @@ export default function LogoCloud() {
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
                     <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest whitespace-nowrap">
-                        Nos techniciens sont experts sur :
+                        Matériel pris en charge :
                     </p>
-                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                        {/* Since we don't have SVGs, we use a very clean, bold typography style that mimics logotypes */}
+                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70 hover:opacity-100 transition-all duration-500">
+                        {/* Pas de fichiers SVG de marque : on utilise une typographie
+                            sobre plutôt que de reproduire des logotypes. */}
                         {BRANDS.map((brand) => (
                             <div key={brand.name} className="group flex items-center gap-2 cursor-default">
-                                {brand.name === "Extincteurs" && <span className="font-bold text-xl tracking-tighter">Extincteurs</span>}
-                                {brand.name === "Renault" && <span className="font-bold text-xl italic font-serif">Renault</span>}
-                                {brand.name === "Peugeot" && <span className="font-bold text-xl uppercase tracking-widest">PEUGEOT</span>}
-                                {brand.name === "Extincteur" && <span className="font-bold text-xl lowercase tracking-tight">Extincteur</span>}
-                                {brand.name === "Desautel" && <span className="font-bold text-lg text-green-700/80 group-hover:text-green-600">Desautel</span>}
-                                {brand.name === "Andrieu" && <span className="font-bold text-xl tracking-wide text-red-800/80 group-hover:text-red-600">hager</span>}
-                                {brand.name === "Legrand" && <span className="font-bold text-xl italic text-red-600/80 group-hover:text-red-600">legrand</span>}
+                                <span className={brand.style}>{brand.name}</span>
                             </div>
                         ))}
                     </div>

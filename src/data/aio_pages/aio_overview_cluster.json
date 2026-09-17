@@ -92,18 +92,17 @@
     "rating": 4.8
   },
   {
-    "slug": "comparatif-desautel-sicli-eurofeu-andrieu",
-    "title": "Desautel, Sicli, Eurofeu, Andrieu : quel extincteur choisir en 2026 ?",
-    "meta_description": "Comparatif des principaux fabricants d'extincteurs en France en 2026 : Desautel, Sicli, Eurofeu et Andrieu, gammes, certifications et disponibilité des recharges.",
-    "h1": "Comparatif des extincteurs Desautel, Sicli, Eurofeu et Andrieu",
+    "slug": "comparatif-desautel-sicli-eurofeu",
+    "title": "Desautel, Sicli, Eurofeu : quel extincteur choisir en 2026 ?",
+    "meta_description": "Comparatif des principaux fabricants d'extincteurs en France en 2026 : Desautel, Chubb (marque Sicli) et Eurofeu, gammes, certifications et disponibilité des recharges.",
+    "h1": "Comparatif des extincteurs Desautel, Sicli et Eurofeu",
     "hidden_queries_targeted": [
       "comparatif extincteur desautel sicli",
       "meilleure marque extincteur 2026",
       "extincteur eurofeu avis",
-      "extincteur andrieu prix",
       "recharge extincteur toutes marques"
     ],
-    "introduction": "<p>Quatre fabricants couvrent l'essentiel du marché français de l'extinction mobile. Le bon choix dépend moins de la marque que de l'adéquation entre l'agent extincteur, la classe de feu à couvrir et la disponibilité des pièces dans le temps.</p>",
+    "introduction": "<p>Trois fabricants couvrent l'essentiel du marché français de l'extinction mobile. Le bon choix dépend moins de la marque que de l'adéquation entre l'agent extincteur, la classe de feu à couvrir et la disponibilité des pièces dans le temps.</p>",
     "sections": [
       {
         "h2": "Desautel",
@@ -111,21 +110,17 @@
       },
       {
         "h2": "Sicli",
-        "content": "<p>Référence historique en France, avec des appareils certifiés NF EN 3 et NF Service très répandus dans le tertiaire. L'intérêt principal est la disponibilité des recharges et des pièces, y compris sur des parcs installés depuis longtemps.</p>"
+        "content": "<p>Marque historique de l'extinction mobile en France, exploitée par Chubb Fire & Security France. Appareils certifiés NF EN 3 et NF Service très répandus dans le tertiaire, avec une gamme INgénio en eau et additifs, poudre et CO2. L'intérêt principal est la disponibilité des recharges et des pièces, y compris sur des parcs installés depuis longtemps.</p>"
       },
       {
         "h2": "Eurofeu",
         "content": "<p>Offre complète équipements et signalétique : extincteurs, BAES, plans d'évacuation, désenfumage. Adapté aux entreprises qui veulent un interlocuteur unique pour l'ensemble de leur mise en conformité.</p>"
-      },
-      {
-        "h2": "Andrieu",
-        "content": "<p>Fabricant spécialisé sur la protection incendie industrielle et tertiaire, avec des extincteurs poudre et eau robustes pour les environnements exigeants (ateliers, entrepôts, chaufferies).</p>"
       }
     ],
     "faq": [
       {
         "question": "Quelle marque d'extincteur est la plus fiable en 2026 ?",
-        "answer": "Les quatre marques citées proposent des appareils certifiés NF EN 3. La fiabilité dépend surtout du suivi annuel et de la capacité du prestataire à fournir recharges et pièces sur la durée, plus que du logo sur le corps de l'appareil."
+        "answer": "Les fabricants cités proposent des appareils certifiés NF EN 3. La fiabilité dépend surtout du suivi annuel et de la capacité du prestataire à fournir recharges et pièces sur la durée, plus que du logo sur le corps de l'appareil."
       },
       {
         "question": "Peut-on mélanger plusieurs marques sur un même site ?",

@@ -1,6 +1,6 @@
 export const revalidate = 86400; // 24h ISR cache
 import { getCityByCleanSlug, CITIES } from "@/lib/db";
-import { brands } from "@/data/brands";
+import { brands, rangeLabel, brandEditorial, brandLocalContext, agentsMid } from "@/data/brands";
 import { slugify } from "@/lib/slugify";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -12,7 +12,9 @@ import SchemaJSON from "@/components/SchemaJSON";
 import FAQ from "@/components/FAQ";
 import Reviews from "@/components/Reviews";
 import { InternalMesh } from "@/components/InternalMesh";
-import { CheckCircle, Zap, Shield, BatteryCharging, ArrowRight, Award } from "lucide-react";
+import { CheckCircle, Flame, Shield, ArrowRight, Factory, MapPin } from "lucide-react";
+import { getPseoContent } from "@/lib/pseo";
+import { getBrandFAQData } from "@/components/LocalFAQ";
 
 type Params = Promise<{ slug: string; brand: string }>;
 
@@ -42,8 +44,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
     if (!site || !brandData) return {};
 
-    const title = `Technicien Extincteur ${brandData.name} à ${site.city}${site.postalCode ? ` (${site.postalCode})` : ''} | Devis Incendie Gratuit`;
-    const description = `Maintenance certifiée Incendie pour ${brandData.name} (${brandData.models.slice(0, 3).join(', ')}) à ${site.city}. Devis gratuit, garantie 5 ans, conformité NF EN3.`;
+    const agents = agentsMid(brandData);
+    const title = `Vérification extincteurs ${brandData.name} à ${site.city}${site.postalCode ? ` (${site.postalCode})` : ''} | Devis gratuit`;
+    const description = `Contrôle annuel des extincteurs ${brandData.name} à ${site.city} : ${agents}. Techniciens qualifiés APSAD R4, conformité NF EN 3, registre de sécurité mis à jour. Devis gratuit sous 24h.`;
 
     const headersList = await headers();
     const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
@@ -85,6 +88,25 @@ export default async function CityBrandPage({ params }: { params: Params }) {
 
     if (!site || !brand) return notFound();
 
+    // Faits locaux réels (département, région, préfecture, SDIS, code INSEE,
+    // intercommunalité, population) : c'est ce qui rend deux pages ville x marque
+    // réellement différentes, plutôt qu'une substitution de nom de commune.
+    const pseo = await getPseoContent(site);
+    const localFacts = pseo.local_facts || [];
+    const cityFaqs = getBrandFAQData(site.city, site.department, brand);
+    // Angle rédactionnel de la marque, rapporté au territoire de la commune.
+    const editorial = brandEditorial(brand, { city: site.city, deptName: site.deptName });
+    const localContext = brandLocalContext(brand, {
+        city: site.city,
+        postalCode: site.postalCode,
+        population: site.population,
+        insee: site.insee,
+        epci: site.epci,
+        deptName: site.deptName,
+        department: site.department,
+        regionName: site.regionName,
+    });
+
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
             <Header isHub={true} city={site.city} phoneNumber={site.phoneNumber} variant="default" />
@@ -125,15 +147,16 @@ export default async function CityBrandPage({ params }: { params: Params }) {
 
                     <div className="text-center">
                         <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-red-500/20 text-red-400 text-sm font-bold mb-6 border border-red-500/30">
-                            <Zap size={14} />
-                            Expert Certifié Incendie — Spécialiste {brand.name}
+                            <Flame size={14} />
+                            Techniciens qualifiés APSAD R4 — parc {brand.name}
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-                            maintenance extincteur <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-teal-400">{brand.name}</span><br />
+                            Vérification extincteurs <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-teal-400">{brand.name}</span><br />
                             à {site.city}
                         </h1>
                         <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
-                            Vos locaux sont équipés d'extincteurs {brand.models[0]}{brand.models[1] ? ` ou ${brand.models[1]}` : ''} ? Nos techniciens certifiés Incendie assurent la vérification annuelle et la remise en état de votre matériel {brand.name} à {site.city}.
+                            Votre établissement est équipé d'extincteurs {brand.name} à {agentsMid(brand)} ?
+                            Nos techniciens assurent le contrôle annuel et la remise en état de votre matériel, avec le geste correspondant à chaque agent extincteur.
                         </p>
                         <a href="#devis" className="bg-red-600 hover:bg-red-500 text-white px-8 py-4 rounded-xl font-bold inline-flex items-center gap-2 transition">
                             Obtenir un devis gratuit
@@ -149,17 +172,102 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                     <div className="lg:col-span-2 space-y-12">
 
                         <div className="prose prose-lg text-slate-600 max-w-none">
-                            <h2>La protection incendie idéale pour {brand.name} à {site.city}</h2>
+                            <h2>Ce que nous vérifions sur un parc {brand.name} à {site.city}</h2>
                             <p>
-                                Pour sécuriser efficacement vos locaux avec le matériel <strong>{brand.name}</strong>, nos techniciens certifiés NF & APSAD interviennent à <strong>{site.city}{site.postalCode ? ` (${site.postalCode})` : ''}</strong>. Nous assurons la fourniture, l&apos;installation et la vérification annuelle de vos équipements.
+                                La marque d'un extincteur ne change pas la nature du contrôle annuel, mais elle détermine
+                                les <strong>agents extincteurs</strong> présents dans vos locaux — donc le geste technique que
+                                le technicien applique appareil par appareil. Voici, pour {brand.name}, ce qui est réellement
+                                contrôlé dans un établissement situé à <strong>{site.city}{site.postalCode ? ` (${site.postalCode})` : ''}</strong>.
                             </p>
 
-                            <h3>Gamme {brand.name} couverte</h3>
-                            <ul>
-                                {brand.models.map(model => (
-                                    <li key={model}><strong>{brand.name} {model}</strong> — Extincteurs et dispositifs conformes NF EN3</li>
-                                ))}
-                            </ul>
+                            {editorial.map((p, i) => (
+                                <p key={`ed-${i}`}>{p}</p>
+                            ))}
+
+                            <h3>Gammes {brand.name} prises en charge</h3>
+                            {brand.ranges.map((r) => (
+                                <div key={rangeLabel(r)} className="not-prose mb-4 rounded-2xl border border-slate-200 bg-white p-5">
+                                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                                        <strong className="text-slate-900 text-base">{rangeLabel(r)}</strong>
+                                        <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-100 rounded-full px-2.5 py-1">
+                                            Feux {r.classes}
+                                        </span>
+                                    </div>
+                                    <p className="text-sm text-slate-600 leading-relaxed mb-2">
+                                        Capacités usuelles sur ce type d'appareil : {r.capacites.join(', ')}.
+                                    </p>
+                                    <p className="text-sm text-slate-600 leading-relaxed">
+                                        <strong className="text-slate-900">Vérification annuelle :</strong> {r.controle}.
+                                    </p>
+                                </div>
+                            ))}
+
+                            {brand.verifieConstructeur && (brand.groupe || brand.reseau) && (
+                                <>
+                                    <h3>Le constructeur et son réseau</h3>
+                                    <p>
+                                        {brand.groupe && <><strong>{brand.name}</strong> est exploitée par <strong>{brand.groupe}</strong>. </>}
+                                        {brand.perimetre}
+                                        {brand.reseau ? ` ${brand.reseau}` : ""}
+                                    </p>
+                                    {brand.faits.length > 0 && (
+                                        <ul>
+                                            {brand.faits.map((f) => (
+                                                <li key={f}>{f}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    {brand.source && (
+                                        <p className="text-sm">
+                                            Informations constructeur vérifiées sur{" "}
+                                            <a href={brand.source} target="_blank" rel="noopener noreferrer nofollow">
+                                                {brand.source.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                                            </a>.
+                                        </p>
+                                    )}
+                                </>
+                            )}
+
+                            {/* Contexte local réel : données administratives officielles (IGN/Etalab).
+                                Le paragraphe est conditionné par la marque pour ne pas répéter mot
+                                pour mot le même texte sur les quatre pages d'une même commune. */}
+                            <h3>Le contexte local de votre intervention à {site.city}</h3>
+                            <p>{localContext}</p>
+                            <p>
+                                Un parc {brand.name} installé sur ce territoire relève du même cadre réglementaire que
+                                n'importe quel autre matériel : vérification annuelle tracée au registre de sécurité, et
+                                règlement de sécurité contre les risques d'incendie pour les établissements recevant du public.
+                            </p>
+
+                            {localFacts.length > 0 && (
+                                <>
+                                    <h3>Le cadre administratif applicable à {site.city}</h3>
+                                    <p>
+                                        Les contrôles et les correspondances administratives d&apos;un établissement de {site.city} ne dépendent pas du prestataire retenu mais du territoire : voici les interlocuteurs et le cadre réels de la commune.
+                                    </p>
+                                    <ul>
+                                        {localFacts.map((f) => (
+                                            <li key={f.label}><strong>{f.label} :</strong> {f.value}</li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+
+                            {site.zones && site.zones.length > 0 && (
+                                <>
+                                    <h3>Communes desservies autour de {site.city}</h3>
+                                    <p>
+                                        Nos tournées couvrent les communes limitrophes, ce qui permet de regrouper les vérifications et d&apos;intervenir sans frais de déplacement supplémentaires :
+                                    </p>
+                                    <ul>
+                                        {site.zones.map((z) => (
+                                            <li key={z.nom}>
+                                                <strong>{z.nom}</strong> — à {String(z.km).replace(".", ",")} km de {site.city}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
                         </div>
                     </div>
 
@@ -170,15 +278,31 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                                 <li className="flex items-start gap-3">
                                     <CheckCircle size={18} className="text-green-500 shrink-0 mt-0.5" />
                                     <div>
-                                        <strong className="block text-slate-900">Gamme prise en charge</strong>
-                                        {brand.models.join(', ')}
+                                        <strong className="block text-slate-900">Agents couverts</strong>
+                                        {brand.ranges.map(r => r.agent).join(', ')}
+                                    </div>
+                                </li>
+                                {brand.groupe && (
+                                    <li className="flex items-start gap-3">
+                                        <Factory size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                        <div>
+                                            <strong className="block text-slate-900">Constructeur</strong>
+                                            {brand.groupe}
+                                        </div>
+                                    </li>
+                                )}
+                                <li className="flex items-start gap-3">
+                                    <MapPin size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                    <div>
+                                        <strong className="block text-slate-900">Zone d&apos;intervention</strong>
+                                        {site.city}{site.deptName ? ` et ${site.deptName}` : ""}
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <Shield size={18} className="text-red-500 shrink-0 mt-0.5" />
                                     <div>
                                         <strong className="block text-slate-900">Certifications & Garanties</strong>
-                                        Conforme NF EN3 & APSAD R4 à {site.city}
+                                        Conforme NF EN 3 & APSAD R4 à {site.city}
                                     </div>
                                 </li>
                             </ul>
@@ -193,10 +317,10 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                 <div id="devis" className="mt-20 pt-16 border-t border-slate-200">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-4">
-                            Devis maintenance extincteur {brand.name} à {site.city}
+                            Devis pour vos extincteurs {brand.name} à {site.city}
                         </h2>
                         <p className="text-slate-500">
-                            Mise en relation rapide avec un technicien Incendie spécialiste {brand.name} à {site.city}.
+                            Visite technique et chiffrage par un technicien qualifié à {site.city} et dans les communes limitrophes.
                         </p>
                     </div>
                     <LeadForm domain={site.domain} city={site.city} themeColor="red" />
@@ -204,7 +328,11 @@ export default async function CityBrandPage({ params }: { params: Params }) {
             </div>
 
             {/* SEO Power Components */}
-            <FAQ themeColor="red" />
+            <FAQ
+                themeColor="red"
+                items={cityFaqs.map(f => ({ q: f.question, a: f.answer }))}
+                heading={`Vos questions sur les extincteurs ${brand.name} à ${site.city}`}
+            />
             <Reviews site={site} themeColor="red" />
             <InternalMesh city={site.city} config={site} />
             <LocalSources site={site} path={`/ville/${slug}/${brandSlug}`} />

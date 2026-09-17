@@ -52,7 +52,7 @@ export async function generateMetadata({
         openGraph: {
             title,
             description,
-            url: `https://www.expertsecuriteincendie.fr/maintenance/${city.slug}`,
+            url: `https://www.expertsecuriteincendie.fr/installation/${city.slug}`,
             siteName: "Expert Sécurité Incendie",
             locale: "fr_FR",
             type: "website",
@@ -124,7 +124,7 @@ export default async function CitymaintenancePage({
                     <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6">
                         <Link href="/" className="hover:text-red-600">Accueil</Link>
                         <span>/</span>
-                        <Link href="/maintenance" className="hover:text-red-600">maintenance</Link>
+                        <Link href="/solutions/entreprise" className="hover:text-red-600">Maintenance</Link>
                         <span>/</span>
                         <span className="text-slate-900 font-medium">{city.name}</span>
                     </nav>
@@ -135,7 +135,7 @@ export default async function CitymaintenancePage({
                             {/* Trust Badge */}
                             <div className="inline-flex items-center rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-bold text-green-700 mb-6">
                                 <CheckCircle size={16} className="mr-2" />
-                                technicien certifié à {city.name}
+                                Techniciens certifiés APSAD R4 à {city.name}
                             </div>
 
                             {/* H1 */}
@@ -146,17 +146,17 @@ export default async function CitymaintenancePage({
 
                             {/* Subtitle - Educational */}
                             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                                Vous habitez à <strong className="text-slate-900">{city.name}</strong> ({city.departmentName}) et souhaitez installer une matériel incendie ?
-                                Recevez jusqu&apos;à <strong className="text-green-600">3 devis gratuits</strong> de techniciens certifiés <strong>APSAD Incendie</strong> près de chez vous.
+                                Vous exploitez un commerce, des bureaux ou un local professionnel à <strong className="text-slate-900">{city.name}</strong> ({city.departmentName}) ?
+                                Nos techniciens certifiés <strong>APSAD R4</strong> vérifient vos extincteurs et vos blocs d&apos;éclairage de sécurité, mettent le registre de sécurité à jour et vous remettent une attestation pour votre assurance.
                             </p>
 
                             {/* Key Benefits */}
                             <div className="grid grid-cols-2 gap-4 mb-8">
                                 {[
                                     { icon: Clock, label: "Devis en 24h" },
-                                    { icon: Shield, label: "Certifié Incendie" },
-                                    { icon: Euro, label: "Jusqu'à 2 460€ d'aides" },
-                                    { icon: Award, label: "Garantie 2 ans" },
+                                    { icon: Shield, label: "Norme NF EN 3 & APSAD" },
+                                    { icon: Euro, label: "Dès 15 € par appareil" },
+                                    { icon: Award, label: "Registre de sécurité remis" },
                                 ].map((benefit, i) => (
                                     <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-4 border border-slate-200">
                                         <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
@@ -203,7 +203,7 @@ export default async function CitymaintenancePage({
             <section className="py-16 bg-white">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-                        Pourquoi installer une extincteur à {city.name} ?
+                        Pourquoi confier la maintenance à un technicien certifié à {city.name} ?
                     </h2>
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -211,10 +211,10 @@ export default async function CitymaintenancePage({
                             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                                 <Euro className="text-green-600" size={24} />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Économies garanties</h3>
+                            <h3 className="text-xl font-bold mb-3">Conformité réglementaire</h3>
                             <p className="text-slate-600">
-                                protectionr à domicile coûte 3 à 4 fois moins cher qu&apos;en station publique.
-                                À {city.name}, le prix moyen de l&apos;électricité vous permet d&apos;économiser <strong>126€/mois</strong> par rapport à l&apos;essence.
+                                Les extincteurs d&apos;un local professionnel doivent être vérifiés <strong>une fois par an</strong>, et l&apos;opération doit être tracée dans le registre de sécurité.
+                                À {city.name}, un appareil dont la vérification est dépassée n&apos;est plus opposable en cas de contrôle ou de sinistre.
                             </p>
                         </div>
 
@@ -222,10 +222,10 @@ export default async function CitymaintenancePage({
                             <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
                                 <Zap className="text-red-600" size={24} />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Confort quotidien</h3>
+                            <h3 className="text-xl font-bold mb-3">Un seul passage annuel</h3>
                             <p className="text-slate-600">
-                                Plus besoin de chercher une extincteur publique. Branchez votre véhicule le soir,
-                                il est chargé le matin. Une autonomie de 300km chaque jour.
+                                Le même technicien vérifie les extincteurs, teste l&apos;autonomie des blocs d&apos;éclairage de sécurité, contrôle les dispositifs de désenfumage
+                                et met à jour le registre de sécurité de votre établissement à {city.name}.
                             </p>
                         </div>
 
@@ -233,10 +233,10 @@ export default async function CitymaintenancePage({
                             <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
                                 <Award className="text-amber-600" size={24} />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Valorisation immobilière</h3>
+                            <h3 className="text-xl font-bold mb-3">Preuve en cas de contrôle</h3>
                             <p className="text-slate-600">
-                                Une matériel incendie augmente la valeur de votre bien immobilier à {city.name}.
-                                Critère de plus en plus recherché par les acheteurs.
+                                Chaque appareil vérifié est replombé et étiqueté, et le rapport d&apos;intervention est daté.
+                                À {city.name} comme ailleurs, c&apos;est cette trace écrite qui est demandée par l&apos;assureur ou la commission de sécurité.
                             </p>
                         </div>
                     </div>
@@ -272,9 +272,9 @@ export default async function CitymaintenancePage({
                             },
                             {
                                 icon: Briefcase,
-                                title: "Entreprise / Flotte",
-                                desc: `Équipez vos locaux à ${city.name} pour vos collaborateurs ou votre flotte. Facturation intégrée.`,
-                                features: ["Multi-extincteurs", "Gestion à distance", "Facturation automatique"]
+                                title: "Entreprise / ERP",
+                                desc: `Audit et mise en conformité des extincteurs, du désenfumage et de l'éclairage de sécurité de vos locaux à ${city.name}. Registre de sécurité tenu à jour.`,
+                                features: ["Audit de conformité", "Contrat annuel multi-sites", "Attestation pour l'assureur"]
                             },
                         ].map((service, i) => (
                             <div key={i} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
@@ -311,7 +311,7 @@ export default async function CitymaintenancePage({
                             {nearbyCities.map((nearbyCity, i) => (
                                 <Link
                                     key={i}
-                                    href={`/maintenance/${nearbyCity.slug}`}
+                                    href={`/installation/${nearbyCity.slug}`}
                                     className="bg-slate-50 hover:bg-red-50 rounded-xl p-4 text-center border border-slate-200 hover:border-red-300 transition group"
                                 >
                                     <MapPin size={20} className="mx-auto mb-2 text-slate-400 group-hover:text-red-500" />

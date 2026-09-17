@@ -19,6 +19,24 @@ const nextConfig: NextConfig = {
     ],
   },
   trailingSlash: false,
+  async redirects() {
+    return [
+      // La marque « Andrieu » a été retirée du catalogue : son site constructeur
+      // n'est pas accessible et aucune gamme n'a pu être vérifiée. Ses pages
+      // ville x marque et sa page maintenance renvoyaient un contenu sans
+      // substance vérifiable ; elles sont redirigées en 301 plutôt que servies.
+      {
+        source: "/ville/:slug/andrieu",
+        destination: "/ville/:slug",
+        statusCode: 301,
+      },
+      {
+        source: "/maintenance/andrieu",
+        destination: "/",
+        statusCode: 301,
+      },
+    ];
+  },
   async headers() {
     return [
       {

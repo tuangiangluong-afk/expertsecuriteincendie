@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     return {
         title: `maintenance extincteur ${poi} - Devis & Expert Incendie | Expert Sécurité Incendie`,
-        description: `Besoin d&apos;une matériel incendie à ${poi} ? Électricien certifié Incendie, maintenance rapide et devis gratuit sous 24h. Service national.`,
+        description: `Besoin de matériel incendie à ${poi} ? Extincteurs, RIA et maintenance par des techniciens qualifiés APSAD R4, devis gratuit sous 24h. Service national.`,
     };
 }
 

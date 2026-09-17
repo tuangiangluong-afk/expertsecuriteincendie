@@ -261,7 +261,7 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                     <CheckCircle size={24} className="text-green-500 fill-green-100" />
-                                    <span className="font-bold text-slate-900 text-base">Garantie décennale</span>
+                                    <span className="font-bold text-slate-900 text-base">NF EN 3 & APSAD R4</span>
                                 </div>
                             </div>
                         </div>
@@ -432,9 +432,9 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                 },
                                 {
                                     icon: Briefcase,
-                                    title: "Entreprise / Flotte",
-                                    description: "Pour parkings pro. Supervision, facturation et gestion de flotte.",
-                                    features: ["Conformité Loi", "Gestion à distance", "Facturation auto"],
+                                    title: "Entreprise / ERP",
+                                    description: "Audit et contrat annuel pour les locaux professionnels et les ERP.",
+                                    features: ["Audit de conformité", "Contrat annuel", "Registre de sécurité"],
                                     color: "emerald",
                                     href: "/solutions/entreprise"
                                 }
@@ -558,20 +558,20 @@ export default async function SitePage({ params, basePath }: SitePageProps) {
                                 Une panne ? On intervient en <span className="text-red-500">48h</span>
                             </h2>
                             <p className="text-lg text-neutral-600 mb-6">
-                                Parce que votre mobilité n&apos;attend pas, nos techniciens locaux à <strong>{site.city}</strong> assurent le SAV et la maintenance de votre extincteur, même si elle n&apos;a pas été installée par nous.
+                                Nos techniciens locaux à <strong>{site.city}</strong> vérifient et remettent en état vos extincteurs, vos blocs d&apos;éclairage de sécurité et vos dispositifs de désenfumage, même s&apos;ils n&apos;ont pas été fournis par nous.
                             </p>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-center gap-3 text-neutral-700">
                                     <CheckCircle size={20} className="text-green-500" />
-                                    <span>Diagnostic à distance gratuit</span>
+                                    <span>Diagnostic et devis gratuits</span>
                                 </li>
                                 <li className="flex items-center gap-3 text-neutral-700">
                                     <CheckCircle size={20} className="text-green-500" />
-                                    <span>Pièces détachées en stock (Câbles, Cartes)</span>
+                                    <span>Pièces d&apos;usure en stock (joints, percuteurs, goupilles, accumulateurs de BAES)</span>
                                 </li>
                                 <li className="flex items-center gap-3 text-neutral-700">
                                     <CheckCircle size={20} className="text-green-500" />
-                                    <span>Mise à jour logiciel extincteur &amp; supervision</span>
+                                    <span>Mise à jour du registre de sécurité et remplacement des appareils hors d&apos;usage</span>
                                 </li>
                             </ul>
                             <a href="#simulateur" className="text-red-600 font-bold hover:underline flex items-center gap-2">

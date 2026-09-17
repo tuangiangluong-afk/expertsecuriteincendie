@@ -33,7 +33,12 @@ const PRICE_MAINTENANCE = "15€ – 28€ / appareil";
 interface LocalContext {
     city: string;
     postal: string;
+    /** Communes limitrophes réelles (données IGN/Etalab), utilisées comme zones d'intervention */
     quartiers: string[];
+    zones: { nom: string; km: number }[];
+    insee?: string;
+    epci?: string;
+    population?: number;
     dept?: Departement;
     deptCode: string;
     deptName: string;
@@ -56,10 +61,14 @@ function buildContext(cityConfig: CityConfig): LocalContext {
         city: cityConfig.city,
         postal,
         quartiers: cityConfig.neighborhoods || [],
+        zones: cityConfig.zones || [],
+        insee: cityConfig.insee,
+        epci: cityConfig.epci,
+        population: cityConfig.population,
         dept,
         deptCode: dept?.code || cityConfig.department || "",
-        deptName: dept?.name || cityConfig.region || "France",
-        region: dept?.region || "France",
+        deptName: dept?.name || cityConfig.deptName || cityConfig.region || "France",
+        region: cityConfig.regionName || dept?.region || "France",
         prefecture: dept?.prefecture || "",
         sdis: dept?.sdis || "le SDIS local",
         zone: dept?.zone || "zone de défense et de sécurité",
@@ -95,15 +104,15 @@ const OPENERS: ((c: LocalContext) => string)[] = [
 ];
 
 // ========================================
-// PARAGRAPHES MÉTIER (quartiers réels + prestations)
+// PARAGRAPHES MÉTIER (communes limitrophes réelles + prestations)
 // ========================================
 const MIDDLES: ((c: LocalContext) => string)[] = [
-    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Nos équipes se déplacent dans les secteurs de <strong>${c.quartiers.slice(0, 3).join(", ")}</strong> et alentours.` : "Nos équipes couvrent l'ensemble de la commune et des communes limitrophes."} Nous assurons l'audit, la fourniture et la pose d'extincteurs certifiés NF EN 3, de blocs autonomes d'éclairage de sécurité (BAES), d'alarmes et de plans d'évacuation normés.</p>`,
-    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Interventions régulières à <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>.` : "Interventions sur toute la commune."} Au programme : contrôle et recharge des appareils, vérification des BAES, mise à jour du registre de sécurité et signalétique photoluminescente conforme.</p>`,
-    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Du centre de ${c.city} aux quartiers <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>,` : `Sur toute la commune de ${c.city},`} nous adaptons les agents extincteurs à vos risques réels : eau pulvérisée 6 L pour les surfaces de bureaux et commerces, CO2 pour les armoires électriques et salles serveurs, poudre ABC pour les ateliers et zones de stockage.</p>`,
-    (c) => `<p class="mb-4 leading-relaxed">Engagés sur le département ${c.deptCode} : ${c.quartiers.length >= 2 ? `nous suivons en priorité les zones d'activité de <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>.` : "nous suivons les zones d'activité de la commune."} Contrats annuels, attestations pour votre assureur et registre de sécurité tenu à jour à chaque passage.</p>`,
-    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Déjà intervenus à <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>.` : "Déjà intervenus sur la commune."} Diagnostic gratuit, chiffrage détaillé par équipement et pose aux emplacements stratégiques avec remise du procès-verbal de vérification.</p>`,
-    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Secteurs couverts : <strong>${c.quartiers.slice(0, 3).join(", ")}</strong> et environs.` : "Couverture communale complète."} Contrats de maintenance avec vérification mécanique du percuteur, contrôle de la charge manométrique et réfection annuelle de la vignette.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Nos équipes interviennent à <strong>${c.city}</strong> et dans les communes limitrophes de <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>.` : "Nos équipes couvrent l'ensemble de la commune et des communes limitrophes."} Nous assurons l'audit, la fourniture et la pose d'extincteurs certifiés NF EN 3, de blocs autonomes d'éclairage de sécurité (BAES), d'alarmes et de plans d'évacuation normés.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Tournées régulières vers <strong>${c.quartiers.slice(0, 3).join(", ")}</strong> depuis ${c.city}.` : "Tournées régulières sur toute la commune."} Au programme : contrôle et recharge des appareils, vérification des BAES, mise à jour du registre de sécurité et signalétique photoluminescente conforme.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Basés à ${c.city}, nous desservons <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>` : `Sur toute la commune de ${c.city},`} et nous adaptons les agents extincteurs à vos risques réels : eau pulvérisée 6 L pour les surfaces de bureaux et commerces, CO2 pour les armoires électriques et salles serveurs, poudre ABC pour les ateliers et zones de stockage.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">Engagés sur le département ${c.deptCode} : ${c.quartiers.length >= 2 ? `nous suivons en priorité les zones d'activité de <strong>${c.city}</strong> et des communes voisines (${c.quartiers.slice(0, 3).join(", ")}).` : "nous suivons les zones d'activité de la commune."} Contrats annuels, attestations pour votre assureur et registre de sécurité tenu à jour à chaque passage.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Déjà intervenus à <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>` : "Déjà intervenus sur la commune"} et à ${c.city}. Diagnostic gratuit, chiffrage détaillé par équipement et pose aux emplacements stratégiques avec remise du procès-verbal de vérification.</p>`,
+    (c) => `<p class="mb-4 leading-relaxed">${c.quartiers.length >= 2 ? `Secteur couvert : <strong>${c.city}</strong> et <strong>${c.quartiers.slice(0, 3).join(", ")}</strong>` : "Couverture communale complète"}, avec un technicien qui connaît le terrain. Contrats de maintenance avec vérification mécanique du percuteur, contrôle de la charge manométrique et réfection annuelle de la vignette.</p>`,
 ];
 
 // ========================================
@@ -130,7 +139,7 @@ const TIPS: ((c: LocalContext) => string)[] = [
     (c) => `Pour les locaux techniques et salles serveurs de ${c.city}, l'extincteur au dioxyde de carbone (CO2) est à privilégier : il étouffe le feu électrique sans laisser de résidu.`,
     (c) => `Les ERP de ${c.city} relèvent de la commission de sécurité compétente sur le département ${c.deptCode} ; leur vérification périodique des extincteurs et des BAES doit être tracée dans le registre de sécurité.`,
     (c) => `Les blocs autonomes d'éclairage de sécurité de ${c.city} doivent garantir une autonomie d'une heure en cas de coupure générale du réseau.`,
-    (c) => `${c.quartiers.length ? `Dans les secteurs de ${c.quartiers[0]}, à ${c.city}, ` : `À ${c.city}, `}le registre de sécurité doit être présenté à jour lors de tout contrôle : il conditionne la couverture par votre assurance.`,
+    (c) => `${c.quartiers.length ? `À ${c.quartiers[0]}, commune limitrophe de ${c.city}, ` : `À ${c.city}, `}le registre de sécurité doit être présenté à jour lors de tout contrôle : il conditionne la couverture par votre assurance.`,
     (c) => `À ${c.city}, ${c.sdis} est l'autorité opérationnelle de référence : ses officiers sont associés aux visites de conformité des ERP de ${c.deptName}.`,
     (c) => `${c.littoral ? `Sur le littoral du ${c.deptCode}, l'air salin impose un contrôle visuel renforcé des corps de bouteilles à ${c.city} : corrosion, peinture, goupille et percuteur.` : c.montagne ? `En zone de montagne (${c.deptName}), les BAES de ${c.city} subissent des variations de température importantes : leur autonomie doit être testée à chaque passage.` : `À ${c.city}, la vérification mécanique du percuteur et de la charge manométrique doit être refaite à chaque visite annuelle.`}`,
     (c) => `La formation à la manipulation des extincteurs pour le personnel est obligatoire ; nos techniciens l'assurent directement dans vos locaux à ${c.city}.`,
@@ -186,7 +195,7 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
                 region: c.region,
                 prefecture: c.prefecture,
                 authority: c.sdis,
-                quartiers: c.quartiers,
+                zones: c.quartiers,
                 littoral: c.littoral,
                 montagne: c.montagne,
                 dense: c.dense,
@@ -216,6 +225,11 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
     if (c.prefecture) local_facts.push({ label: "Préfecture", value: c.prefecture });
     local_facts.push({ label: "Service de secours compétent", value: c.sdis });
     if (c.postal) local_facts.push({ label: "Code postal", value: c.postal });
+    // Identité administrative réelle de la commune (source IGN / Etalab) :
+    // c'est ce qui distingue Saint-Cloud de Chambéry, plutôt qu'un texte réécrit.
+    if (c.insee) local_facts.push({ label: "Code INSEE", value: c.insee });
+    if (c.epci) local_facts.push({ label: "Intercommunalité", value: c.epci });
+    if (c.population) local_facts.push({ label: "Population", value: `${c.population.toLocaleString("fr-FR")} habitants` });
     local_facts.push({ label: "Tarif de maintenance", value: PRICE_MAINTENANCE });
     if (c.littoral) local_facts.push({ label: "Contrainte", value: "Ambiance saline — corrosion renforcée" });
     if (c.montagne) local_facts.push({ label: "Contrainte", value: "Zone de montagne — gel et humidité" });

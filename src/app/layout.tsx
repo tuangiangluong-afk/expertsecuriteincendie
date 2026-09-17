@@ -116,7 +116,7 @@ export default function RootLayout({
         <Script src="https://answershaper.com/api/v1/m2m/local-tag/25.js" strategy="lazyOnload" defer />
 
         <StructuredData />
-        <GoogleAnalytics GA_MEASUREMENT_ID="G-3S88LL4FC5" />
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-KCMP1L98T3" />
         <AttributionTracker />
         {/* Google Tag Manager (noscript) */}
         <noscript>

@@ -7,6 +7,13 @@ import { SiteConfig } from "@/lib/sites-config";
 import { CityConfig } from "@/lib/db";
 import { getNearbyCities } from "@/lib/geo";
 import { brands } from "@/data/brands";
+import { CITIES } from "@/lib/db";
+
+// Slugs de villes réellement publiées : sert à ne pas fabriquer de liens morts
+// vers /ville/... pour les communes limitrophes hors réseau.
+const CITY_SLUGS = new Set<string>(
+    Object.values(CITIES).map((c) => slugify(c.city).toLowerCase())
+);
 
 interface InternalMeshProps {
     city?: string;
@@ -47,7 +54,7 @@ export function InternalMesh({ city, config }: InternalMeshProps) {
             `Maintenance Incendie ${name}`,
             `technicien extincteur ${name}`,
             `Devis extincteur protection ${name}`,
-            `Électricien Incendie ${name}`,
+            `Extincteurs & RIA ${name}`,
             `extincteur ${name}`,
             `Entreprise Incendie ${name}`
         ];
@@ -91,20 +98,31 @@ export function InternalMesh({ city, config }: InternalMeshProps) {
                         </ul>
                     </div>
 
-                    {/* 3. Quartiers / Zones (SEO Local) */}
+                    {/* 3. Communes desservies (zones d'intervention réelles) */}
                     <div>
                         <h4 className="text-white font-bold mb-6 text-lg">
-                            {config ? `Quartiers de ${config.city}` : "Zones d'intervention"}
+                            {config ? `Communes desservies autour de ${config.city}` : "Zones d'intervention"}
                         </h4>
                         <ul className="space-y-3">
-                            {neighborhoods.slice(0, 8).map((quartier: string, i: number) => (
-                                <li key={quartier}>
-                                    <Link href={`/quartier/${slugify(quartier)}`} className="text-neutral-400 hover:text-white transition text-sm flex items-center gap-2">
-                                        <span className="w-1 h-1 bg-yellow-500 rounded-full"></span>
-                                        {getVariedAnchor(quartier, i + 2)}
-                                    </Link>
-                                </li>
-                            ))}
+                            {neighborhoods.slice(0, 8).map((quartier: string, i: number) => {
+                                const targetSlug = slugify(quartier).toLowerCase();
+                                const label = getVariedAnchor(quartier, i + 2);
+                                return (
+                                    <li key={quartier}>
+                                        {CITY_SLUGS.has(targetSlug) ? (
+                                            <Link href={`/ville/${targetSlug}`} className="text-neutral-400 hover:text-white transition text-sm flex items-center gap-2">
+                                                <span className="w-1 h-1 bg-yellow-500 rounded-full"></span>
+                                                {label}
+                                            </Link>
+                                        ) : (
+                                            <span className="text-neutral-400 text-sm flex items-center gap-2">
+                                                <span className="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                                                {quartier}
+                                            </span>
+                                        )}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
 

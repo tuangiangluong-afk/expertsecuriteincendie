@@ -86,7 +86,7 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             "@type": "Service",
             "serviceType": `maintenance matériel incendie ${brand.name}`,
             "name": `Maintenance extincteurs ${brand.name} à ${site.city}`,
-            "description": `Vérification et maintenance des extincteurs ${brand.name} (${brand.models.join(', ')}) à ${site.city} par des techniciens certifiés. Conformité NF EN3, rapport d'intervention et registre de sécurité inclus. Devis gratuit.`,
+            "description": `Vérification et maintenance des extincteurs ${brand.name} (${brand.ranges.map(r => r.agent).join(', ')}) à ${site.city} par des techniciens qualifiés. Conformité NF EN 3, rapport d'intervention et registre de sécurité inclus. Devis gratuit.`,
             "url": canonicalUrl,
             "provider": {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
@@ -112,12 +112,12 @@ export default function SchemaJSON({ type, site, vehicle, brand, breadcrumbItems
             },
             "hasOfferCatalog": {
                 "@type": "OfferCatalog",
-                "name": `extincteurs compatibles ${brand.name}`,
-                "itemListElement": brand.models.map(model => ({
+                "name": `extincteurs ${brand.name} pris en charge`,
+                "itemListElement": brand.ranges.map(r => ({
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": `maintenance extincteur pour ${brand.name} ${model}`,
+                        "name": `vérification extincteur ${brand.name} à ${r.agent.toLowerCase()} (feux ${r.classes})`,
                         "brand": { "@type": "Brand", "name": brand.name }
                     }
                 }))

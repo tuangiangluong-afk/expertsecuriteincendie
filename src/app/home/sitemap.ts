@@ -10,25 +10,30 @@ import { getAllGuides } from '@/lib/mdx';
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://www.expertsecuriteincendie.fr';
 
+    // Date de dernière révision réelle du contenu de ces gabarits.
+    // Auparavant chaque URL portait `new Date()`, donc un lastmod qui changeait à
+    // chaque génération : Search Console ignore un lastmod qui n'est jamais stable.
+    const CONTENT_REVISION = new Date('2026-09-17');
+
     // ========================================
     // 1. CORE STATIC PAGES
     // ========================================
     const coreRoutes: MetadataRoute.Sitemap = [
         {
             url: `${baseUrl}/mentions-legales`,
-            lastModified: new Date(),
+            lastModified: new Date('2026-03-01'),
             changeFrequency: 'monthly',
             priority: 0.3,
         },
         {
             url: `${baseUrl}/cgv`,
-            lastModified: new Date(),
+            lastModified: new Date('2026-03-01'),
             changeFrequency: 'monthly',
             priority: 0.3,
         },
         {
             url: `${baseUrl}/contact`,
-            lastModified: new Date(),
+            lastModified: new Date('2026-03-01'),
             changeFrequency: 'monthly',
             priority: 0.5,
         },
@@ -39,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     const cityRoutes: MetadataRoute.Sitemap = NATIONAL_TARGETS.map((target) => ({
         url: `${baseUrl}/ville/${slugify(target.name)}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_REVISION,
         changeFrequency: 'weekly' as const,
         priority: 0.9, // High priority - main money pages
     }));
@@ -50,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     const serviceRoutes: MetadataRoute.Sitemap = SEO_SERVICES.map((service) => ({
         url: `${baseUrl}/service/${service.slug}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_REVISION,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
     }));
@@ -66,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const poiRoutes: MetadataRoute.Sitemap = allPois.map((poi) => ({
         url: `${baseUrl}/poi/${slugify(poi)}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_REVISION,
         changeFrequency: 'monthly' as const,
         priority: 0.6,
     }));
@@ -74,9 +79,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     // 7. maintenance BRAND PAGES (NEW)
     // ========================================
+    // Marques : servies par src/app/maintenance/[brand]/page.tsx (le middleware
+    // laisse /maintenance/* au routeur). Ces URL renvoyaient 404 auparavant.
     const maintenanceRoutes: MetadataRoute.Sitemap = brands.map((brand) => ({
         url: `${baseUrl}/maintenance/${brand.slug}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_REVISION,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
@@ -87,7 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const guides = getAllGuides();
     const guideRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
         url: `${baseUrl}/guides/${guide.slug}`,
-        lastModified: (guide.date && !isNaN(new Date(guide.date).getTime())) ? new Date(guide.date) : new Date(),
+        lastModified: (guide.date && !isNaN(new Date(guide.date).getTime())) ? new Date(guide.date) : CONTENT_REVISION,
         changeFrequency: 'weekly' as const,
         priority: 0.7,
     }));
@@ -96,11 +103,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 10. HUB WHITESPACE
     // ========================================
     const extraRoutes: MetadataRoute.Sitemap = [
-        { url: `${baseUrl}/solutions/entreprise`, lastModified: new Date(), priority: 0.8 },
-        { url: `${baseUrl}/guides`, lastModified: new Date(), priority: 0.8 },
-        { url: `${baseUrl}/solutions/maison`, lastModified: new Date(), priority: 0.7 },
-        { url: `${baseUrl}/solutions/copropriete`, lastModified: new Date(), priority: 0.7 },
-        { url: `${baseUrl}/solutions/entreprise`, lastModified: new Date(), priority: 0.7 },
+        { url: `${baseUrl}/solutions/entreprise`, lastModified: CONTENT_REVISION, priority: 0.8 },
+        { url: `${baseUrl}/guides`, lastModified: CONTENT_REVISION, priority: 0.8 },
+        { url: `${baseUrl}/solutions/maison`, lastModified: CONTENT_REVISION, priority: 0.7 },
+        { url: `${baseUrl}/solutions/copropriete`, lastModified: CONTENT_REVISION, priority: 0.7 },
     ];
 
 
@@ -111,13 +117,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         return [
             {
                 url: `${baseUrl}/ville/${slugify(target.name)}/copropriete`,
-                lastModified: new Date(),
+                lastModified: CONTENT_REVISION,
                 changeFrequency: 'weekly' as const,
                 priority: 0.95,
             },
             {
                 url: `${baseUrl}/ville/${slugify(target.name)}/entreprise`,
-                lastModified: new Date(),
+                lastModified: CONTENT_REVISION,
                 changeFrequency: 'weekly' as const,
                 priority: 0.95,
             },
@@ -130,7 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const cityBrandRoutes: MetadataRoute.Sitemap = NATIONAL_TARGETS.flatMap((target) => {
         return brands.map(brand => ({
             url: `${baseUrl}/ville/${slugify(target.name)}/${brand.slug}`,
-            lastModified: new Date(),
+            lastModified: CONTENT_REVISION,
             changeFrequency: 'weekly' as const,
             priority: 0.85,
         }));

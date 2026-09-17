@@ -176,11 +176,11 @@ const _neuillyConfig: SiteConfig = {
     targetType: 'MAISON',
     priceRange: 'LUXE',
     theme: 'trust',
-    heroImage: "/images/realizations/hero-extincteur.jpg", // Porsche Taycan Charging vibe
+    heroImage: "/images/realizations/hero-extincteur.jpg",
     description: "maintenance matériel incendie Neuilly-sur-Seine. Service premium.",
     meta: {
         title: "matériel incendie Neuilly-sur-Seine | maintenance Premium",
-        description: "maintenance matériel incendie Neuilly. Service discret et premium pour particuliers et flottes. Extincteurs, Porsche. Devis sur mesure."
+        description: "Maintenance du matériel incendie à Neuilly-sur-Seine : extincteurs, RIA, BAES et registre de sécurité, pour les copropriétés et les entreprises. Devis gratuit."
     },
     certifications: TEMPLATE_CERTIFICATIONS,
     aidesDisponibles: TEMPLATE_AIDES,
@@ -644,7 +644,7 @@ const _levalloisConfig: SiteConfig = {
     },
     certifications: TEMPLATE_CERTIFICATIONS,
     aidesDisponibles: TEMPLATE_AIDES,
-    features: ["Entreprises", "Flottes"],
+    features: ["Entreprises", "Copropriétés"],
     localKeywords: ["extincteur protection levallois", "technicien 92"],
     quartiers: [],
     coproprietes: [],
@@ -755,19 +755,19 @@ const _marseilleConfig: SiteConfig = {
     name: "Sécurité Incendie Marseille",
     phoneNumber: "04 91 80 13 00",
     email: "marseille@expertsecuriteincendie.fr",
-    targetType: 'MAISON', // On vise les villas et le Solaire
-    priceRange: 'PREMIUM', // On monte en gamme pour l'upsell Solaire
+    targetType: 'MAISON',
+    priceRange: 'PREMIUM',
     theme: 'trust',
-    heroImage: "/images/realizations/hero-extincteur.jpg", // Vieux Port ou Calanques
-    description: "maintenance matériel incendie et Carport Solaire à Marseille, Cassis, Carry. Roulez gratuit au soleil.",
+    heroImage: "/images/realizations/hero-extincteur.jpg",
+    description: "Maintenance du matériel incendie à Marseille, Cassis et Carry-le-Rouet : extincteurs, BAES, désenfumage et registre de sécurité.",
     meta: {
-        title: "maintenance Sécurité Incendie & Carport Solaire Marseille | 13",
-        description: "Expert extincteur & Solaire Marseille. Transformez votre parking en centrale verte. Spécialiste Villas 8ème, Cassis, Carry. Devis Carport Solaire."
+        title: "Maintenance extincteurs & sécurité incendie Marseille | 13",
+        description: "Vérification annuelle des extincteurs et des blocs d'éclairage de sécurité à Marseille. Établissements recevant du public, commerces et copropriétés. Devis gratuit."
     },
-    certifications: [...TEMPLATE_CERTIFICATIONS, "Expert Solaire", "RGE QualiPV"],
-    aidesDisponibles: [...TEMPLATE_AIDES, "Aide Département 13"],
-    features: ["Carport Solaire (Upsell)", "Ombrières Photovoltaïques", "Villas & Piscines", "maintenance Extérieure"],
-    localKeywords: ["extincteur protection marseille", "carport solaire marseille", "extincteur solaire 13", "cassis extincteur protection", "carry le rouet"],
+    certifications: [...TEMPLATE_CERTIFICATIONS],
+    aidesDisponibles: [...TEMPLATE_AIDES],
+    features: ["Extincteurs NF EN 3", "Contrôle annuel APSAD R4", "Registre de sécurité", "Copropriétés & commerces"],
+    localKeywords: ["maintenance extincteur marseille", "securite incendie marseille", "extincteur copropriete marseille", "baes marseille", "registre de securite 13"],
     quartiers: ["Le Prado", "Périer", "Roucas-Blanc", "La Corniche", "Cassis", "Carry-le-Rouet"], // La Ceinture Dorée
     coproprietes: [],
     centresCommerciaux: [],

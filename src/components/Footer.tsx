@@ -43,7 +43,7 @@ export function Footer({ config }: FooterProps) {
             `technicien extincteur ${cityName}`,
             `matériel incendie ${cityName}`,
             `Devis Incendie ${cityName}`,
-            `Électricien Incendie ${cityName}`,
+            `Extincteurs & RIA ${cityName}`,
             `${cityName} (extincteur)`
         ];
         return variations[index % variations.length];
@@ -54,7 +54,7 @@ export function Footer({ config }: FooterProps) {
             <div className="container mx-auto px-4 text-center">
                 <h4 className="text-white font-bold mb-4">À propos de {config.name}</h4>
                 <p className="max-w-2xl mx-auto text-sm mb-8">
-                    {config.name} est le comparateur de référence pour l&apos;maintenance d'extincteurs à {config.city}.
+                    {config.name} est le comparateur de référence pour la maintenance d&apos;extincteurs à {config.city}.
                     Nous sélectionnons les meilleurs techniciens certifiés Incendie pour vos projets en maison, copropriété ou entreprise.
                     Obtenez jusqu&apos;à 3 devis gratuits et comparez.
                 </p>

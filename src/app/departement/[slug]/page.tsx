@@ -122,7 +122,7 @@ export default async function DepartmentPage({ params }: Props) {
                                 Villes du réseau {dept.name}
                             </h2>
                             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                                Sélectionnez votre ville pour trouver l'technicien certifié Incendie le plus proche.
+                                Sélectionnez votre ville pour trouver le technicien qualifié Incendie le plus proche.
                                 <span className="font-semibold text-slate-800"> Devis gratuit sous 24h.</span>
                             </p>
                         </div>

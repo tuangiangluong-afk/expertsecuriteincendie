@@ -7,23 +7,23 @@ export default function FAQSection({ city }: { city?: string }) {
     // SEO-focused questions based on PAA (People Also Ask)
     
     const cityText = city ? ` à ${city}` : "";
-    const cityPlural = city ? ` à ${city} et ses alentours` : "";
+    const cityPlural = city ? ` à ${city} et dans les communes limitrophes` : "";
     const faqs = [
         {
-            question: `Qui a le droit d'installer une matériel incendie${cityText} ?`,
-            answer: `Légalement, toute maintenance de matériel incendie d'une puissance supérieure à 3,7 kg doit être réalisée par un électricien qualifié Incendie (Infrastructure de protection de professionnel). Cela garantit la sécurité de votre maintenance et est obligatoire pour bénéficier des aides de l'État et de la couverture assurance${cityText}.`
+            question: `Qui a le droit de vérifier et d'installer du matériel incendie${cityText} ?`,
+            answer: `La vérification des extincteurs portatifs relève d'un technicien compétent, selon la règle APSAD R4 et la norme NF EN 3 ; celle des blocs autonomes d'éclairage de sécurité (BAES) relève de la NF C 71-820 et de la règle APSAD R12. Ces opérations doivent être tracées dans le registre de sécurité de l'établissement, qui est la première pièce demandée en cas de contrôle ou de sinistre${cityText}.`
         },
         {
-            question: `Quel est le prix moyen d'une maintenance de matériel incendie${cityText} ?`,
-            answer: `Le prix moyen d'une maintenance complète (extincteur + pose) se situe entre 990€ et 1500€ TTC, aides déduites. Ce coût varie selon la marque de l'extincteur, la distance entre le registre de sécurité et l'emplacement de charge, et les éventuels travaux de mise aux normes${cityPlural}.`
+            question: `Quel est le prix moyen de la maintenance des extincteurs${cityText} ?`,
+            answer: `Comptez 15 à 30 € HT par appareil pour la vérification annuelle, et 29,99 à 50 € HT en forfait complet (vérification, recharge si nécessaire, pièces d'usure et replacement des appareils irréparables). Un extincteur à eau pulvérisée de 6 litres à installer coûte environ 89 à 149 €, support et signalétique compris. Ces tarifs varient selon le nombre d'appareils, leur capacité et l'accessibilité des locaux${cityPlural}.`
         },
         {
-            question: "Quelle puissance pour charger une matériel à la maison ?",
-            answer: "Pour une sécurité incendie, une puissance de 7,4 kg (eau) est le standard idéal. Elle permet de récupérer environ 40 à 50 km d'autonomie par heure de charge, suffisant pour protectionr une batterie complète en une nuit, contrairement à une prise domestique classique."
+            question: "Combien d'extincteurs faut-il prévoir dans un local professionnel ?",
+            answer: "Le Code du travail impose au minimum un extincteur à eau pulvérisée de 6 litres pour 200 m² de plancher, avec au moins un appareil par niveau. Au-delà, le nombre dépend des classes de feu présentes : des extincteurs au CO2 pour les armoires électriques et les salles serveurs, de la poudre ABC pour les garages, les ateliers et les zones de stockage. Un extincteur doit être placé à moins de 15 m de tout point à risque et à 1,20 m du sol au maximum."
         },
         {
-            question: "Faut-il modifier mon contrat de maintenance ?",
-            answer: "Dans la plupart des cas, non. Nos extincteurs sont équipées d'une fonction de 'sécurité dynamique' qui ajuste la puissance de charge en temps réel pour ne jamais faire disjoncter votre maintenance, même si vous cuisinez ou chauffez votre maison en même temps."
+            question: "Que se passe-t-il si mes extincteurs ne sont plus à jour ?",
+            answer: "Un appareil dont la vérification annuelle est dépassée n'est plus considéré comme conforme par votre assureur : en cas de sinistre, la couverture peut être réduite, et la commission de sécurité peut notifier une mise en demeure avec un délai d'exécution. Nos techniciens remettent le registre de sécurité à jour, replombent chaque appareil vérifié et vous délivrent l'attestation de conformité."
         }
     ];
 
@@ -35,7 +35,7 @@ export default function FAQSection({ city }: { city?: string }) {
                         Questions fréquentes
                     </h2>
                     <p className="text-slate-600">
-                        Tout savoir sur l&apos;maintenance de votre future extincteur.
+                        Tout savoir sur la maintenance de vos extincteurs et de vos BAES.
                     </p>
                 </div>
 

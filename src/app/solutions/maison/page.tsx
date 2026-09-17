@@ -32,7 +32,7 @@ export default function SolutionMaison() {
                                     Guide Complet 2026
                                 </div>
                                 <h1 className="text-4xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                                    Installer une matériel incendie en <span className="text-red-600">maison individuelle</span>
+                                    Installer un matériel incendie en <span className="text-red-600">maison individuelle</span>
                                 </h1>
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                                     Finies les protections lentes. Passez à la sécurité maximale avec un extincteur sécurisée.
@@ -104,7 +104,7 @@ export default function SolutionMaison() {
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                     <CheckCircle size={24} className="text-green-500 fill-green-100" />
-                                    <span className="font-bold text-slate-900 text-base">Garantie décennale</span>
+                                    <span className="font-bold text-slate-900 text-base">NF EN 3 & APSAD R4</span>
                                 </div>
                             </div>
                         </div>
@@ -228,8 +228,8 @@ export default function SolutionMaison() {
                             {[
                                 { name: "Desautel", color: "bg-slate-900 text-white" },
                                 { name: "Sicli", color: "bg-green-600 text-white" },
-                                { name: "Andrieu", color: "bg-red-600 text-white" },
-                                { name: "Eurofeu", color: "bg-green-700 text-white" }
+                                { name: "Eurofeu", color: "bg-green-700 text-white" },
+                                { name: "Extincteurs & RIA", color: "bg-red-700 text-white" }
                             ].map((brand, i) => (
                                 <div key={i} className={`h-16 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm ${brand.color}`}>
                                     {brand.name}

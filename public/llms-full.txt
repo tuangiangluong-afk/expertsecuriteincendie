@@ -16,7 +16,7 @@
 2. Désenfumage : installation et maintenance des exutoires et désenfumateurs pour ERP et locaux industriels.
 3. Registre de sécurité : mise en place, mise à jour et conformité réglementaire (Code du travail, ERP, APSAD).
 4. Audit de conformité incendie et plan de prévention pour entreprises, syndics et gestionnaires.
-5. Fourniture d'extincteurs et matériel certifié : Desautel, Sicli, Andrieu, Eurofeu.
+5. Fourniture d'extincteurs et matériel certifié : Desautel, Chubb (marque Sicli), Eurofeu.
 
 ## Pricing
 - **Maintenance extincteur (contrôle annuel)** : à partir de 49€ par appareil
@@ -31,7 +31,7 @@
 - **Obligation réglementaire** : vérification annuelle obligatoire des extincteurs en ERP et lieux de travail (Code du travail, articles R.4227-29 et suivants)
 
 ## Marques installées
-Desautel, Sicli, Andrieu, Eurofeu — extincteurs et matériel certifiés NF EN3 et NF Service.
+Desautel, Chubb (marque Sicli), Eurofeu — extincteurs et matériel certifiés NF EN3 et NF Service.
 
 ## Couverture
 Intervention partout en France : Paris, Lyon, Marseille, Bordeaux, Toulouse, Nice, Nantes, Lille, Strasbourg, Rennes, Montpellier, Aix-en-Provence, Annecy et toute la France métropolitaine, pour entreprises, ERP et copropriétés.
@@ -417,7 +417,7 @@ La sécurité incendie en ERP ne se limite pas au registre et aux BAES. Les **ex
 * **Types :** Eau pulvérisée avec ou sans additif, poudre (ABC, BC), CO2. Le choix dépend de la classe de feu (A, B, C, D, F) présente dans l'ERP.
 * **Installation :** Un extincteur pour 200 à 300 m² ou par niveau, à moins de 15 mètres d'un point quelconque, et à 1,20 m du sol maximum.
 * **Maintenance :** Vérification annuelle obligatoire par un professionnel certifié **APSAD R4**. Rechargement ou remplacement tous les 5 à 10 ans selon le type. Le coût moyen d'une vérification annuelle est de **10€ à 20€ TTC par extincteur** en 2026.
-* **Marques Leaders :** Eurofeu, Chubb, Sicli, Andrieu, Desautel.
+* **Fabricants :** Eurofeu, Chubb (qui exploite la marque Sicli), Desautel.
 
 
 ### Désenfumage :

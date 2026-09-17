@@ -105,7 +105,7 @@ export async function assignLeadToPartners(leadId: string, partnerIds: string[])
         // B. Send Email
         if (resend && partner.email) {
             try {
-                // Parse existing meta for solar flag
+                // Champs optionnels transmis par le formulaire (statut, segment)
                 let meta: any = {};
                 try {
                     if (lead.message) meta = JSON.parse(lead.message);
@@ -127,7 +127,6 @@ export async function assignLeadToPartners(leadId: string, partnerIds: string[])
                                     <li style="margin-bottom: 10px;">📍 <strong>Ville :</strong> ${lead.city} ${lead.postal_code || ''}</li>
                                     <li style="margin-bottom: 10px;">🏠 <strong>Type :</strong> ${lead.housing_type || lead.type}</li>
                                     ${meta.owner_status ? `<li style="margin-bottom: 10px;">🔑 <strong>Statut :</strong> ${meta.owner_status}</li>` : ''}
-                                    ${meta.vehicle_status ? `<li style="margin-bottom: 10px;">🚗 <strong>Véhicule :</strong> ${meta.vehicle_status}</li>` : ''}
                                 </ul>
                             </div>
 
@@ -236,7 +235,6 @@ export async function deliverUnlockedLead(leadId: string, partnerId: string) {
                         <ul style="list-style: none; padding: 0; font-size: 14px; color: #475569;">
                             <li style="margin-bottom: 8px;"><strong>Type :</strong> ${lead.housing_type || lead.type}</li>
                             ${meta.owner_status ? `<li style="margin-bottom: 8px;"><strong>Statut :</strong> ${meta.owner_status}</li>` : ''}
-                            ${meta.solar_interest ? '<li style="color: #b45309;">☀️ <strong>Intéressé par le Solaire</strong></li>' : ''}
                             ${lead.notes ? `<li style="margin-top: 15px; padding: 10px; background: #f8fafc; border-left: 4px solid #2563eb;"><strong>Note Admin :</strong> ${lead.notes}</li>` : ''}
                         </ul>
 

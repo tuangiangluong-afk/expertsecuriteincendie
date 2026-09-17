@@ -121,7 +121,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                                     </div>
                                     <div className="inline-flex items-center rounded-full bg-green-100 px-4 py-1.5 text-sm font-bold text-green-800 border border-green-200">
                                         <Euro size={16} className="mr-2" />
-                                        0€ pour la Copropriété
+                                        Devis sous 24h
                                     </div>
                                 </div>
 
@@ -131,8 +131,8 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                                 />
 
                                 <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                    Équipez le parking de votre copropriété à {cityName} {dept ? `(${dept})` : ''} sans frais pour l&apos;immeuble.
-                                    Infrastructure collective certifiée, installée et maintenue par nos techniciens agréés APSAD.
+                                    Mettez en conformité les extincteurs, l&apos;éclairage de sécurité et le désenfumage des parties communes à {cityName} {dept ? `(${dept})` : ''}.
+                                    État des lieux écrit, chiffrage détaillé et registre de sécurité de l&apos;immeuble tenu par nos techniciens agréés APSAD.
                                 </p>
                             </div>
 
@@ -163,8 +163,8 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                                                 <CheckCircle className="w-5 h-5 text-purple-600" />
                                             </div>
                                             <div>
-                                                <div className="font-bold text-slate-900">Programme Aide</div>
-                                                <div className="text-sm text-slate-500">Financement jusqu&apos;à 50% des travaux</div>
+                                                <div className="font-bold text-slate-900">Registre de sécurité remis</div>
+                                                <div className="text-sm text-slate-500">Présentable en assemblée générale</div>
                                             </div>
                                         </div>
                                     </div>
@@ -174,20 +174,20 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                             {/* Key Stats B2B */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-white p-5 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-3xl font-black text-purple-700">0€</div>
-                                    <div className="text-xs text-slate-500 mt-1">Coût pour le syndic</div>
+                                    <div className="text-3xl font-black text-purple-700">1&nbsp;an</div>
+                                    <div className="text-xs text-slate-500 mt-1">Périodicité des extincteurs</div>
                                 </div>
                                 <div className="bg-white p-5 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-3xl font-black text-green-700">50%</div>
-                                    <div className="text-xs text-slate-500 mt-1">Subvention Aide</div>
+                                    <div className="text-3xl font-black text-green-700">1&nbsp;h</div>
+                                    <div className="text-xs text-slate-500 mt-1">Autonomie minimale des BAES</div>
                                 </div>
                                 <div className="bg-white p-5 rounded-2xl border border-slate-200 text-center shadow-sm">
                                     <div className="text-3xl font-black text-red-700">24h</div>
-                                    <div className="text-xs text-slate-500 mt-1">Réponse garantie</div>
+                                    <div className="text-xs text-slate-500 mt-1">Réponse au devis</div>
                                 </div>
                                 <div className="bg-white p-5 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-3xl font-black text-amber-600">+20%</div>
-                                    <div className="text-xs text-slate-500 mt-1">Valeur immobilière</div>
+                                    <div className="text-3xl font-black text-amber-600">1986</div>
+                                    <div className="text-xs text-slate-500 mt-1">Arrêté immeubles d&apos;habitation</div>
                                 </div>
                             </div>
 
@@ -199,7 +199,7 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm">
                                     <Shield size={20} className="text-green-500" />
-                                    <span className="font-bold text-slate-900 text-sm">Garantie Décennale</span>
+                                    <span className="font-bold text-slate-900 text-sm">NF EN 3 & APSAD R4</span>
                                 </div>
                             </div>
                         </div>
@@ -227,81 +227,94 @@ export default async function CoproCityPage({ params }: { params: Promise<{ slug
                         <div className="not-prose grid md:grid-cols-2 gap-6 my-10">
                             <div className="border-2 border-purple-200 bg-purple-50/30 rounded-2xl p-6 shadow-sm">
                                 <h3 className="font-bold text-xl mb-3 flex items-center gap-2 text-purple-800">
-                                    <Building2 className="text-purple-600" /> Infrastructure Collective
+                                    <Building2 className="text-purple-600" /> Contrat collectif sur parties communes
                                 </h3>
                                 <p className="text-sm text-slate-600 mb-4">
-                                    Une colonne principale alimente le parking. Les extincteurs individuelles s&apos;y raccordent au fur et à mesure des besoins.
+                                    Un seul contrat couvre l&apos;ensemble des extincteurs, blocs d&apos;éclairage de sécurité et dispositifs de désenfumage des parties communes de l&apos;immeuble.
                                 </p>
                                 <ul className="text-sm space-y-2">
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Solution pérenne et évolutive</li>
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Financement possible sans avance de trésorerie</li>
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Facturation individuelle automatique</li>
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Subventionné Aide à 50%</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Une visite annuelle unique pour tout l&apos;immeuble</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Registre de sécurité de l&apos;immeuble tenu par le prestataire</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Attestation annuelle remise au syndic et à l&apos;assureur</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Tarif dégressif au-delà de 20 appareils</li>
                                 </ul>
                             </div>
                             <div className="border border-slate-200 rounded-2xl p-6">
                                 <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
-                                    <Users className="text-red-500" /> Équipement par lot
+                                    <Users className="text-red-500" /> Interventions au coup par coup
                                 </h3>
                                 <p className="text-sm text-slate-600 mb-4">
-                                    Chaque résident fait sa propre demande. Un compteur dédié est ajouté pour sa place.
+                                    Chaque copropriétaire fait vérifier séparément l&apos;appareil dont il a la charge, sans contrat global.
                                 </p>
                                 <ul className="text-sm space-y-2">
-                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Rapide pour 1 demande isolée</li>
-                                    <li className="text-red-500 flex gap-2"><span className="shrink-0">⚠️</span> Vite saturé en puissance</li>
-                                    <li className="text-red-500 flex gap-2"><span className="shrink-0">⚠️</span> Câblage anarchique à terme</li>
+                                    <li className="text-green-600 flex gap-2"><CheckCircle size={16} /> Souple pour un besoin isolé</li>
+                                    <li className="text-red-500 flex gap-2"><span className="shrink-0">⚠️</span> Historique de vérification difficile à reconstituer</li>
+                                    <li className="text-red-500 flex gap-2"><span className="shrink-0">⚠️</span> Tarif unitaire plus élevé et registre incomplet</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <h2>Le financement collectif à {cityName}</h2>
+                        <h2>Ce que la copropriété doit réellement entretenir à {cityName}</h2>
                         <p>
-                            La solution plébiscitée par les syndics de {cityName} : un opérateur finance
-                            <strong> 100% de l&apos;infrastructure collective</strong>. La copropriété ne paie rien.
-                            Seuls les utilisateurs finaux paient leur extincteur individuelle et un abonnement au service.
+                            Dans un immeuble d&apos;habitation collectif, l&apos;arrêté du 31 janvier 1986 impose au syndicat de maintenir en état les moyens de secours des parties communes :
+                            les <strong>extincteurs</strong> (vérification annuelle, règle APSAD R4 et NF EN 3), les <strong>blocs autonomes d&apos;éclairage de sécurité</strong> des circulations et cages d&apos;escalier
+                            (essai mensuel de fonctionnement suivi par l&apos;exploitant, essai annuel d&apos;autonomie par un prestataire, NF C 71-820), le <strong>désenfumage</strong> des circulations et
+                            éventuels parcs de stationnement couverts (vérification semestrielle des commandes, annuelle de l&apos;installation), ainsi que les <strong>portes coupe-feu</strong> et les consignes affichées.
+                            L&apos;ensemble de ces passages doit être consigné dans le <strong>registre de sécurité de l&apos;immeuble</strong>.
                         </p>
                         <blockquote>
-                            &ldquo;Zéro frais pour la copropriété, zéro souci de maintenance, et une valorisation immédiate de l&apos;immeuble.&rdquo;
+                            &ldquo;Le registre de sécurité est la première pièce demandée lors d&apos;un contrôle de la commission de sécurité ou d&apos;une vente de lot. L&apos;alimenter à chaque passage coûte moins cher que de le reconstituer après coup.&rdquo;
                         </blockquote>
 
-                        <h2>Les aides disponibles à {cityName} {dept ? `(${dept})` : ''}</h2>
+                        <h2>Budget de conformité constaté à {cityName} {dept ? `(${dept})` : ''}</h2>
                         <div className="not-prose">
                             <table className="min-w-full bg-white border border-slate-200 rounded-lg shadow-sm">
                                 <thead className="bg-slate-50">
                                     <tr>
-                                        <th className="px-4 py-3 text-left">Type de travaux</th>
-                                        <th className="px-4 py-3 text-left">Montant de l&apos;aide</th>
+                                        <th className="px-4 py-3 text-left">Prestation</th>
+                                        <th className="px-4 py-3 text-left">Coût indicatif HT</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
                                     <tr>
-                                        <td className="px-4 py-3">Infrastructure collective (colonne)</td>
-                                        <td className="px-4 py-3 font-bold text-purple-700">50% du montant HT (plafonné ~8 000€)</td>
+                                        <td className="px-4 py-3">Vérification annuelle des extincteurs (parties communes)</td>
+                                        <td className="px-4 py-3 font-bold text-purple-700">15 € à 30 € par appareil</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-3">Point de charge individuel</td>
-                                        <td className="px-4 py-3 font-bold text-green-700">50% du montant HT (max 960€)</td>
+                                        <td className="px-4 py-3">Vérification annuelle des blocs d&apos;éclairage de sécurité</td>
+                                        <td className="px-4 py-3 font-bold text-purple-700">15 € à 30 € par bloc</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="px-4 py-3">Remplacement d&apos;un extincteur hors d&apos;usage</td>
+                                        <td className="px-4 py-3 font-bold text-purple-700">89 € à 149 € (6 L eau + support)</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="px-4 py-3">Audit écrit présentable en assemblée générale</td>
+                                        <td className="px-4 py-3 font-bold text-purple-700">250 € à 600 €</td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <p className="text-xs text-slate-500 mt-3">
+                                Ces montants sont des fourchettes constatées ; les travaux de conformité obligatoires relèvent de l&apos;entretien de l&apos;immeuble et ne donnent pas lieu aux aides fiscales annoncées pour d&apos;autres équipements.
+                            </p>
                         </div>
 
                         <h2>Comment se passe l&apos;AG pour les copropriétés à {cityName} ?</h2>
                         <p>
-                            Notre expert local à {cityName} vous accompagne de A à Z :
+                            Notre technicien local à {cityName} vous accompagne de A à Z :
                         </p>
                         <ol>
-                            <li><strong>Visite technique gratuite</strong> du parking de votre copropriété.</li>
-                            <li><strong>Dossier technique complet</strong> remis au syndic pour l&apos;AG.</li>
-                            <li><strong>Présence d&apos;un expert</strong> lors de l&apos;Assemblée Générale pour répondre aux questions.</li>
-                            <li><strong>Vote</strong> à la majorité simple (art. 24 ou 25).</li>
+                            <li><strong>Visite technique gratuite</strong> des parties communes et des parkings de la copropriété.</li>
+                            <li><strong>État des lieux écrit</strong> remis au syndic : appareils présents, dates de vérification, manques et réserves.</li>
+                            <li><strong>Chiffrage détaillé</strong> distinguant les obligations réglementaires des améliorations facultatives.</li>
+                            <li><strong>Vote en assemblée générale</strong> selon la nature des travaux : entretien et mise en conformité (art. 24) ou amélioration de l&apos;immeuble (art. 25 et suivants).</li>
                         </ol>
 
                         {neighborhoods.length > 0 && (
                             <>
                                 <h2>Zones d&apos;intervention à {cityName}</h2>
                                 <p>
-                                    Nos techniciens certifiés Incendie interviennent dans toute l&apos;agglomération de {cityName},
+                                    Nos techniciens certifiés interviennent à {cityName} et dans les communes limitrophes,
                                     notamment : <strong>{neighborhoods.join(', ')}</strong>.
                                 </p>
                             </>

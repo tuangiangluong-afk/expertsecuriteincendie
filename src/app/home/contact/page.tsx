@@ -82,7 +82,7 @@ export default function HubContactPage() {
                                         "Réseau national de techniciens certifiés Incendie",
                                         "Accompagnement de A à Z (devis, aides, maintenance)",
                                         "Solutions pour maisons, copropriétés et entreprises",
-                                        "Matériel de qualité (Extincteur, Desautel, Andrieu...)"
+                                        "Matériel de qualité (Desautel, Sicli, Eurofeu)"
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-start gap-3 text-slate-600">
                                             <CheckCircle size={20} className="text-green-500 mt-0.5 flex-shrink-0" />

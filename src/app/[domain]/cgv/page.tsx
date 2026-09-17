@@ -95,7 +95,7 @@ export default async function CGV({ params }: { params: Promise<{ domain: string
                     <div className="mb-8 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
                         <h2 className={`mb-4 text-2xl font-bold ${theme.text}`}>4. Responsabilités</h2>
                         <p>
-                            WELINK TECH agit en qualité d&apos;apporteur d&apos;affaires et de plateforme technologique. La responsabilité de l&apos;maintenance (sécurité, conformité aux normes Incendie, assurance décennale) incombe exclusivement à l&apos;électricien partenaire exécutant les travaux.
+                            WELINK TECH agit en qualité d&apos;apporteur d&apos;affaires et de plateforme technologique. La responsabilité de la prestation (sécurité, conformité aux normes applicables au matériel incendie, assurance professionnelle) incombe exclusivement au technicien partenaire exécutant les travaux.
                         </p>
                     </div>
 

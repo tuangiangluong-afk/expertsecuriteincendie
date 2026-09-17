@@ -145,7 +145,7 @@ export default async function NationalServicePage({ params }: { params: Promise<
                                 Grâce à notre maillage national, nous pouvons vous garantir une prise en charge rapide, où que vous soyez.
                             </p>
                             <p>
-                                Que ce soit pour une maison, une copropriété ou une entreprise, nous sélectionnons l'technicien le plus adapté à votre projet.
+                                Que ce soit pour une maison, une copropriété ou une entreprise, nous sélectionnons le technicien le plus adapté à votre projet.
                             </p>
 
                             <div className="my-8 grid sm:grid-cols-2 gap-4 not-prose">

@@ -154,7 +154,7 @@ export default function HomePage() {
                                     </div>
                                     <div className="flex items-center gap-2 bg-white border border-slate-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all hover:scale-105 duration-300">
                                         <CheckCircle size={24} className="text-green-500 fill-green-100" />
-                                        <span className="font-bold text-slate-900 text-base">Garantie décennale</span>
+                                        <span className="font-bold text-slate-900 text-base">NF EN 3 & APSAD R4</span>
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +315,7 @@ export default function HomePage() {
                             {[
                                 { icon: Home, title: "Maison", desc: "Extincteurs 1 à 6 kg. Vérification sous 48h.", href: "/solutions/maison" },
                                 { icon: Building2, title: "Copropriété", desc: "Solution collective. Mise en conformité jusqu'à 960€.", href: "/solutions/copropriete" },
-                                { icon: Briefcase, title: "Entreprise", desc: "Flotte & collaborateurs. Supervision à distance.", href: "/solutions/entreprise" },
+                                { icon: Briefcase, title: "Entreprise & ERP", desc: "Audit, contrat annuel et registre de sécurité pour vos locaux.", href: "/solutions/entreprise" },
                             ].map((service, i) => (
                                 <Link key={i} href={service.href} className="block group">
                                     <div className="bg-slate-50 rounded-2xl p-8 text-center border border-slate-200 group-hover:shadow-xl group-hover:border-red-500 transition-all h-full">

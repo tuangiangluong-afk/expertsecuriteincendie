@@ -1,7 +1,7 @@
 export const revalidate = 86400; // 24h ISR cache
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { brands } from '@/data/brands';
+import { brands, rangeLabel, agentsMid } from '@/data/brands';
 import { getCurrentYearSEO } from '@/lib/date';
 import Link from 'next/link';
 import { CheckCircle, Zap, Shield, Info, ArrowRight, Settings } from 'lucide-react';
@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!brand) return {};
 
     return {
-        title: `maintenance matériel incendie ${brand.name} : Prix & Devis ${year}`,
-        description: `technicien certifié Incendie pour votre ${brand.name} (${brand.models.join(', ')}). Devis gratuit, vérification annuelle et recharge sous 7 jours. Expert ${brand.name} ${year}.`,
+        title: `Maintenance extincteurs ${brand.name} : prix et devis ${year}`,
+        description: `Vérification et maintenance des extincteurs ${brand.name} (${brand.ranges.map(r => r.agent).join(', ')}). Contrôle annuel, recharge si nécessaire, plombage et registre de sécurité. Devis gratuit.`,
     };
 }
 
@@ -41,9 +41,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
     const { brand: slug } = await params;
     const { city: simulatedCity } = await searchParams; // Allow local testing via ?city=Lyon
 
-    console.log(`[BrandPage] Debug Slug: ${slug}`);
     const brand = brands.find(b => b.slug === slug);
-    console.log(`[BrandPage] Found brand: ${brand?.name}`);
 
     const year = getCurrentYearSEO();
 
@@ -74,12 +72,12 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                         Expert {brand.name} {year}
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-                        maintenance d'extincteur <br />
-                        pour <span className="text-red-500">{brand.name}</span>
+                        Maintenance extincteurs <br />
+                        de marque <span className="text-red-500">{brand.name}</span>
                     </h1>
                     <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                        Vous avez une {brand.models[0]} ou une {brand.models[1]} ?
-                        Nos techniciens certifiés Incendie installent l'extincteur parfaite pour votre {brand.name}.
+                        Vous avez dans vos locaux des extincteurs {brand.name} à {agentsMid(brand).split(", ").join(" ou ")} ?
+                        Nos techniciens qualifiés appliquent à chaque appareil le geste de vérification correspondant à son agent extincteur.
                     </p>
                 </div>
             </div>
@@ -99,7 +97,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                             <div className="grid sm:grid-cols-2 gap-6">
                                 <div className="bg-slate-50 p-4 rounded-xl">
                                     <div className="text-slate-500 text-sm mb-1">Norme & Certification</div>
-                                    <div className="font-bold text-lg">NF EN3 & APSAD</div>
+                                    <div className="font-bold text-lg">NF EN 3 & APSAD</div>
                                 </div>
                                 <div className="bg-slate-50 p-4 rounded-xl">
                                     <div className="text-slate-500 text-sm mb-1">Type de Matériel</div>
@@ -120,19 +118,34 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
 
                         {/* Content Body */}
                         <div className="prose prose-lg text-slate-600 max-w-none">
-                            <h3>Quel équipement choisir pour la marque {brand.name} ?</h3>
+                            <h3>Quelles gammes {brand.name} sont prises en charge ?</h3>
                             <p>
-                                Les équipements de la marque {brand.name} ({brand.models.join(', ')}) couvrent l'ensemble des besoins en sécurité incendie des ERP et locaux professionnels.
-                                Nous préconisons un mix d'extincteurs à <strong>Eau Pulvérisée 6L</strong> (pour les feux généraux) et de <strong>CO2 2kg</strong> (pour les feux électriques et armoires informatiques).
+                                Nous intervenons sur {brand.ranges.length === 1 ? "un type d'appareil" : `${brand.ranges.length} types d'appareils`} de cette marque, qui ne se contrôlent pas de la même façon :
                             </p>
+                            <ul>
+                                {brand.ranges.map((r) => (
+                                    <li key={rangeLabel(r)}>
+                                        <strong>{rangeLabel(r)}</strong> — feux {r.classes}, capacités usuelles {r.capacites.join(', ')}.
+                                    </li>
+                                ))}
+                            </ul>
                             <p>
-                                L'installation respecte scrupuleusement le Code du Travail (article R4227-29) et les règles d'implantation APSAD R4.
+                                L'implantation respecte le Code du travail (art. R. 4227-28 et suivants) et les règles d'implantation APSAD R4.
                             </p>
 
                             <h3>Que vérifie le technicien lors du passage annuel ?</h3>
                             <p>
-                                La vérification porte sur l'état du corps et de la tête de l'appareil, le poids et la pression de l'agent extincteur, la goupille et le plombage, l'accessibilité et la signalisation, puis la mise à jour du registre de sécurité. Toute anomalie est consignée sur l'étiquette datée et l'attestation est remise au responsable de l'établissement.
+                                Le contrôle porte d'abord sur les points communs à tout appareil : état du corps et de la tête,
+                                goupille et plombage, accessibilité, signalisation, puis mise à jour du registre de sécurité.
+                                S'y ajoute le contrôle propre à l'agent extincteur :
                             </p>
+                            <ul>
+                                {brand.ranges.map((r) => (
+                                    <li key={`c-${rangeLabel(r)}`}>
+                                        <strong>{r.agent} :</strong> {r.controle}.
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         {/* CROSS LINKER (War Architecture) */}
@@ -157,12 +170,12 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                     {/* Sidebar */}
                     <div className="lg:col-span-1 space-y-8">
                         <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 sticky top-24">
-                            <h3 className="font-bold text-lg mb-4 text-slate-900 border-b pb-2">Modèles Compatibles</h3>
+                            <h3 className="font-bold text-lg mb-4 text-slate-900 border-b pb-2">Gammes prises en charge</h3>
                             <ul className="space-y-3">
-                                {brand.models.map((model) => (
-                                    <li key={model} className="flex items-center gap-3 text-slate-600">
-                                        <CheckCircle size={16} className="text-green-500" />
-                                        {model}
+                                {brand.ranges.map((r) => (
+                                    <li key={rangeLabel(r)} className="flex items-start gap-3 text-slate-600">
+                                        <CheckCircle size={16} className="text-green-500 shrink-0 mt-0.5" />
+                                        <span>{rangeLabel(r)} <span className="block text-xs text-slate-400">feux {r.classes}</span></span>
                                     </li>
                                 ))}
                             </ul>
@@ -172,7 +185,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                                 <ul className="space-y-3 text-sm text-slate-500">
                                     <li className="flex gap-2">
                                         <Shield size={16} className="text-red-500 shrink-0" />
-                                        maintenance Garantie 2 ans
+                                        Intervention garantie 2 ans
                                     </li>
                                     <li className="flex gap-2">
                                         <CheckCircle size={16} className="text-red-500 shrink-0" />

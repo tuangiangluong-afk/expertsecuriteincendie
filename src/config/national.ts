@@ -17,7 +17,7 @@ export const NATIONAL_CONFIG: CityConfig = {
         "Maintenance Certifiée APSAD",
         "Devis Gratuit 24h",
         "Registre de Sécurité & Traçabilité",
-        "Garantie Décennale"
+        "NF EN 3 & APSAD R4"
     ],
     pricing: {
         base: "Sur Devis",

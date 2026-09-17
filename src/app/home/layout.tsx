@@ -8,7 +8,7 @@ export default function HomeLayout({
 }) {
     return (
         <>
-            <GoogleAnalytics GA_MEASUREMENT_ID="G-3S88LL4FC5" />
+            <GoogleAnalytics GA_MEASUREMENT_ID="G-KCMP1L98T3" />
             {children}
             <CookieBanner slug="home" cityName="Expert Sécurité Incendie" />
         </>

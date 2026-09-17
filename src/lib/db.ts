@@ -43,6 +43,15 @@ export interface CityConfig {
         lng: number;
     };
     partnerPhone?: string;
+    // Identité administrative réelle de la commune (communes partenaires).
+    // Sert à produire un contenu local vérifiable au lieu des faux quartiers.
+    insee?: string;
+    epci?: string;
+    population?: number;
+    deptName?: string;
+    regionName?: string;
+    /** Communes limitrophes réelles avec leur distance en km */
+    zones?: { nom: string; km: number }[];
 }
 
 export function getCity(domain: string): CityConfig | null {

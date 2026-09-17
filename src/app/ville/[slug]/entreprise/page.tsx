@@ -175,12 +175,12 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                             {/* Key Stats B2B */}
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-2xl font-black text-emerald-700">20%</div>
-                                    <div className="text-[10px] text-slate-500 mt-1">Places obligatoires (LOM)</div>
+                                    <div className="text-2xl font-black text-emerald-700">1 / 200 m²</div>
+                                    <div className="text-[10px] text-slate-500 mt-1">Extincteurs exigés (Code du travail)</div>
                                 </div>
                                 <div className="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-sm">
-                                    <div className="text-2xl font-black text-red-700">2 200€</div>
-                                    <div className="text-[10px] text-slate-500 mt-1">Aide Aide/extincteur</div>
+                                    <div className="text-2xl font-black text-red-700">1 an</div>
+                                    <div className="text-[10px] text-slate-500 mt-1">Périodicité de vérification</div>
                                 </div>
                                 <div className="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-sm">
                                     <div className="text-2xl font-black text-amber-600">24h</div>
@@ -208,7 +208,7 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                                 </div>
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm">
                                     <Shield size={20} className="text-green-500" />
-                                    <span className="font-bold text-slate-900 text-sm">Garantie Décennale</span>
+                                    <span className="font-bold text-slate-900 text-sm">NF EN 3 & APSAD R4</span>
                                 </div>
                             </div>
                         </div>
@@ -236,69 +236,63 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                         <div className="grid md:grid-cols-3 gap-6 not-prose my-10">
                             <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
                                 <FileCheck className="text-emerald-600 mb-3" size={28} />
-                                <h4 className="font-bold text-slate-900 mb-2">Conformité LOM</h4>
+                                <h4 className="font-bold text-slate-900 mb-2">Obligation du Code du travail</h4>
                                 <p className="text-xs text-slate-600">
-                                    Obligation d&apos;équiper 20% des places pour les parkings &gt; 20 places (bâtiments tertiaires).
-                                    Sanctions possibles en cas de non-respect.
+                                    L&apos;employeur doit maintenir les moyens de lutte contre l&apos;incendie en bon état et les faire vérifier périodiquement
+                                    (art. R4227-28 à R4227-39). Le registre de sécurité en est la preuve.
                                 </p>
                             </div>
                             <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
                                 <TrendingUp className="text-emerald-600 mb-3" size={28} />
-                                <h4 className="font-bold text-slate-900 mb-2">Avantages Fiscaux</h4>
+                                <h4 className="font-bold text-slate-900 mb-2">Coût maîtrisé, visible</h4>
                                 <p className="text-xs text-slate-600">
-                                    Facturation HT, contrat annuel et attestation de vérification
-                                    remise après chaque passage de nos techniciens.
+                                    Tarif unitaire dégressif, contrat annuel et facturation détaillée par site :
+                                    vous savez ce qui est vérifié, remplacé et facturé.
                                 </p>
                             </div>
                             <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
                                 <Globe className="text-emerald-600 mb-3" size={28} />
-                                <h4 className="font-bold text-slate-900 mb-2">Image RSE</h4>
+                                <h4 className="font-bold text-slate-900 mb-2">Exploitation sans arrêt</h4>
                                 <p className="text-xs text-slate-600">
-                                    Attirez les talents à {cityName}. La protection au travail est
-                                    l&apos;avantage le plus demandé par les collaborateurs en VE.
+                                    Passages planifiés en dehors des heures d&apos;ouverture, réserve d&apos;appareils de remplacement
+                                    pour ne jamais laisser un poste sans extincteur à {cityName}.
                                 </p>
                             </div>
                         </div>
 
-                        <h2>Types d'extincteurs pour les entreprises à {cityName}</h2>
+                        <h2>Quels extincteurs pour quels locaux à {cityName}</h2>
                         <p>
-                            Nos experts à {cityName} dimensionnent l&apos;infrastructure selon votre usage :
+                            Le choix suit les classes de feu présentes dans chaque zone, et non un modèle standard appliqué partout :
                         </p>
                         <ul>
-                            <li><strong>extincteurs AC 7 à 22 kg :</strong> Pour les collaborateurs qui restent la journée. Idéal pour les flottes de fonction et les salariés.</li>
-                            <li><strong>extincteurs DC 50 kg+ :</strong> Pour les visiteurs, commerciaux de passage ou locaux logistiques. sécurité garantie.</li>
+                            <li><strong>Eau pulvérisée avec additif, 6 à 9 litres :</strong> bureaux, salles de réunion, commerces, halls d&apos;accueil — feux de classe A et B.</li>
+                            <li><strong>Dioxyde de carbone (CO2), 2 à 5 kg :</strong> armoires électriques, salles serveurs, locaux informatiques — aucun résidu après usage.</li>
+                            <li><strong>Poudre polyvalente ABC, 6 à 9 kg :</strong> ateliers, garages, quais de chargement, zones de stockage — feux de gaz et de solides.</li>
+                            <li><strong>Extincteurs sur roues 50 kg :</strong> dépôts et parkings couverts, à proximité immédiate des risques les plus lourds.</li>
                         </ul>
 
-                        <h2>Supervision et Monétisation</h2>
+                        <h2>Ce que couvre le contrat annuel</h2>
                         <p>
-                            Installer ne suffit pas. Nos solutions pour les entreprises de {cityName} incluent :
+                            Poser les appareils ne suffit pas : ce qui est contrôlé lors d&apos;une visite, c&apos;est l&apos;entretien et la traçabilité. Nos contrats pour les entreprises de {cityName} couvrent :
                         </p>
                         <ul className="list-none pl-0 space-y-2">
-                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Contrôle d&apos;accès :</strong> Badge RFID pour les collaborateurs vs accès public visiteurs.</span></li>
-                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Refacturation :</strong> Monétisez l&apos;énergie pour les visiteurs. Revenus additionnels.</span></li>
-                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Smart Charging :</strong> Lissage de la consommation pour éviter les pics et les surcoûts.</span></li>
-                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Reporting RSE :</strong> Tableau de bord CO₂ évité pour votre rapport extra-financier.</span></li>
+                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Extincteurs :</strong> vérification mécanique du percuteur, contrôle de la charge manométrique, recharge ou remplacement si nécessaire.</span></li>
+                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Blocs d&apos;éclairage de sécurité :</strong> essai de fonctionnement et mesure de l&apos;autonomie d&apos;une heure, remplacement des accumulateurs hors service.</span></li>
+                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Désenfumage :</strong> essai semestriel des commandes, contrôle annuel des exutoires et des conduits.</span></li>
+                            <li className="flex gap-2 items-center"><CheckCircle size={18} className="text-green-500 shrink-0" /> <span><strong>Registre de sécurité :</strong> émargement à chaque passage et attestation annuelle présentable à un contrôle ou à votre assureur.</span></li>
                         </ul>
 
-                        <h2>Les aides pour les professionnels à {cityName}</h2>
-                        <div className="not-prose grid sm:grid-cols-2 gap-4 my-6">
-                            <div className="border border-slate-200 rounded-xl p-5 text-center bg-white shadow-sm">
-                                <div className="text-sm text-slate-500">Parking Privé (Flotte)</div>
-                                <div className="text-3xl font-bold text-emerald-700 my-2">Jusqu&apos;à 600€</div>
-                                <div className="text-xs text-slate-400">Par point de charge</div>
-                            </div>
-                            <div className="border border-slate-200 rounded-xl p-5 text-center bg-white shadow-sm">
-                                <div className="text-sm text-slate-500">Parking Ouvert au Public</div>
-                                <div className="text-3xl font-bold text-emerald-700 my-2">Jusqu&apos;à 2 200€</div>
-                                <div className="text-xs text-slate-400">Par point de charge</div>
-                            </div>
-                        </div>
+                        <h2>Ce que la maintenance n&apos;est pas</h2>
+                        <p>
+                            Aucun dispositif fiscal ne finance la vérification périodique obligatoire des extincteurs ou des blocs d&apos;éclairage de sécurité : elle relève de l&apos;entretien courant de l&apos;exploitation.
+                            Si un prestataire vous annonce une aide, une subvention ou un crédit d&apos;impôt pour ces prestations, demandez-lui le texte qui l&apos;institue.
+                        </p>
 
                         {neighborhoods.length > 0 && (
                             <>
                                 <h2>Zones d&apos;intervention à {cityName}</h2>
                                 <p>
-                                    Nos techniciens professionnels interviennent sur toute l&apos;agglomération de {cityName} :
+                                    Nos techniciens interviennent à {cityName} et dans les communes limitrophes :
                                     <strong> {neighborhoods.join(', ')}</strong>. Multi-sites ? Nous déployons sur l&apos;ensemble de vos implantations.
                                 </p>
                             </>
@@ -313,7 +307,7 @@ export default async function EntrepriseCityPage({ params }: { params: Promise<{
                             </h3>
                             <p className="text-emerald-200">
                                 Nous auditons l&apos;ensemble de vos sites en France avec un interlocuteur unique.
-                                Audit technique et financier gratuit pour les flottes de +10 locaux.
+                                Audit technique gratuit pour les sites de plus de 10 locaux.
                             </p>
                         </div>
                         <a
