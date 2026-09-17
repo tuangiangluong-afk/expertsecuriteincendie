@@ -13,6 +13,52 @@ type Need = "ssi_triennale" | "q18" | "commission_erp" | "mise_aux_normes" | "au
 type Establishment = "hotel" | "commerce" | "ehpad" | "bureau" | "entrepot" | "restaurant" | "autre";
 type Timeline = "moins_30" | "1_3_mois" | "plus_3_mois" | "information";
 
+type Attribution = {
+    source: string;
+    medium: string;
+    campaign: string;
+    term: string;
+    content: string;
+    landing_page: string;
+    referrer: string;
+};
+
+function getStoredAttribution(): Attribution {
+    const fallback: Attribution = {
+        source: "seo-reglementaire",
+        medium: "organic",
+        campaign: "",
+        term: "",
+        content: "",
+        landing_page: typeof window !== "undefined" ? window.location.pathname : "",
+        referrer: typeof document !== "undefined" ? document.referrer || "direct" : "direct",
+    };
+
+    if (typeof window === "undefined") return fallback;
+
+    try {
+        const cookie = document.cookie
+            .split(";")
+            .map((part) => part.trim())
+            .find((part) => part.startsWith("lead_attribution="));
+        const raw = cookie ? decodeURIComponent(cookie.slice("lead_attribution=".length)) : sessionStorage.getItem("lead_attribution");
+        if (!raw) return fallback;
+
+        const stored = JSON.parse(raw) as Partial<Attribution>;
+        return {
+            source: stored.source || fallback.source,
+            medium: stored.medium || fallback.medium,
+            campaign: stored.campaign || fallback.campaign,
+            term: stored.term || fallback.term,
+            content: stored.content || fallback.content,
+            landing_page: stored.landing_page || fallback.landing_page,
+            referrer: stored.referrer || fallback.referrer,
+        };
+    } catch {
+        return fallback;
+    }
+}
+
 interface FormState {
     establishment: Establishment | null;
     need: Need | null;
@@ -84,6 +130,7 @@ export default function RegulatoryLeadForm({ domain = "expertsecuriteincendie.fr
         if (!canContinue()) { setStatus("error"); setError("Renseignez tous les champs obligatoires et cochez l'autorisation de rappel."); return; }
         setStatus("loading");
         const now = new Date().toISOString();
+        const attribution = getStoredAttribution();
         try {
             const response = await fetch("/api/leads", {
                 method: "POST",
@@ -108,7 +155,11 @@ export default function RegulatoryLeadForm({ domain = "expertsecuriteincendie.fr
                     consentText: "J'accepte d'être contacté par téléphone au sujet de ma demande de vérification ou de mise en conformité.",
                     consentDate: now,
                     consentUrl: typeof window !== "undefined" ? window.location.href : `https://${domain}`,
-                    attribution: { source: "seo-reglementaire", medium: "organic" },
+                    attribution: {
+                        ...attribution,
+                        // Keep the conversion page distinct from the first-touch landing page.
+                        conversion_page: typeof window !== "undefined" ? window.location.pathname : attribution.landing_page,
+                    },
                 }),
             });
             const data = await response.json().catch(() => ({}));

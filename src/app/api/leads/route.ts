@@ -11,8 +11,19 @@ export async function POST(request: Request) {
         const {
             name, email, phone, city, zipCode, domain,
             projectType, needType, surface, company, leadScore,
-            establishmentType, timeline, niche
+            establishmentType, timeline, niche, attribution
         } = body;
+
+        const leadAttribution = attribution && typeof attribution === 'object' ? attribution : {
+            source: 'seo-reglementaire',
+            medium: 'organic',
+            campaign: '',
+            term: '',
+            content: '',
+            landing_page: null,
+            referrer: null,
+        };
+        const attributionLabel = `${leadAttribution.source || 'direct'} / ${leadAttribution.medium || 'unknown'}${leadAttribution.campaign ? ` / ${leadAttribution.campaign}` : ''}`;
 
         // Validation basique
         if (!name || !email || !phone || !projectType) {
@@ -96,6 +107,10 @@ export async function POST(request: Request) {
                                     <td style="padding: 8px 0; font-weight: bold;">Code Postal</td>
                                     <td style="padding: 8px 0;">${zipCode} (${city})</td>
                                 </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; font-weight: bold;">Attribution</td>
+                                    <td style="padding: 8px 0;">${attributionLabel} — ${leadAttribution.landing_page || 'page inconnue'}</td>
+                                </tr>
                             </table>
                         </div>
                     `,
@@ -117,6 +132,7 @@ export async function POST(request: Request) {
                             <p><strong>Société :</strong> ${company || 'N/A'} (${city})</p>
                             <p><strong>Type :</strong> ${projectType} | Besoin : ${needType || 'N/A'} | Établissement : ${establishmentType || 'N/A'}</p>
                             <p><strong>Surface :</strong> ${surface || 'N/A'} | Échéance : ${timeline || 'N/A'}</p>
+                            <p><strong>Attribution :</strong> ${attributionLabel} | Page : ${leadAttribution.landing_page || 'N/A'} | Referrer : ${leadAttribution.referrer || 'N/A'}</p>
                         </div>
                     `,
                 });
@@ -150,7 +166,18 @@ export async function POST(request: Request) {
                     status: 'new',
                     region,
                     department,
-                    message: JSON.stringify({ projectType, needType, establishmentType, timeline, surface, company, niche, leadScore, tier: isTier1 ? 'TIER_1' : 'TIER_2' }, null, 2),
+                    message: JSON.stringify({
+                        projectType,
+                        needType,
+                        establishmentType,
+                        timeline,
+                        surface,
+                        company,
+                        niche,
+                        leadScore,
+                        tier: isTier1 ? 'TIER_1' : 'TIER_2',
+                        attribution: leadAttribution,
+                    }, null, 2),
                     is_paid: false
                 });
 
