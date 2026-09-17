@@ -89,7 +89,7 @@ export default async function middleware(req: NextRequest) {
     requestHeaders.set("x-incendie-city", domainKey);
     requestHeaders.set("x-incendie-path", cleanPath);
 
-    const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur"))
+    const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur") || cleanPath.startsWith("/verifications-reglementaires") || cleanPath.startsWith("/commission-de-securite-erp"))
         ? "www.expertsecuriteincendie.fr"
         : (domainKey === "expertsecuriteincendie.fr" ? "www.expertsecuriteincendie.fr" : "www." + domainKey);
     requestHeaders.set("x-incendie-canonical-domain", canonicalDomain);
@@ -108,7 +108,7 @@ export default async function middleware(req: NextRequest) {
             }
         }
 
-        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/admin") || path.startsWith("/login") || path.startsWith("/api") || path.startsWith("/leads") || path.startsWith("/guides") || path.startsWith("/outils") || path.startsWith("/vehicules") || path.startsWith("/ville") || path.startsWith("/solutions") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/demo") || path.startsWith("/maintenance") || path.startsWith("/images") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/admin") || path.startsWith("/login") || path.startsWith("/api") || path.startsWith("/leads") || path.startsWith("/guides") || path.startsWith("/outils") || path.startsWith("/vehicules") || path.startsWith("/ville") || path.startsWith("/solutions") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/demo") || path.startsWith("/maintenance") || path.startsWith("/images") || path.startsWith("/fiscalite-entreprise-extincteur") || path.startsWith("/verifications-reglementaires") || path.startsWith("/commission-de-securite-erp")) {
             response = NextResponse.next({ request: { headers: requestHeaders } });
         } else {
             response = NextResponse.rewrite(
@@ -118,7 +118,7 @@ export default async function middleware(req: NextRequest) {
         }
     } else {
         // SATELLITE Logic
-        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/guides") || path.startsWith("/leads") || path.startsWith("/vehicules") || path.startsWith("/solutions") || path.startsWith("/ville") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/api") || path.startsWith("/outils") || path.startsWith("/login") || path.startsWith("/admin") || path.startsWith("/maintenance") || path.startsWith("/fiscalite-entreprise-extincteur")) {
+        if (path.startsWith("/blog") || path.startsWith("/glossaire") || path.startsWith("/author") || path.startsWith("/guides") || path.startsWith("/leads") || path.startsWith("/vehicules") || path.startsWith("/solutions") || path.startsWith("/ville") || path.startsWith("/service") || path.startsWith("/quartier") || path.startsWith("/departement") || path.startsWith("/poi") || path.startsWith("/api") || path.startsWith("/outils") || path.startsWith("/login") || path.startsWith("/admin") || path.startsWith("/maintenance") || path.startsWith("/fiscalite-entreprise-extincteur") || path.startsWith("/verifications-reglementaires") || path.startsWith("/commission-de-securite-erp")) {
             response = NextResponse.next({ request: { headers: requestHeaders } });
         } else {
             const routeParam = hostname.includes(".localhost") ? domainKey : domainKey;

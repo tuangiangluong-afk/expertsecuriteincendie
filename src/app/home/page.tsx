@@ -18,6 +18,7 @@ import MaintenanceSteps from "@/components/MaintenanceSteps";
 import ExtinguisherComparison from "@/components/ExtinguisherComparison";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FloatingCTA from "@/components/FloatingCTA";
+import RegulatoryServicesLinks from "@/components/RegulatoryServicesLinks";
 
 export const metadata: Metadata = {
     title: "Devis matériel incendie : extincteurs et conformité",
@@ -352,6 +353,8 @@ export default function HomePage() {
                 {/* TESTIMONIALS MAP - NEW STITCH COMPONENT */}
                 {/* ============================================ */}
                 <TestimonialsSection />
+
+                <RegulatoryServicesLinks />
 
                 {/* ============================================ */}
                 {/* CITIES GRID */}

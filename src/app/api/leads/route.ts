@@ -10,7 +10,8 @@ export async function POST(request: Request) {
         console.log("📥 [API/LEADS] Received B2B Fire Safety Lead:", body);
         const {
             name, email, phone, city, zipCode, domain,
-            projectType, needType, surface, company, leadScore
+            projectType, needType, surface, company, leadScore,
+            establishmentType, timeline, niche
         } = body;
 
         // Validation basique
@@ -34,11 +35,15 @@ export async function POST(request: Request) {
             surface === 'plus_200' || 
             needType === 'conformite' || 
             projectType === 'copro' || 
-            (leadScore && leadScore >= 80);
+            (leadScore && leadScore >= 80) ||
+            projectType === 'erp' ||
+            needType === 'ssi_triennale' ||
+            needType === 'commission_erp';
 
         const apiKey = process.env.RESEND_API_KEY;
         const resend = apiKey ? new Resend(apiKey) : null;
 
+        try {
         if (isTier1) {
             console.log("💎 [ARBITRAGE] TIER 1 DETECTED -> Envoi direct partenaire national (Extincteurs / Desautel)");
             
@@ -61,7 +66,15 @@ export async function POST(request: Request) {
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #fee2e2;">Surface</td>
-                                    <td style="padding: 8px 0; border-bottom: 1px solid #fee2e2;">${surface}</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #fee2e2;">${surface || 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #fee2e2;">Établissement</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #fee2e2;">${establishmentType || 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #fee2e2;">Échéance</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #fee2e2;">${timeline || 'N/A'}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #fee2e2;">Contact</td>
@@ -102,11 +115,16 @@ export async function POST(request: Request) {
                             <h2 style="color: #334155; margin-top: 0;">📋 NOUVEAU LEAD INCENDIE (TIER 2)</h2>
                             <p><strong>Contact :</strong> ${name} | ${phone} | ${email}</p>
                             <p><strong>Société :</strong> ${company || 'N/A'} (${city})</p>
-                            <p><strong>Type :</strong> ${projectType} | Surface : ${surface}</p>
+                            <p><strong>Type :</strong> ${projectType} | Besoin : ${needType || 'N/A'} | Établissement : ${establishmentType || 'N/A'}</p>
+                            <p><strong>Surface :</strong> ${surface || 'N/A'} | Échéance : ${timeline || 'N/A'}</p>
                         </div>
                     `,
                 });
             }
+        }
+
+        } catch (emailErr) {
+            console.error('Lead notification email failed:', emailErr);
         }
 
         // 1. SAVE TO DATABASE (Supabase) — le lead doit toujours être tracé,
@@ -127,12 +145,12 @@ export async function POST(request: Request) {
                     city,
                     postal_code: zipCode,
                     tenant_id: domain || 'expertsecuriteincendie.fr',
-                    type: 'incendie_lead',
+                    type: projectType === 'erp' ? 'regulatory_erp_lead' : 'incendie_lead',
                     housing_type: projectType,
                     status: 'new',
                     region,
                     department,
-                    message: JSON.stringify({ projectType, needType, surface, company, leadScore, tier: isTier1 ? 'TIER_1' : 'TIER_2' }, null, 2),
+                    message: JSON.stringify({ projectType, needType, establishmentType, timeline, surface, company, niche, leadScore, tier: isTier1 ? 'TIER_1' : 'TIER_2' }, null, 2),
                     is_paid: false
                 });
 

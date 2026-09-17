@@ -104,6 +104,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     const extraRoutes: MetadataRoute.Sitemap = [
         { url: `${baseUrl}/solutions/entreprise`, lastModified: CONTENT_REVISION, priority: 0.8 },
+        { url: `${baseUrl}/verifications-reglementaires/ssi-triennale`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.9 },
+        { url: `${baseUrl}/verifications-reglementaires/controle-electrique-q18`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.9 },
+        { url: `${baseUrl}/commission-de-securite-erp/mise-aux-normes`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.9 },
         { url: `${baseUrl}/guides`, lastModified: CONTENT_REVISION, priority: 0.8 },
         { url: `${baseUrl}/solutions/maison`, lastModified: CONTENT_REVISION, priority: 0.7 },
         { url: `${baseUrl}/solutions/copropriete`, lastModified: CONTENT_REVISION, priority: 0.7 },
@@ -131,7 +134,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
 
     // ========================================
-    // 12. Domination Longue Traîne: City x Brand (pSEO Matrix)
+    // 12. Réglementaire ERP par ville
+    // ========================================
+    const regulatoryCityRoutes = NATIONAL_TARGETS.flatMap((target) => [
+        { url: `${baseUrl}/ville/${slugify(target.name)}/verifications-reglementaires/ssi-triennale`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.85 },
+        { url: `${baseUrl}/ville/${slugify(target.name)}/verifications-reglementaires/controle-electrique-q18`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.85 },
+        { url: `${baseUrl}/ville/${slugify(target.name)}/commission-de-securite-erp/mise-aux-normes`, lastModified: CONTENT_REVISION, changeFrequency: 'monthly' as const, priority: 0.85 },
+    ]);
+
+    // ========================================
+    // 13. Domination Longue Traîne: City x Brand (pSEO Matrix)
     // ========================================
     const cityBrandRoutes: MetadataRoute.Sitemap = NATIONAL_TARGETS.flatMap((target) => {
         return brands.map(brand => ({
@@ -151,6 +163,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...guideRoutes,
         ...extraRoutes,
         ...b2bRoutes,
+        ...regulatoryCityRoutes,
         ...cityBrandRoutes,
     ].map(item => ({
         ...item,

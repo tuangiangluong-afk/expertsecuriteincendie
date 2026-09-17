@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getHubConfig } from "@/lib/sites-config";
 import Image from "next/image";
+import RegulatoryServicesLinks from "@/components/RegulatoryServicesLinks";
 
 export const metadata = {
     title: "Sécurité incendie en entreprise : extincteurs, BAES et désenfumage",
@@ -205,6 +206,7 @@ export default function SolutionEntreprise() {
                 </div>
             </div>
 
+            <RegulatoryServicesLinks />
             <Footer config={hub} />
         </div>
     );

@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
     const agents = agentsMid(brandData);
     const title = `Vérification extincteurs ${brandData.name} à ${site.city}${site.postalCode ? ` (${site.postalCode})` : ''} | Devis gratuit`;
-    const description = `Contrôle annuel des extincteurs ${brandData.name} à ${site.city} : ${agents}. Techniciens qualifiés APSAD R4, conformité NF EN 3, registre de sécurité mis à jour. Devis gratuit sous 24h.`;
+    const description = `Contrôle annuel des extincteurs ${brandData.name} à ${site.city} : ${agents}. Périmètre, référentiel et intervenant confirmés selon votre établissement. Demande de devis.`;
 
     const headersList = await headers();
     const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
@@ -148,7 +148,7 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                     <div className="text-center">
                         <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-red-500/20 text-red-400 text-sm font-bold mb-6 border border-red-500/30">
                             <Flame size={14} />
-                            Techniciens qualifiés APSAD R4 — parc {brand.name}
+                            Parc {brand.name} — demande de contrôle
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
                             Vérification extincteurs <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-teal-400">{brand.name}</span><br />
@@ -156,7 +156,7 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                         </h1>
                         <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
                             Votre établissement est équipé d'extincteurs {brand.name} à {agentsMid(brand)} ?
-                            Nos techniciens assurent le contrôle annuel et la remise en état de votre matériel, avec le geste correspondant à chaque agent extincteur.
+                            Décrivez votre parc et votre échéance : nous qualifions le besoin avant de vous orienter vers un intervenant adapté au périmètre de la mission.
                         </p>
                         <a href="#devis" className="bg-red-600 hover:bg-red-500 text-white px-8 py-4 rounded-xl font-bold inline-flex items-center gap-2 transition">
                             Obtenir un devis gratuit
@@ -172,6 +172,9 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                     <div className="lg:col-span-2 space-y-12">
 
                         <div className="prose prose-lg text-slate-600 max-w-none">
+                            <div className="not-prose mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950">
+                                <strong>Page indépendante :</strong> {brand.name} est cité uniquement pour identifier le matériel déjà installé. Cette page n'est pas publiée par {brand.name} et ne constitue pas une annonce de partenariat, d'agrément ou de représentation. Le périmètre, les qualifications et les référentiels applicables sont confirmés avant toute intervention.
+                            </div>
                             <h2>Ce que nous vérifions sur un parc {brand.name} à {site.city}</h2>
                             <p>
                                 La marque d'un extincteur ne change pas la nature du contrôle annuel, mais elle détermine
@@ -302,7 +305,7 @@ export default async function CityBrandPage({ params }: { params: Params }) {
                                     <Shield size={18} className="text-red-500 shrink-0 mt-0.5" />
                                     <div>
                                         <strong className="block text-slate-900">Certifications & Garanties</strong>
-                                        Conforme NF EN 3 & APSAD R4 à {site.city}
+                                        Référentiels applicables à confirmer selon le site
                                     </div>
                                 </li>
                             </ul>
