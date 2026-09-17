@@ -1,6 +1,7 @@
 import type { CityConfig } from "@/lib/db";
 import { departementFromPostal, type Departement } from "@/data/fr-departements";
 import { composeLocalIntro } from "@/lib/pseo-local";
+import { getLocalFacts, type LocalFacts } from "@/data/local-facts";
 
 export interface PseoPageContent {
     meta_title: string;
@@ -31,6 +32,8 @@ const PRICE_MAINTENANCE = "15€ – 28€ / appareil";
 // CONTEXTE LOCAL RÉEL
 // ========================================
 interface LocalContext {
+    /** Slug de la commune, sert à retrouver ses mesures réelles */
+    slug: string;
     city: string;
     postal: string;
     /** Communes limitrophes réelles (données IGN/Etalab), utilisées comme zones d'intervention */
@@ -58,6 +61,7 @@ function buildContext(cityConfig: CityConfig): LocalContext {
     const postal = cityConfig.postalCode || "";
     const dept = departementFromPostal(postal);
     return {
+        slug: cityConfig.slug,
         city: cityConfig.city,
         postal,
         quartiers: cityConfig.neighborhoods || [],
@@ -129,6 +133,52 @@ function riskParagraph(c: LocalContext): string {
         return `<p class="leading-relaxed">Contrainte locale : le département ${c.deptCode} (${c.deptName}) figurait déjà parmi les plus denses en établissements recevant du public, ce qui allonge les délais d'accès à la visite de la commission de sécurité. <strong>Anticiper le contrôle</strong> évite une mise en demeure et un délai administratif supplémentaire.</p>`;
     }
     return `<p class="leading-relaxed">Contrainte locale : sur le département ${c.deptCode} (${c.deptName}), les locaux professionnels anciens disposent souvent de sous-sols et de locaux techniques <strong>non desservis par le réseau d'incendie</strong>, ce qui renforce l'exigence de moyens de première intervention à disposition immédiate.</p>`;
+}
+
+/**
+ * Paragraphe bâti sur des mesures réelles de la commune : risques recensés par
+ * Géorisques, hiver et précipitations mesurés par NASA POWER sur vingt ans.
+ * Deux communes n'ont ni les mêmes risques ni le même hiver, donc deux pages
+ * n'ont pas le même texte — la différence vient de la mesure, pas d'une
+ * reformulation.
+ */
+/** Énumération à la française : « a, b et c ». */
+function joinFr(items: string[]): string {
+    if (items.length <= 1) return items.join("");
+    return `${items.slice(0, -1).join(", ")} et ${items[items.length - 1]}`;
+}
+
+/** Géorisques renvoie ses libellés en capitales sans accent (« TRES FAIBLE »). */
+const SISMICITE: Record<string, string> = {
+    "tres faible": "très faible",
+    "faible": "faible",
+    "moderee": "modérée",
+    "moyenne": "moyenne",
+    "forte": "forte",
+};
+
+function measuredLocalParagraph(c: LocalContext, local: LocalFacts | undefined): string {
+    if (!local) return "";
+    const items: string[] = [];
+    if (local.risks && local.risks.length > 0) {
+        const listed = local.risks.slice(0, 3).map((r) => r.toLowerCase());
+        items.push(
+            `Géorisques recense ${local.risks.length} risque${local.risks.length > 1 ? "s" : ""} sur la commune, dont ${joinFr(listed)}`,
+        );
+    }
+    if (local.sismicite) {
+        const label = local.sismicite.replace(/^\d+\s*-\s*/, "").toLowerCase();
+        items.push(`elle est classée en zone de sismicité ${SISMICITE[label] ?? label}`);
+    }
+    if (local.tminJan !== null) {
+        items.push(`le minimum moyen de janvier y atteint ${local.tminJan.toLocaleString("fr-FR")} °C`);
+    }
+    if (local.rainMm !== null) {
+        items.push(`les précipitations cumulées sont de ${local.rainMm.toLocaleString("fr-FR")} mm par an`);
+    }
+    if (items.length === 0) return "";
+    const phrase = joinFr(items);
+    return `<p class="leading-relaxed">À ${c.city}, ${phrase}. Ces mesures déterminent l'implantation des appareils, l'agent extincteur retenu et la périodicité des vérifications — notamment pour les locaux non chauffés, où le gel abîme les accumulateurs des blocs d'éclairage de sécurité.</p>`;
 }
 
 // ========================================
@@ -214,19 +264,33 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
             },
             hash(c.city, c.postal, c.deptCode),
         ) +
-        riskParagraph(c);
+        riskParagraph(c) +
+        measuredLocalParagraph(c, getLocalFacts(c.slug, c.city));
 
     const expert_tip = pick(TIPS, h >> 7)(c);
 
     // --- Faits locaux vérifiables (bloc affiché sur la page) ---
     const local_facts: { label: string; value: string }[] = [];
+    // Mesures réelles de la commune, placées en tête : ce sont les seules
+    // valeurs qui distinguent deux communes que le reste du gabarit rapproche.
+    // Risques : Géorisques. Climat : NASA POWER (climatologie 20 ans).
+    const local = getLocalFacts(c.slug, c.city);
+    if (local) {
+        if (local.risks && local.risks.length > 0) {
+            local_facts.push({ label: "Risques recensés", value: local.risks.slice(0, 4).join(", ") });
+        }
+        if (local.sismicite) local_facts.push({ label: "Zone de sismicité", value: local.sismicite });
+        if (local.dju18 !== null) local_facts.push({ label: "Degrés-jours base 18", value: `${local.dju18.toLocaleString("fr-FR")} DJU/an` });
+        if (local.tminJan !== null) local_facts.push({ label: "Minimum moyen de janvier", value: `${local.tminJan.toLocaleString("fr-FR")} °C` });
+        if (local.rainMm !== null) local_facts.push({ label: "Précipitations annuelles", value: `${local.rainMm.toLocaleString("fr-FR")} mm` });
+        if (local.windDir) local_facts.push({ label: "Vent dominant", value: `${local.windDir} — ${(local.windKmh ?? 0).toLocaleString("fr-FR")} km/h` });
+    }
+    // Identité administrative réelle de la commune (source IGN / Etalab)
     if (c.deptCode) local_facts.push({ label: "Département", value: `${c.deptCode} — ${c.deptName}` });
     if (c.region !== "France") local_facts.push({ label: "Région", value: c.region });
     if (c.prefecture) local_facts.push({ label: "Préfecture", value: c.prefecture });
     local_facts.push({ label: "Service de secours compétent", value: c.sdis });
     if (c.postal) local_facts.push({ label: "Code postal", value: c.postal });
-    // Identité administrative réelle de la commune (source IGN / Etalab) :
-    // c'est ce qui distingue Saint-Cloud de Chambéry, plutôt qu'un texte réécrit.
     if (c.insee) local_facts.push({ label: "Code INSEE", value: c.insee });
     if (c.epci) local_facts.push({ label: "Intercommunalité", value: c.epci });
     if (c.population) local_facts.push({ label: "Population", value: `${c.population.toLocaleString("fr-FR")} habitants` });

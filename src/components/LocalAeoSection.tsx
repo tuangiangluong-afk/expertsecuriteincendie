@@ -62,13 +62,16 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                     </div>
 
                     <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6">
-                        <strong>En résumé : </strong>À {city}{dept}, le coût moyen d'une prestation de sécurité incendie réalisée par nos techniciens qualifiés s'établit entre {priceLine}. Nos techniciens certifiés interviennent {pseo?.installation_timeline || "sous 24h à 48h"}
-                        {sdis ? <> — les contrôles du secteur relèvent de <strong>{sdis}</strong>{prefecture ? ` (préfecture : ${prefecture})` : ""}.</> : " avec garantie décennale."}
+                        <strong>En résumé : </strong>À {city}{dept}, le coût moyen d'une prestation de sécurité incendie réalisée par nos techniciens qualifiés s'établit à {priceLine}.{" "}
+                        Délai habituel : {(pseo?.installation_timeline || "intervention sous 24h à 48h").replace(/^./, (ch) => ch.toLowerCase())}.{" "}
+                        {sdis
+                            ? <>Les contrôles du secteur relèvent de <strong>{sdis}</strong>{prefecture ? ` (préfecture : ${prefecture})` : ""}.</>
+                            : "Prestation couverte par notre garantie décennale."}
                     </p>
 
                     {facts.length > 0 && (
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-2 mb-6">
-                            {facts.slice(0, 8).map((f) => (
+                            {facts.slice(0, 12).map((f) => (
                                 <div key={f.label} className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4">
                                     <div className="text-xs text-slate-500 font-medium">{f.label}</div>
                                     <div className="text-sm font-bold text-slate-900 mt-1 leading-snug">{f.value}</div>
@@ -76,6 +79,12 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                             ))}
                         </div>
                     )}
+
+                    <p className="text-xs text-slate-500 leading-relaxed mb-6">
+                        Risques et sismicité : Géorisques (ministère de la Transition écologique).
+                        Climat, vent et précipitations : NASA POWER, climatologie sur vingt ans.
+                        Identité administrative : IGN / Etalab.
+                    </p>
 
                     {regionName && (
                         <p className="text-sm text-slate-600 leading-relaxed mb-6 pt-1 border-t border-slate-100">
