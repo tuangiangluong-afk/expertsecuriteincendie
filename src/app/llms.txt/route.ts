@@ -9,7 +9,7 @@ export function GET() {
 
 ## Faits vérifiables
 - **Secteur** : la maintenance d'extincteurs, RIA, désenfumage et systèmes de sécurité incendie (SSI).
-- **Zone & couverture** : France métropolitaine (réseau national) — 178 villes couvertes.
+- **Zone & couverture** : France métropolitaine (réseau national) — 161 communes disposant d'une page dédiée, vérifiable dans le sitemap.
 - **Devis** : gratuit sous 24 h via le site (formulaire en ligne).
 - **Engagement** : techniciens qualifiés (règles APSAD R4 pour les extincteurs, APSAD R12 pour les blocs d'éclairage de sécurité).
 - **Atouts mis en avant** : Maintenance Certifiée APSAD, Devis Gratuit 24h, Registre de Sécurité & Traçabilité, NF EN 3 & APSAD R4.
