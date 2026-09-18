@@ -2,6 +2,7 @@ import type { CityConfig } from "@/lib/db";
 import { departementFromPostal, type Departement } from "@/data/fr-departements";
 import { composeLocalIntro } from "@/lib/pseo-local";
 import { getLocalFacts, type LocalFacts } from "@/data/local-facts";
+import { clampTitle, clampDescription } from "@/lib/seo-meta";
 
 export interface PseoPageContent {
     meta_title: string;
@@ -313,8 +314,8 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
     ];
 
     return {
-        meta_title,
-        meta_description,
+        meta_title: clampTitle(meta_title),
+        meta_description: clampDescription(meta_description),
         hero_title,
         hero_badge: c.dense
             ? "Conformité ERP & Code du travail"

@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
       template: "%s",
-      default: `Expert Sécurité Incendie® - Maintenance & Conformité ${getCurrentYearSEO()}`,
+      default: `Sécurité incendie | Maintenance & conformité`,
     },
     description: "Maintenance d'extincteurs, désenfumage et mise en conformité pour entreprises, ERP et copropriétés. Devis gratuit sous 24h.",
     metadataBase: new URL(baseUrl),

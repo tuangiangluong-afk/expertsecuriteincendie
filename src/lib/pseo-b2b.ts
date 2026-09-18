@@ -1,5 +1,6 @@
 import type { CityConfig } from "@/lib/db";
 import { composeLocalIntro } from "@/lib/pseo-local";
+import { clampTitle, clampDescription } from "@/lib/seo-meta";
 
 export interface PseoB2bContent {
     meta_title: string;
@@ -139,7 +140,7 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
         const intro_html = getEntrepriseIntro(city, dept, zones);
         const expert_tip = getEntrepriseTip(city, zones);
 
-        return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
+        return { meta_title: clampTitle(meta_title), meta_description: clampDescription(meta_description), hero_title, hero_badge, intro_html, expert_tip };
     }
 
     const meta_title = `Sécurité incendie copropriété à ${city} | Audit syndic`;
@@ -149,5 +150,5 @@ export async function getPseoB2bContent(cityConfig: CityConfig, segment: 'ENTREP
     const intro_html = getCoproIntro(city, dept, zones);
     const expert_tip = getCoproTip(city, zones);
 
-    return { meta_title, meta_description, hero_title, hero_badge, intro_html, expert_tip };
+    return { meta_title: clampTitle(meta_title), meta_description: clampDescription(meta_description), hero_title, hero_badge, intro_html, expert_tip };
 }
