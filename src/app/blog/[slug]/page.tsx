@@ -10,6 +10,7 @@ import { TableOfContents } from "@/components/blog/TableOfContents";
 import SimulatorWidget from '@/components/blog/SimulatorWidget';
 import LocalLinker from '@/components/blog/LocalLinker';
 import { marked } from 'marked';
+import { clampTitle, clampDescription } from '@/lib/seo-meta';
 
 // Initialize Supabase Client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co";
@@ -75,8 +76,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return {
-        title: post.seo_title || `${post.title} | Expert Sécurité Incendie`,
-        description: post.seo_description || post.excerpt,
+        title: clampTitle(post.seo_title || `${post.title} | Expert Sécurité Incendie`),
+        description: clampDescription(post.seo_description || post.excerpt),
         openGraph: {
             title: post.title,
             description: post.excerpt,
