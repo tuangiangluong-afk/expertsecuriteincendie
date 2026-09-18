@@ -304,7 +304,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                          <div className="bg-gradient-to-br from-red-900 to-red-700 text-white rounded-2xl p-8 text-center shadow-lg">
                             <h4 className="text-xl font-bold mb-2">Devis Gratuit</h4>
                             <p className="text-red-100 text-sm mb-6">Comparez les prix des techniciens Incendie près de chez vous.</p>
-                            <Link href="/devis" className="inline-block bg-white text-red-900 px-6 py-3 rounded-full font-bold hover:bg-red-50 transition-colors w-full">
+                            <Link href="/#simulateur" className="inline-block bg-white text-red-900 px-6 py-3 rounded-full font-bold hover:bg-red-50 transition-colors w-full">
                                 Commencer
                             </Link>
                          </div>

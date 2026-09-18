@@ -45,7 +45,7 @@ export default function MentionsLegales() {
                             <li><strong>SIREN :</strong> 984 800 136</li>
                             <li><strong>SIRET :</strong> 984 800 136 00017</li>
                             <li><strong>Responsable de publication :</strong> Direction WELINK TECH</li>
-                            <li><strong>Contact :</strong> <Link href="/contact" className="underline text-red-600">Formulaire de contact</Link></li>
+                            <li><strong>Contact :</strong> <Link href="/home/contact" className="underline text-red-600">Formulaire de contact</Link></li>
                         </ul>
                     </div>
 

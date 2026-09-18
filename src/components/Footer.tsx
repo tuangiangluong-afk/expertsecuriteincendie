@@ -250,7 +250,7 @@ export function Footer({ config }: FooterProps) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/contact" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
+                                    <Link href="/home/contact" className="text-neutral-400 hover:text-white transition flex items-center gap-2 group">
                                         <span className={`w-1 h-1 rounded-full bg-neutral-600 group-hover:${theme.classes.bg} transition`}></span>
                                         Devenir Partenaire
                                     </Link>
@@ -280,7 +280,7 @@ export function Footer({ config }: FooterProps) {
                             <h5 className="text-white font-bold mb-6 text-lg tracking-tight">Contact</h5>
                             <ul className="space-y-6">
                                 <li>
-                                    <Link href="/contact" className="flex items-start gap-4 text-neutral-400 hover:text-white transition group text-left">
+                                    <Link href="/home/contact" className="flex items-start gap-4 text-neutral-400 hover:text-white transition group text-left">
                                         <div className={`p-2 rounded-lg bg-white/5 group-hover:${theme.classes.bg} transition group-hover:text-neutral-900`}>
                                             <Mail size={20} />
                                         </div>

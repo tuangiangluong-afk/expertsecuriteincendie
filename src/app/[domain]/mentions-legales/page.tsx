@@ -68,7 +68,7 @@ export default async function MentionsLegales({ params }: { params: Promise<{ do
                             <li><strong>Siège social :</strong> 6 RUE DES BATELIERS, 92110 CLICHY</li>
                             <li><strong>SIREN :</strong> 984 800 136</li>
                             <li><strong>Responsable de publication :</strong> Direction WELINK TECH</li>
-                            <li><strong>Contact :</strong> <Link href="/contact" className="underline">Formulaire de contact</Link></li>
+                            <li><strong>Contact :</strong> <Link href="/home/contact" className="underline">Formulaire de contact</Link></li>
                         </ul>
                     </div>
 

@@ -145,6 +145,8 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             });
         }
     } else {
+        // The page template owns the single H1; remove a legacy Markdown H1 from the guide body.
+        guide.content = guide.content.replace(/^# .+\n+/m, "");
         // MDX Parsing for TOC (Existing logic)
         headings = guide.content.match(/^#{1,3} .+/gm) || [];
         toc = headings.map((heading: string) => {

@@ -53,7 +53,7 @@ const CookieBanner = ({ slug, cityName }: CookieBannerProps) => {
                     <p className="text-sm text-neutral-400 mb-4 leading-relaxed">
                         Nous utilisons des cookies pour améliorer votre expérience sur le site de {cityName}. Pas de pistage intrusif, promis.
                         {' '}
-                        <Link href="/mentions-legales" className={`underline hover:opacity-80 transition ${theme.text}`}>
+                        <Link href="/home/mentions-legales" className={`underline hover:opacity-80 transition ${theme.text}`}>
                             En savoir plus
                         </Link>
                     </p>

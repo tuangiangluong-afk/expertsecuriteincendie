@@ -361,8 +361,8 @@ export default async function CitymaintenancePage({
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <Logo isHub={true} size="sm" variant="light" />
                         <div className="flex gap-6 text-sm text-slate-400">
-                            <Link href="/mentions-legales" className="hover:text-white transition">Mentions légales</Link>
-                            <Link href="/cgv" className="hover:text-white transition">CGV</Link>
+                            <Link href="/home/mentions-legales" className="hover:text-white transition">Mentions légales</Link>
+                            <Link href="/home/cgv" className="hover:text-white transition">CGV</Link>
                             <Link href="/politique-confidentialite" className="hover:text-white transition">Confidentialité</Link>
                         </div>
                     </div>
