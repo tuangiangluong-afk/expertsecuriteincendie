@@ -29,7 +29,6 @@ export async function generateStaticParams() {
 // METADATA
 // ============================================
 
-import { headers } from "next/headers";
 
 export async function generateMetadata({
     params,
@@ -46,8 +45,8 @@ export async function generateMetadata({
     // Dynamic Meta via pSEO
     const pseo = await getPseoContent(site);
 
-    const headersList = await headers();
-    const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+    // Static canonical domain (avoid headers() which forces dynamic SSR)
+    const canonicalDomain = "www.expertsecuriteincendie.fr";
     const canonicalUrl = `https://${canonicalDomain}/ville/${resolvedParams.slug}`;
 
     return {

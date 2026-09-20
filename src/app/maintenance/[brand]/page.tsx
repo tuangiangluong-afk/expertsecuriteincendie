@@ -35,8 +35,6 @@ export async function generateStaticParams() {
     }));
 }
 
-import { headers } from 'next/headers';
-
 export default async function BrandPage({ params, searchParams }: PageProps) {
     const { brand: slug } = await params;
     const { city: simulatedCity } = await searchParams; // Allow local testing via ?city=Lyon
@@ -45,15 +43,13 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
 
     const year = getCurrentYearSEO();
 
-    // War Architecture: GeoIP Detection (with local override)
-    const headersList = await headers();
-    const vercelCity = headersList.get("x-vercel-ip-city");
-
-    // Priority: 1. Query Param (Testing) 2. Vercel Header (Prod) 3. Null (Fallback)
-    const rawCity = simulatedCity ? (simulatedCity as string) : vercelCity;
+    // NOTE: GeoIP via headers() was removed because it forces dynamic SSR
+    // and kills Edge CDN caching (cache-control: private, no-cache, no-store).
+    // Use ?city= query param for testing only.
+    const rawCity = simulatedCity ? (simulatedCity as string) : null;
     const decodedCity = rawCity ? decodeURIComponent(rawCity) : null;
 
-    console.log(`[BrandPage] Detected City: ${decodedCity} (Source: ${simulatedCity ? 'Query Param' : 'Header'})`);
+    console.log(`[BrandPage] Detected City: ${decodedCity} (Source: ${simulatedCity ? 'Query Param' : 'None'})`);
 
     if (!brand) {
         console.error(`[BrandPage] Brand not found for slug: ${slug}. Available slugs: ${brands.map(b => b.slug).join(', ')}`);

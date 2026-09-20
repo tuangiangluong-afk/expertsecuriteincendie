@@ -34,7 +34,6 @@ export async function generateStaticParams() {
     return params;
 }
 
-import { headers } from "next/headers";
 import LocalSources from "@/components/LocalSources";
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -48,8 +47,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const title = `Vérification extincteurs ${brandData.name} à ${site.city}${site.postalCode ? ` (${site.postalCode})` : ''} | Devis gratuit`;
     const description = `Contrôle annuel des extincteurs ${brandData.name} à ${site.city} : ${agents}. Périmètre, référentiel et intervenant confirmés selon votre établissement. Demande de devis.`;
 
-    const headersList = await headers();
-    const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+    // Static canonical domain (avoid headers() which forces dynamic SSR)
+    const canonicalDomain = "www.expertsecuriteincendie.fr";
     const canonicalUrl = `https://${canonicalDomain}/ville/${slug}/${brandSlug}`;
 
     return {

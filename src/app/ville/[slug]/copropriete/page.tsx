@@ -33,7 +33,6 @@ export async function generateStaticParams() {
         .map(city => ({ slug: slugify(city.city) }));
 }
 
-import { headers } from "next/headers";
 import LocalSources from "@/components/LocalSources";
 
 export async function generateMetadata({
@@ -47,8 +46,8 @@ export async function generateMetadata({
     if (!site) return {};
 
     const b2bContent = await getPseoB2bContent(site, 'COPRO');
-    const headersList = await headers();
-    const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+    // Static canonical domain (avoid headers() which forces dynamic SSR)
+    const canonicalDomain = "www.expertsecuriteincendie.fr";
     const canonicalUrl = `https://${canonicalDomain}/ville/${resolvedParams.slug}/copropriete`;
 
     return {

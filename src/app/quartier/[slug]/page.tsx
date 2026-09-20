@@ -77,7 +77,6 @@ export async function generateStaticParams() {
     }));
 }
 
-import { headers } from "next/headers";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const resolvedParams = await params;
@@ -85,8 +84,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!quartier) return {};
 
-    const headersList = await headers();
-    const canonicalDomain = headersList.get("x-incendie-canonical-domain") || "expertsecuriteincendie.fr";
+    // Static canonical domain (avoid headers() which forces dynamic SSR)
+    const canonicalDomain = "www.expertsecuriteincendie.fr";
     const canonicalUrl = `https://${canonicalDomain}/quartier/${resolvedParams.slug}`;
 
     return {
