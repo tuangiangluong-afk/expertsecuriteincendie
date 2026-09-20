@@ -1,5 +1,4 @@
 import Script from "next/script";
-import { headers } from "next/headers";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -19,69 +18,62 @@ import StructuredData from "@/components/seo/StructuredData";
 import AttributionTracker from "@/components/AttributionTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const headersList = await headers();
-  // Canonical host is ALWAYS this site's own host.
-  const canonicalDomain = "www.expertsecuriteincendie.fr";
-  const path = headersList.get("x-incendie-path") || "";
-  const baseUrl = `https://${canonicalDomain}`;
-
-  return {
-    title: {
-      template: "%s",
-      default: `Sécurité incendie | Maintenance & conformité`,
-    },
-    description: "Maintenance d'extincteurs, désenfumage et mise en conformité pour entreprises, ERP et copropriétés. Devis gratuit sous 24h.",
-    metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: `${baseUrl}${path}`,
-    },
-    robots: {
+// NOTE: Do NOT use `await headers()` here — it forces every single page on the
+// entire site into dynamic SSR mode, resulting in
+// `cache-control: private, no-cache, no-store` on all pages.
+// Per-page canonical URLs should be set in individual page.tsx files.
+export const metadata: Metadata = {
+  title: {
+    template: "%s",
+    default: `Sécurité incendie | Maintenance & conformité`,
+  },
+  description: "Maintenance d'extincteurs, désenfumage et mise en conformité pour entreprises, ERP et copropriétés. Devis gratuit sous 24h.",
+  metadataBase: new URL("https://www.expertsecuriteincendie.fr"),
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
       index: true,
       follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
+    description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises, ERP et copropriétés en France.",
+    siteName: "Expert Sécurité Incendie",
+    locale: "fr_FR",
+    type: "website",
+    url: "https://www.expertsecuriteincendie.fr",
+    images: [
+      {
+        url: `https://www.expertsecuriteincendie.fr/api/og`,
+        width: 1200,
+        height: 630,
+        alt: "Expert Sécurité Incendie® - Maintenance Extincteurs",
       },
-    },
-    openGraph: {
-      title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
-      description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises, ERP et copropriétés en France.",
-      siteName: "Expert Sécurité Incendie",
-      locale: "fr_FR",
-      type: "website",
-      url: `${baseUrl}${path}`,
-      images: [
-        {
-          url: `${baseUrl}/api/og`,
-          width: 1200,
-          height: 630,
-          alt: "Expert Sécurité Incendie® - Maintenance Extincteurs",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
-      description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises et ERP.",
-      images: [`${baseUrl}/api/og`],
-    },
-    icons: {
-      icon: "/icon.png",
-      shortcut: "/favicon.png",
-      apple: "/icon.png",
-      other: [
-        {
-          rel: "icon",
-          url: "/favicon.ico",
-        }
-      ]
-    },
-  };
-}
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Expert Sécurité Incendie® - Réseau National de Conformité Incendie`,
+    description: "N°1 de la maintenance d'extincteurs, désenfumage et mise en conformité B2B pour entreprises et ERP.",
+    images: [`https://www.expertsecuriteincendie.fr/api/og`],
+  },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.png",
+    apple: "/icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon.ico",
+      }
+    ]
+  },
+};
 
 export const viewport: Viewport = {
   themeColor: "#dc2626",
