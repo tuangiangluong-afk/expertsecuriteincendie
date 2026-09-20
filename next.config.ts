@@ -25,10 +25,6 @@ const nextConfig: NextConfig = {
     return [
       { source: '/ville/saint-exupery', destination: '/ville/lyon', permanent: true },
       { source: '/ville/orly', destination: '/ville/paris', permanent: true },
-    ];
-  },
-  async redirects() {
-    return [
       // La marque « Andrieu » a été retirée du catalogue : son site constructeur
       // n'est pas accessible et aucune gamme n'a pu être vérifiée. Ses pages
       // ville x marque et sa page maintenance renvoyaient un contenu sans
