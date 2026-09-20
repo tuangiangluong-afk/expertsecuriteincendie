@@ -14,7 +14,7 @@ export interface LocalFacts {
     sunKwh: number | null;
     /** Temperature moyenne annuelle, degres C */
     tmean: number | null;
-    /** Minimum moyen de janvier, degres C */
+    /** Temperature de base hivernale (P190), degres C */
     tminJan: number | null;
     /** Precipitations annuelles, mm */
     rainMm: number | null;

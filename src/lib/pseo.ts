@@ -172,7 +172,7 @@ function measuredLocalParagraph(c: LocalContext, local: LocalFacts | undefined):
         items.push(`elle est classée en zone de sismicité ${SISMICITE[label] ?? label}`);
     }
     if (local.tminJan !== null) {
-        items.push(`le minimum moyen de janvier y atteint ${local.tminJan.toLocaleString("fr-FR")} °C`);
+        items.push(`la température de base hivernale y atteint ${local.tminJan.toLocaleString("fr-FR")} °C`);
     }
     if (local.rainMm !== null) {
         items.push(`les précipitations cumulées sont de ${local.rainMm.toLocaleString("fr-FR")} mm par an`);
@@ -282,7 +282,7 @@ export async function getPseoContent(cityConfig: CityConfig, _targetType: string
         }
         if (local.sismicite) local_facts.push({ label: "Zone de sismicité", value: local.sismicite });
         if (local.dju18 !== null) local_facts.push({ label: "Degrés-jours base 18", value: `${local.dju18.toLocaleString("fr-FR")} DJU/an` });
-        if (local.tminJan !== null) local_facts.push({ label: "Minimum moyen de janvier", value: `${local.tminJan.toLocaleString("fr-FR")} °C` });
+        if (local.tminJan !== null) local_facts.push({ label: "Température de base hivernale", value: `${local.tminJan.toLocaleString("fr-FR")} °C` });
         if (local.rainMm !== null) local_facts.push({ label: "Précipitations annuelles", value: `${local.rainMm.toLocaleString("fr-FR")} mm` });
         if (local.windDir) local_facts.push({ label: "Vent dominant", value: `${local.windDir} — ${(local.windKmh ?? 0).toLocaleString("fr-FR")} km/h` });
     }
