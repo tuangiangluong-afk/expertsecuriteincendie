@@ -155,6 +155,9 @@ export default function SolutionCopro() {
                         <strong>blocs autonomes d&apos;éclairage de sécurité</strong> avec essai mensuel de fonctionnement assuré par l&apos;exploitant et essai annuel d&apos;autonomie par un prestataire (NF C 71-820),
                         <strong>désenfumage</strong> des circulations et parkings couverts avec vérification semestrielle des commandes et annuelle de l&apos;installation, sans oublier les <strong>portes coupe-feu</strong> et l&apos;affichage des consignes.
                     </p>
+                    <p>
+                        Dans les parcs de stationnement couverts et souterrains, l&apos;installation de points de recharge pour véhicules électriques impose également le respect des consignes de sécurité, de ventilation et de coupure d&apos;urgence. Avant d&apos;engager des travaux en assemblée générale, consultez les normes d&apos;<a href="https://expertbornerecharge.com/" target="_blank" rel="noopener" className="text-purple-600 font-bold hover:underline">installation de bornes de recharge pour véhicules électriques en copropriété</a> pour valider le dossier technique avec votre syndic.
+                    </p>
                     <blockquote>
                         &ldquo;Le registre de sécurité de l&apos;immeuble est la première pièce demandée lors d&apos;un contrôle de la commission de sécurité ou d&apos;une vente de lot. L&apos;alimenter à chaque passage coûte moins cher que de le reconstituer après coup.&rdquo;
                     </blockquote>
