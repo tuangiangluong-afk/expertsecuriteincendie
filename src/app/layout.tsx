@@ -104,6 +104,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-900 text-neutral-50`}
       >
+        {/* WaveS complement: Organization/WebSite+SearchAction/BreadcrumbList */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Organization\", \"@id\": \"https://www.expertsecuriteincendie.fr/#organization\", \"name\": \"Expert S\u00e9curit\u00e9 Incendie\", \"url\": \"https://www.expertsecuriteincendie.fr\", \"description\": \"N\u00b01 de la maintenance d\"}, {\"@type\": \"WebSite\", \"@id\": \"https://www.expertsecuriteincendie.fr/#website\", \"url\": \"https://www.expertsecuriteincendie.fr\", \"name\": \"Expert S\u00e9curit\u00e9 Incendie\", \"inLanguage\": \"fr\", \"publisher\": {\"@id\": \"https://www.expertsecuriteincendie.fr/#organization\"}, \"potentialAction\": {\"@type\": \"SearchAction\", \"target\": {\"@type\": \"EntryPoint\", \"urlTemplate\": \"https://www.expertsecuriteincendie.fr/?q={search_term_string}\"}, \"query-input\": \"required name=search_term_string\"}}, {\"@type\": \"BreadcrumbList\", \"@id\": \"https://www.expertsecuriteincendie.fr/#breadcrumb\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Expert S\u00e9curit\u00e9 Incendie\", \"item\": \"https://www.expertsecuriteincendie.fr\"}]}]}".replace(/</g, '\\u003c') }} />
         {/* AnswerShaper Local Tag */}
         <Script src="https://answershaper.com/api/v1/m2m/local-tag/25.js" strategy="lazyOnload" defer />
 
