@@ -23,6 +23,7 @@ import RegulatoryServicesLinks from "@/components/RegulatoryServicesLinks";
 export const metadata: Metadata = {
     title: "Devis matériel incendie : extincteurs et conformité",
     description: "Recevez jusqu'à 3 devis gratuits de techniciens certifiés Incendie. Comparez les prix et économisez jusqu'à 2 460€ grâce aux aides. Réseau national.",
+    alternates: { canonical: "https://www.expertsecuriteincendie.fr/" },
     keywords: ["devis matériel incendie", "comparateur extincteur protection", "Maintenance Incendie", "extincteur devis"],
 };
 
