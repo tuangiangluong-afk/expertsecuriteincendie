@@ -20,9 +20,11 @@ import { LocalFAQ } from "@/components/LocalFAQ";
 import RealizationsGrid from "@/components/RealizationsGrid";
 import PersonaSelector from "@/components/PersonaSelector";
 
-// Dynamically generate for ALL cities (Owned + Partner)
+export const dynamicParams = true;
+
+// Pre-render top 5 cities at build time; others are generated on-demand (ISR 24h)
 export async function generateStaticParams() {
-    return Object.values(CITIES).map(city => ({ slug: slugify(city.city) }));
+    return Object.values(CITIES).slice(0, 5).map(city => ({ slug: slugify(city.city) }));
 }
 
 // ============================================

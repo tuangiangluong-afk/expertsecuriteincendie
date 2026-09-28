@@ -84,7 +84,7 @@ export default function LocalLinker() {
                 </div>
                 <div>
                     <h3 className="font-bold text-lg">technicien Local</h3>
-                    <p className="text-red-200 text-xs">Trouvez votre expert de proximité</p>
+                    <p className="text-red-200 text-xs">Trouvez votre expert de proximité<span className="sr-only">.</span></p>
                 </div>
             </div>
 

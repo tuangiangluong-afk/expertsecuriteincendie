@@ -230,7 +230,7 @@ export default function LeadForm({
                     </div>
                     <div>
                         <h3 className="font-bold text-lg">Diagnostic & Devis Sur-Mesure</h3>
-                        <p className="text-white/80 text-sm">Sécurité Incendie B2B</p>
+                        <p className="text-white/80 text-sm">Sécurité Incendie B2B<span className="sr-only">.</span></p>
                     </div>
                 </div>
                 <div className="relative">

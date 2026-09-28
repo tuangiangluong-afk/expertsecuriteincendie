@@ -21,6 +21,8 @@ import { getPseoB2bContent } from "@/lib/pseo-b2b";
 // /ville/lyon/entreprise
 // ========================================
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
     const uniqueCities = new Map<string, boolean>();
     return Object.values(CITIES)
@@ -30,6 +32,7 @@ export async function generateStaticParams() {
             uniqueCities.set(slug, true);
             return city.slug !== 'home';
         })
+        .slice(0, 5)
         .map(city => ({ slug: slugify(city.city) }));
 }
 

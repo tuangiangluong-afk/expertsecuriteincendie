@@ -48,9 +48,10 @@ export default function HomePage() {
     }));
 
     return (
-        <div role="main" className="min-h-screen font-sans text-slate-900 bg-white">
+        <div className="min-h-screen font-sans text-slate-900 bg-white">
             {/* NAVIGATION - Light Tech-Trust Style */}
             <Header isHub={true} variant="default" />
+            <main>
 
             {/* ============================================ */}
             {/* HERO - Light Tech-Trust Style */}
@@ -97,7 +98,7 @@ export default function HomePage() {
                                         <div className="p-1 bg-gradient-to-r from-red-600 to-red-500"></div>
                                         <div className="p-6 md:p-8">
                                             <div className="mb-6">
-                                                <h3 className="text-lg font-bold text-slate-900">Testez votre éligibilité</h3>
+                                                <h3 className="text-lg font-bold text-slate-900">Testez votre éligibilité<span className="sr-only">.</span></h3>
                                                 <p className="text-sm text-slate-500">Réponse immédiate • Gratuit • Sans engagement</p>
                                             </div>
                                             <LeadForm
@@ -187,7 +188,7 @@ export default function HomePage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                                 Jusqu&apos;à <span className="text-yellow-400">2 460€</span> d&apos;aides cumulables
-                            </h2>
+                            <span className="sr-only">.</span></h2>
                             <p className="text-red-100 text-lg">
                                 Profitez de toutes les aides disponibles en 2026
                             </p>
@@ -222,7 +223,7 @@ export default function HomePage() {
                             </div>
                             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
                                 Essence vs sécurité incendie
-                            </h2>
+                            <span className="sr-only">.</span></h2>
                             <p className="text-slate-600 text-lg max-w-2xl mx-auto">
                                 Protégez vos locaux à la maison et économisez jusqu&apos;à <strong>1 500€ par an</strong>
                             </p>
@@ -238,7 +239,7 @@ export default function HomePage() {
                                                 <span className="text-2xl">⛽</span>
                                             </div>
                                             <div>
-                                                <h3 className="font-bold text-lg text-red-900">Essence / Diesel</h3>
+                                                <h3 className="font-bold text-lg text-red-900">Essence / Diesel<span className="sr-only">.</span></h3>
                                                 <p className="text-sm text-red-600">Coût mensuel moyen</p>
                                             </div>
                                         </div>
@@ -268,7 +269,7 @@ export default function HomePage() {
                                                 <Zap className="text-green-600" size={24} />
                                             </div>
                                             <div>
-                                                <h3 className="font-bold text-lg text-green-900">Protection locaux professionnels</h3>
+                                                <h3 className="font-bold text-lg text-green-900">Protection locaux professionnels<span className="sr-only">.</span></h3>
                                                 <p className="text-sm text-green-600">Coût mensuel moyen</p>
                                             </div>
                                         </div>
@@ -307,7 +308,7 @@ export default function HomePage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
                                 Une solution pour chaque projet
-                            </h2>
+                            <span className="sr-only">.</span></h2>
                             <p className="text-slate-600 text-lg">
                                 Maison, copropriété ou entreprise : nos techniciens s&apos;adaptent
                             </p>
@@ -365,7 +366,7 @@ export default function HomePage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
                                 Nos techniciens par ville
-                            </h2>
+                            <span className="sr-only">.</span></h2>
                             <p className="text-slate-600 text-lg">
                                 Trouvez un expert certifié Incendie près de chez vous
                             </p>
@@ -416,6 +417,7 @@ export default function HomePage() {
             {/* ============================================ */}
             {/* FOOTER */}
             {/* ============================================ */}
+            </main>
             <Footer config={hub} />
 
             {/* Mobile Sticky CTA */}

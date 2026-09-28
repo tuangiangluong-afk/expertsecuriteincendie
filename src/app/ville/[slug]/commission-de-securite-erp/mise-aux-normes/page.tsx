@@ -5,7 +5,8 @@ import RegulatoryLanding from "@/components/RegulatoryLanding";
 import { slugify } from "@/lib/slugify";
 
 export const revalidate = 86400;
-export function generateStaticParams() { return Object.values(CITIES).map((city) => ({ slug: slugify(city.city) })); }
+export const dynamicParams = true;
+export function generateStaticParams() { return Object.values(CITIES).slice(0, 3).map((city) => ({ slug: slugify(city.city) })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const city = getCityByCleanSlug((await params).slug);
     if (!city) return {};

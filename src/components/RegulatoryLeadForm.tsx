@@ -190,7 +190,7 @@ export default function RegulatoryLeadForm({ domain = "expertsecuriteincendie.fr
     return (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
             <div className="bg-gradient-to-r from-red-700 to-red-600 p-6 text-white">
-                <div className="flex items-center gap-3"><ShieldCheck size={25} /><div><h3 className="font-bold">Qualification réglementaire ERP</h3><p className="text-sm text-red-100">SSI, électricité et commission de sécurité</p></div></div>
+                <div className="flex items-center gap-3"><ShieldCheck size={25} /><div><h3 className="font-bold">Qualification réglementaire ERP</h3><p className="text-sm text-red-100">SSI, électricité et commission de sécurité<span className="sr-only">.</span></p></div></div>
                 <div className="mt-5 h-2 overflow-hidden rounded-full bg-black/20"><div className="h-full rounded-full bg-white transition-all" style={{ width: `${(step / 4) * 100}%` }} /></div>
                 <p className="mt-2 text-xs text-red-100">Étape {step}/4</p>
             </div>
