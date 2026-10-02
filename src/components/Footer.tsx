@@ -10,11 +10,14 @@ function GooglePreferredSourceButton() {
     return <a href="https://www.google.com/preferences/source?q=expertsecuriteincendie.com" target="_blank" rel="noopener noreferrer" aria-label="Ajouter aux sources préférées Google" className="inline-flex items-center gap-3 rounded-xl border-2 bg-neutral-800 text-white border-red-400 hover:bg-red-700 px-4 py-3 font-bold transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-current/30"><span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-full bg-white text-xl font-black text-[#4285F4]">G</span><span>Ajouter aux sources préférées Google</span></a>;
 }
 
+import { getHubConfig } from "@/lib/sites-config";
+
 interface FooterProps {
-    config: CityConfig | SiteConfig;
+    config?: CityConfig | SiteConfig;
 }
 
-export function Footer({ config }: FooterProps) {
+export function Footer({ config: propConfig }: FooterProps = {}) {
+    const config = propConfig || getHubConfig();
     if (!config) return null;
 
     // Normalize Data for both Config Types

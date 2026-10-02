@@ -40,12 +40,24 @@ export default function Header({
 
     const navLinks = [
         {
-            href: "/solutions/entreprise",
-            text: "Solutions B2B"
+            href: "/operateurs",
+            text: "Opérateurs & Maintenance"
         },
         {
-            href: "/blog",
-            text: "Guides & Réglementation"
+            href: "/marques",
+            text: "Marques & Extincteurs"
+        },
+        {
+            href: "/comparatifs",
+            text: "Comparatifs"
+        },
+        {
+            href: "/solutions/entreprise",
+            text: "ERP & B2B"
+        },
+        {
+            href: "/guides",
+            text: "Normes & Registre"
         }
     ];
 
@@ -103,10 +115,9 @@ export default function Header({
                         </div>
                     )}
 
-                    {/* Incendie Badge (Desktop) */}
-                    <div className="hidden lg:flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-full">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span className="text-xs font-bold text-green-600">Certifié Incendie</span>
+                    {/* Incendie Badge (Desktop) - Clean without pulsating dot */}
+                    <div className="hidden lg:flex items-center gap-1.5 bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-full text-red-700">
+                        <span className="text-xs font-bold">Certification APSAD &amp; NF</span>
                     </div>
 
                     {/* CTA Devis (Replaces Phone) - Hidden on mobile to avoid redundancy with sticky CTA */}

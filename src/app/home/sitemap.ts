@@ -6,19 +6,54 @@ import { NATIONAL_CONFIG } from '@/config/national';
 import { slugify } from '@/lib/slugify';
 import { brands } from '@/data/brands';
 import { getAllGuides } from '@/lib/mdx';
+import { OPERATORS } from '@/data/operators';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://www.expertsecuriteincendie.fr';
 
     // Date de dernière révision réelle du contenu de ces gabarits.
-    // Auparavant chaque URL portait `new Date()`, donc un lastmod qui changeait à
-    // chaque génération : Search Console ignore un lastmod qui n'est jamais stable.
-    const CONTENT_REVISION = new Date('2026-09-17');
+    const CONTENT_REVISION = new Date('2026-09-24');
 
     // ========================================
-    // 1. CORE STATIC PAGES
+    // 1. CORE STATIC PAGES & HUBS
     // ========================================
     const coreRoutes: MetadataRoute.Sitemap = [
+        {
+            url: baseUrl,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'daily',
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/operateurs`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/marques`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/comparatifs`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/solutions/entreprise`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/guides`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
         {
             url: `${baseUrl}/mentions-legales`,
             lastModified: new Date('2026-03-01'),
@@ -154,8 +189,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }));
     });
 
+    // ========================================
+    // 14. OPERATOR ROUTES
+    // ========================================
+    const operatorRoutes: MetadataRoute.Sitemap = OPERATORS.map((op) => ({
+        url: `${baseUrl}/operateurs/${op.slug}`,
+        lastModified: CONTENT_REVISION,
+        changeFrequency: 'weekly' as const,
+        priority: 0.85,
+    }));
+
     return [
         ...coreRoutes,
+        ...operatorRoutes,
         ...cityRoutes,
         ...serviceRoutes,
         ...poiRoutes,

@@ -1,6 +1,6 @@
 export const revalidate = 86400; // 24h ISR cache
 import { getHubConfig, SITES, SiteConfig } from "@/lib/sites-config";
-import { Zap, Award, ArrowRight, Building2, Home, Briefcase, CheckCircle } from "lucide-react";
+import { Zap, Award, ArrowRight, Building2, Home, Briefcase, CheckCircle, ShieldCheck, Layers, Scale, Flame, BookOpen } from "lucide-react";
 import LocalLinker from "@/components/blog/LocalLinker";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -19,12 +19,28 @@ import ExtinguisherComparison from "@/components/ExtinguisherComparison";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FloatingCTA from "@/components/FloatingCTA";
 import RegulatoryServicesLinks from "@/components/RegulatoryServicesLinks";
+import { ogImageUrl } from "@/lib/seo-meta";
 
 export const metadata: Metadata = {
-    title: "Devis matériel incendie : extincteurs et conformité",
+    title: "Devis matériel incendie : extincteurs et conformité ERP 2026",
     description: "Recevez jusqu'à 3 devis gratuits de techniciens certifiés Incendie. Comparez les prix et économisez jusqu'à 2 460€ grâce aux aides. Réseau national.",
     alternates: { canonical: "https://www.expertsecuriteincendie.fr/" },
     keywords: ["devis matériel incendie", "comparateur extincteur protection", "Maintenance Incendie", "extincteur devis"],
+    openGraph: {
+        title: "Expert Sécurité Incendie — Devis & Conformité ERP 2026",
+        description: "Maintenance certifiée APSAD & NF d'extincteurs, RIA, désenfumage et SSI. 12 opérateurs et fabricants au banc d'essai.",
+        images: [
+            {
+                url: ogImageUrl({
+                    q: "Expert Sécurité Incendie France",
+                    sub: "Maintenance Extincteurs, SSI & Registre de Sécurité • 12 Opérateurs",
+                    badge: "Certifié APSAD 2026",
+                }),
+                width: 1200,
+                height: 630,
+            },
+        ],
+    },
 };
 
 export default function HomePage() {
@@ -357,6 +373,108 @@ export default function HomePage() {
                 <TestimonialsSection />
 
                 <RegulatoryServicesLinks />
+
+                {/* ============================================ */}
+                {/* CLUSTER HUBS & KNOWLEDGE BASE */}
+                {/* ============================================ */}
+                <section className="py-20 bg-slate-900 text-white">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center max-w-3xl mx-auto mb-12">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 mb-3">
+                                <Flame className="w-3.5 h-3.5" />
+                                Observatoire Réglementaire Incendie &amp; ERP 2026
+                            </span>
+                            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                                Base de Connaissances Sécurité Incendie
+                            </h2>
+                            <p className="mt-3 text-slate-400 text-sm sm:text-base">
+                                Code du travail (art. R. 4227-39), règlement de sécurité ERP et règles APSAD : comparez les prestataires, les fabricants d&apos;extincteurs et sécurisez votre registre.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                            <Link
+                                href="/operateurs"
+                                className="group p-6 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-red-500/50 transition-all flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <ShieldCheck className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-lg font-bold group-hover:text-red-400 transition-colors">
+                                        12 Opérateurs &amp; Maintenance
+                                    </h3>
+                                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                                        Desautel, Eurofeu, Chubb, Siemens, DEF : benchmark des tarifs de visite annuelle et agréments APSAD.
+                                    </p>
+                                </div>
+                                <div className="mt-4 flex items-center text-xs font-bold text-red-400 gap-1">
+                                    Consulter les 12 fiches <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+
+                            <Link
+                                href="/marques"
+                                className="group p-6 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-red-500/50 transition-all flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <Layers className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-lg font-bold group-hover:text-blue-400 transition-colors">
+                                        Fabricants d&apos;Extincteurs NF
+                                    </h3>
+                                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                                        Desautel, Sicli, Eurofeu, Rot, Andrieu : normes NF EN3, cuves anticorrosion et gammes sans fluor (PFAS Free).
+                                    </p>
+                                </div>
+                                <div className="mt-4 flex items-center text-xs font-bold text-blue-400 gap-1">
+                                    Explorer les marques <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+
+                            <Link
+                                href="/comparatifs"
+                                className="group p-6 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-red-500/50 transition-all flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <Scale className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-lg font-bold group-hover:text-amber-400 transition-colors">
+                                        Duels &amp; Arbitrages
+                                    </h3>
+                                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                                        Eau vs CO2, Poudre vs Eau additivée, SSI Type 1 vs 4, BAES autonome vs Source centrale : nos recommandations.
+                                    </p>
+                                </div>
+                                <div className="mt-4 flex items-center text-xs font-bold text-amber-400 gap-1">
+                                    Voir tous les comparatifs <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+
+                            <Link
+                                href="/guides"
+                                className="group p-6 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-red-500/50 transition-all flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <BookOpen className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-lg font-bold group-hover:text-emerald-400 transition-colors">
+                                        Guides &amp; Réglementation
+                                    </h3>
+                                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                                        Code du travail, registre de sécurité ERP, commissions de sécurité préfectorales et contrôle électrique Q18.
+                                    </p>
+                                </div>
+                                <div className="mt-4 flex items-center text-xs font-bold text-emerald-400 gap-1">
+                                    Lire les dossiers <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </section>
 
                 {/* ============================================ */}
                 {/* CITIES GRID */}
