@@ -6,7 +6,7 @@ import { NATIONAL_CONFIG } from '@/config/national';
 import { slugify } from '@/lib/slugify';
 import { brands } from '@/data/brands';
 import { getAllGuides } from '@/lib/mdx';
-import { OPERATORS } from '@/data/operators';
+import { OPERATORS, FIRE_BRANDS, FIRE_DUELS } from '@/data/operators';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://www.expertsecuriteincendie.fr';
@@ -199,9 +199,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.85,
     }));
 
+    const brandRoutes: MetadataRoute.Sitemap = FIRE_BRANDS.map((b) => ({
+        url: `${baseUrl}/marques/${b.slug}`,
+        lastModified: CONTENT_REVISION,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+    }));
+
+    const duelRoutes: MetadataRoute.Sitemap = FIRE_DUELS.map((d) => ({
+        url: `${baseUrl}/comparatif/${d.slug}`,
+        lastModified: CONTENT_REVISION,
+        changeFrequency: 'weekly' as const,
+        priority: 0.85,
+    }));
+
     return [
         ...coreRoutes,
         ...operatorRoutes,
+        ...brandRoutes,
+        ...duelRoutes,
         ...cityRoutes,
         ...serviceRoutes,
         ...poiRoutes,
