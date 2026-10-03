@@ -9,8 +9,8 @@ export default function PricingTable() {
                 <h2 className="text-3xl font-bold text-center mb-10 text-slate-900">
                     Quel prix pour une maintenance en 2026 ?
                 </h2>
-                <div className="overflow-x-auto">
-                    <table className="w-full max-w-4xl mx-auto text-left border-collapse">
+                <div className="overflow-x-auto w-full">
+                    <table className="w-full min-w-[640px] max-w-4xl mx-auto text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-100 text-slate-700">
                                 <th className="p-4 border-b">Type de maintenance</th>

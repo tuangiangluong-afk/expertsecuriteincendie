@@ -20,7 +20,7 @@ export default function LogoCloud() {
         <section className="py-10 border-b border-slate-100 bg-white">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
-                    <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest whitespace-nowrap">
+                    <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest text-center md:whitespace-nowrap md:text-left">
                         Matériel pris en charge :
                     </p>
                     <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70 hover:opacity-100 transition-all duration-500">
