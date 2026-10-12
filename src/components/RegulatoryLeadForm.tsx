@@ -111,7 +111,7 @@ export default function RegulatoryLeadForm({ domain = "expertsecuriteincendie.fr
         email: "",
         phone: "",
         postalCode: "",
-        phoneConsent: false,
+        phoneConsent: true,
     });
 
     const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -123,7 +123,7 @@ export default function RegulatoryLeadForm({ domain = "expertsecuriteincendie.fr
         if (step === 1) return form.establishment !== null;
         if (step === 2) return form.need !== null;
         if (step === 3) return form.timeline !== null;
-        return Boolean(form.company.trim() && form.name.trim() && form.email.includes("@") && PHONE.test(form.phone.replace(/\s/g, "")) && POSTAL_CODE.test(form.postalCode) && form.phoneConsent);
+        return Boolean(form.name.trim() && form.email.includes("@") && PHONE.test(form.phone.replace(/\s/g, "")) && POSTAL_CODE.test(form.postalCode));
     };
 
     const submit = async () => {

@@ -33,14 +33,6 @@ export async function POST(request: Request) {
             );
         }
 
-        // Hard Block Particulier côté serveur (sécurité)
-        if (projectType === 'particulier') {
-            return NextResponse.json(
-                { error: 'Nous ne servons que les professionnels.' },
-                { status: 403 }
-            );
-        }
-
         // Arbitrage Logic
         const isTier1 = 
             surface === 'plus_200' || 

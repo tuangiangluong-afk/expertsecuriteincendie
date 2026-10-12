@@ -32,7 +32,7 @@ interface LeadFormProps {
 }
 
 interface FormData {
-    projectType: 'particulier' | 'commerce' | 'copro' | null;
+    projectType: 'particulier' | 'commerce' | 'copro' | 'artisan' | null;
     needType: 'achat_simple' | 'conformite' | 'maintenance' | null;
     surface: 'moins_50' | '50_200' | 'plus_200' | null;
     name: string;
@@ -102,6 +102,11 @@ export default function LeadForm({
 
     const handleOptionSelect = (field: keyof FormData, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
+        if (step < totalSteps) {
+            setTimeout(() => {
+                setStep(s => (s < totalSteps ? s + 1 : s));
+            }, 260);
+        }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +120,7 @@ export default function LeadForm({
 
     const canProceed = (): boolean => {
         switch (step) {
-            case 1: return formData.projectType !== null && formData.projectType !== 'particulier';
+            case 1: return formData.projectType !== null;
             case 2: return formData.needType !== null;
             case 3: return formData.surface !== null;
             case 4:
@@ -249,41 +254,34 @@ export default function LeadForm({
                         <h4 className="text-xl font-bold text-neutral-900 mb-6">Vous êtes ?</h4>
                         <div className="space-y-3">
                             <OptionButton
-                                selected={formData.projectType === 'particulier'}
-                                onClick={() => handleOptionSelect('projectType', 'particulier')}
-                                icon={User}
-                                label="Particulier"
-                                sublabel="Pour votre domicile ou garage personnel"
-                            />
-                            <OptionButton
                                 selected={formData.projectType === 'commerce'}
                                 onClick={() => handleOptionSelect('projectType', 'commerce')}
                                 icon={Store}
                                 label="Commerce / ERP / Entreprise"
-                                sublabel="Magasins, Hôtels, Bureaux, Entrepôts"
+                                sublabel="Magasins, Hôtels, Bureaux, Entrepôts, Restaurants"
                             />
                             <OptionButton
                                 selected={formData.projectType === 'copro'}
                                 onClick={() => handleOptionSelect('projectType', 'copro')}
                                 icon={Building2}
                                 label="Copropriété / Syndic"
-                                sublabel="Parties communes d'immeubles"
+                                sublabel="Parties communes d'immeubles, parkings, bailleurs"
+                            />
+                            <OptionButton
+                                selected={formData.projectType === 'artisan'}
+                                onClick={() => handleOptionSelect('projectType', 'artisan')}
+                                icon={Briefcase}
+                                label="Artisan / Profession Libérale / Local Pro"
+                                sublabel="Cabinets, ateliers, locaux professionnels, TPE"
+                            />
+                            <OptionButton
+                                selected={formData.projectType === 'particulier'}
+                                onClick={() => handleOptionSelect('projectType', 'particulier')}
+                                icon={User}
+                                label="Propriétaire / Bailleur Privé"
+                                sublabel="Maison, immeuble de rapport, investissement locatif"
                             />
                         </div>
-
-                        {formData.projectType === 'particulier' && (
-                            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
-                                <AlertTriangle className="text-red-600 shrink-0 mt-0.5" size={20} />
-                                <div>
-                                    <p className="text-sm font-bold text-red-800">
-                                        Service Réservé aux Professionnels
-                                    </p>
-                                    <p className="text-xs text-red-600 mt-1">
-                                        Désolé, notre réseau national n'équipe que les Professionnels, ERP et Copropriétés. Nous ne vendons pas aux particuliers.
-                                    </p>
-                                </div>
-                            </div>
-                        )}
                     </div>
                 )}
 
