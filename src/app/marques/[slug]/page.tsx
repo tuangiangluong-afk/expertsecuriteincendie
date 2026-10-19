@@ -8,7 +8,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { ShieldAlert, ShieldCheck, Award, ArrowRight, CheckCircle2, ChevronRight, Wrench } from "lucide-react";
 import { ogImageUrl } from "@/lib/seo-meta";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // 7 days ISR cache
 
 type Params = Promise<{ slug: string }>;
 

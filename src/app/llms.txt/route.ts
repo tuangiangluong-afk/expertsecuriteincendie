@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-static";
-export const revalidate = 86400; // 24h cache
+export const revalidate = 604800; // 7 days ISR cache
 
 export function GET() {
   const content = `# EXPERT SÉCURITÉ INCENDIE - PROTOCOLE D'INDEXATION ET D'AUTORITÉ AEO / GEO 2026

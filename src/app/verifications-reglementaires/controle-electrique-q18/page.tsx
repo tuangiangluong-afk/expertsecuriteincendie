@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import RegulatoryLanding, { pageData } from "@/components/RegulatoryLanding";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // 7 days ISR cache
 export const metadata: Metadata = {
     title: pageData.q18.title,
     description: pageData.q18.description,

@@ -4,7 +4,7 @@ import { CITIES, getCityByCleanSlug } from "@/lib/db";
 import RegulatoryLanding, { pageData } from "@/components/RegulatoryLanding";
 import { slugify } from "@/lib/slugify";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // 7 days ISR cache
 export const dynamicParams = true;
 export function generateStaticParams() { return Object.values(CITIES).slice(0, 3).map((city) => ({ slug: slugify(city.city) })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
