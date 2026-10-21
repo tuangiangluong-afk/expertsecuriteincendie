@@ -111,7 +111,7 @@ export async function assignLeadToPartners(leadId: string, partnerIds: string[])
                     if (lead.message) meta = JSON.parse(lead.message);
                 } catch (e) { }
 
-                await resend.emails.send({
+                const sendRes = await resend.emails.send({
                     from: 'Expert Sécurité Incendie <contact@expertsecuriteincendie.fr>',
                     to: [partner.email],
                     subject: `🚀 Nouveau Lead Disponible : ${lead.city}`,
@@ -143,6 +143,42 @@ export async function assignLeadToPartners(leadId: string, partnerIds: string[])
                         </div>
                     `
                 });
+
+                if (sendRes?.error) {
+                    console.warn("⚠️ [Resend] Primary sender unverified, retrying via verified fallback:", sendRes.error);
+                    await resend.emails.send({
+                        from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+                        to: [partner.email],
+                        subject: `🚀 Nouveau Lead Disponible : ${lead.city}`,
+                        html: `
+                            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+                                <h1 style="color: #2563eb;">Nouveau Projet à Saisir</h1>
+                                <p>Bonjour ${partner.name},</p>
+                                <p>Un nouveau lead correspondant à votre secteur vient d'être identifié.</p>
+                                
+                                <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 20px 0;">
+                                    <h2 style="margin-top: 0; color: #1e293b;">Détails du Projet</h2>
+                                    <ul style="list-style: none; padding: 0;">
+                                        <li style="margin-bottom: 10px;">📍 <strong>Ville :</strong> ${lead.city} ${lead.postal_code || ''}</li>
+                                        <li style="margin-bottom: 10px;">🏠 <strong>Type :</strong> ${lead.housing_type || lead.type}</li>
+                                        ${meta.owner_status ? `<li style="margin-bottom: 10px;">🔑 <strong>Statut :</strong> ${meta.owner_status}</li>` : ''}
+                                    </ul>
+                                </div>
+
+                                <p style="text-align: center; margin-top: 30px;">
+                                    <a href="https://www.expertsecuriteincendie.fr/leads/unlock/${lead.id}" 
+                                       style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+                                       DÉBLOQUER LES COORDONNÉES
+                                    </a>
+                                </p>
+            
+                                <p style="font-size: 14px; color: #64748b; margin-top: 40px; border-top: 1px solid #e2e8f0; pt: 20px;">
+                                    Une fois le paiement validé, vous recevrez instantanément le nom, l'email et le téléphone du client.
+                                </p>
+                            </div>
+                        `
+                    });
+                }
                 results.push({ partner: partner.name, status: 'success' });
             } catch (emailError) {
                 console.error(`Failed to send email to ${partner.email}`, emailError);
@@ -211,7 +247,7 @@ export async function deliverUnlockedLead(leadId: string, partnerId: string) {
             if (lead.message) meta = JSON.parse(lead.message);
         } catch (e) { }
 
-        await resend.emails.send({
+        const unlockRes = await resend.emails.send({
             from: 'Expert Sécurité Incendie <contact@expertsecuriteincendie.fr>',
             to: [partner.email],
             subject: `💰 Lead Débloqué : ${lead.name} (${lead.city})`,
@@ -245,6 +281,44 @@ export async function deliverUnlockedLead(leadId: string, partnerId: string) {
                 </div>
             `
         });
+
+        if (unlockRes?.error) {
+            console.warn("⚠️ [Resend] Primary sender unverified, retrying via verified fallback:", unlockRes.error);
+            await resend.emails.send({
+                from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+                to: [partner.email],
+                subject: `💰 Lead Débloqué : ${lead.name} (${lead.city})`,
+                html: `
+                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+                        <div style="background-color: #2563eb; color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
+                            <h1 style="margin: 0;">Paiement Confirmé !</h1>
+                            <p style="margin: 10px 0 0; opacity: 0.9;">Voici vos coordonnées client</p>
+                        </div>
+                        
+                        <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e2e8f0; border-top: none;">
+                            <h2 style="color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">👤 Coordonnées Client</h2>
+                            <ul style="list-style: none; padding: 0; font-size: 16px;">
+                                <li style="margin-bottom: 12px;"><strong>Nom :</strong> ${lead.name}</li>
+                                <li style="margin-bottom: 12px;"><strong>Email :</strong> <a href="mailto:${lead.email}" style="color: #2563eb;">${lead.email}</a></li>
+                                <li style="margin-bottom: 12px;"><strong>Téléphone :</strong> <a href="tel:${lead.phone}" style="color: #2563eb;">${lead.phone}</a></li>
+                                <li style="margin-bottom: 12px;"><strong>Ville :</strong> ${lead.city} ${lead.postal_code || ''}</li>
+                            </ul>
+                            
+                            <h2 style="color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; margin-top: 30px;">🏠 Détails du Projet</h2>
+                            <ul style="list-style: none; padding: 0; font-size: 14px; color: #475569;">
+                                <li style="margin-bottom: 8px;"><strong>Type :</strong> ${lead.housing_type || lead.type}</li>
+                                ${meta.owner_status ? `<li style="margin-bottom: 8px;"><strong>Statut :</strong> ${meta.owner_status}</li>` : ''}
+                                ${lead.notes ? `<li style="margin-top: 15px; padding: 10px; background: #f8fafc; border-left: 4px solid #2563eb;"><strong>Note Admin :</strong> ${lead.notes}</li>` : ''}
+                            </ul>
+
+                            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; text-align: center; color: #94a3b8; font-size: 12px;">
+                                Une facture Stripe a été envoyée à votre adresse email de paiement.
+                            </div>
+                        </div>
+                    </div>
+                `
+            });
+        }
     }
 
     return { success: true };
