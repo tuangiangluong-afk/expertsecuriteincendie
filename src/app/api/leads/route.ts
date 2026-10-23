@@ -131,6 +131,48 @@ export async function POST(request: Request) {
             }
         }
 
+        // Email de confirmation au prospect
+        if (resend && email && email.includes('@')) {
+            await resend.emails.send({
+                from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+                to: [email],
+                replyTo: 'hello@expertsecuriteincendie.fr',
+                subject: `Confirmation de votre demande de devis — Sécurité Incendie ${city ? `(${city})` : ''}`,
+                html: `
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+                        <div style="background: #dc2626; color: #ffffff; padding: 22px;">
+                            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; font-weight: 700;">Expert Sécurité Incendie</div>
+                            <h1 style="font-size: 20px; margin: 6px 0 0; color: #ffffff;">Demande de devis prise en compte</h1>
+                        </div>
+                        <div style="padding: 24px;">
+                            <p style="font-size: 15px; margin: 0 0 16px;">Bonjour <strong>${name}</strong>,</p>
+                            <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 20px;">
+                                Nous avons bien reçu votre demande de mise en conformité / devis pour vos équipements de sécurité incendie${city ? ` à <strong>${city}</strong>` : ''}.
+                            </p>
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 0 0 24px;">
+                                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 12px;">Récapitulatif de votre demande</div>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6;">
+                                    <tr><td style="padding: 6px 0; color: #64748b;">Type de structure</td><td style="padding: 6px 0; font-weight: 600; text-align: right; color: #0f172a;">${projectType || 'N/A'}</td></tr>
+                                    <tr><td style="padding: 6px 0; color: #64748b;">Prestation souhaitée</td><td style="padding: 6px 0; font-weight: 600; text-align: right; color: #0f172a;">${needType || 'N/A'}</td></tr>
+                                    <tr><td style="padding: 6px 0; color: #64748b;">Surface / Établissement</td><td style="padding: 6px 0; font-weight: 600; text-align: right; color: #0f172a;">${surface || establishmentType || 'N/A'}</td></tr>
+                                    <tr><td style="padding: 6px 0; color: #64748b;">Téléphone de contact</td><td style="padding: 6px 0; font-weight: 600; text-align: right; color: #0f172a;">${phone}</td></tr>
+                                    <tr><td style="padding: 6px 0; color: #64748b;">Localisation</td><td style="padding: 6px 0; font-weight: 600; text-align: right; color: #0f172a;">${zipCode || ''} ${city || ''}</td></tr>
+                                </table>
+                            </div>
+                            <div style="font-size: 13px; line-height: 1.6; color: #475569; margin-bottom: 24px;">
+                                <p style="font-weight: 700; color: #0f172a; margin: 0 0 8px;">Comment se déroule la suite ?</p>
+                                <p style="margin: 0 0 8px;">1. <strong>Analyse technique :</strong> Un technicien certifié ou conseiller dédié examine vos obligations réglementaires (extincteurs, blocs de secours BAES, RIA, alarme type 4, désenfumage).</p>
+                                <p style="margin: 0 0 8px;">2. <strong>Contact sous 24h ouvrées :</strong> Vous serez contacté(e) pour affiner le plan d'implantation et les contraintes de votre site.</p>
+                                <p style="margin: 0;">3. <strong>Devis détaillé sans engagement :</strong> Chiffrage précis remis avant toute intervention.</p>
+                            </div>
+                            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0 16px;" />
+                            <p style="font-size: 11px; color: #94a3b8; margin: 0;">Expert Sécurité Incendie · Service indépendant d'accompagnement et de mise en conformité réglementaire ERP, locaux professionnels et copropriétés.</p>
+                        </div>
+                    </div>
+                `,
+            }).catch(e => console.error("Prospect confirmation email error:", e));
+        }
+
         } catch (emailErr) {
             console.error('Lead notification email failed:', emailErr);
         }
