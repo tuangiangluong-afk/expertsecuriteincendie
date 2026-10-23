@@ -45,17 +45,38 @@ export async function POST(request: Request) {
 
         const apiKey = process.env.RESEND_API_KEY;
         const resend = apiKey ? new Resend(apiKey) : null;
+        const SENDER_EMAIL = 'Expert Sécurité Incendie <hello@expertsecuriteincendie.fr>';
+        const FALLBACK_SENDER = 'Expert Sécurité Incendie <hello@expertbornerecharge.com>';
+
+        async function sendSafeEmail(options: { to: string[]; subject: string; html: string; replyTo?: string }) {
+            if (!resend) return;
+            const res = await resend.emails.send({
+                from: SENDER_EMAIL,
+                to: options.to,
+                replyTo: options.replyTo,
+                subject: options.subject,
+                html: options.html,
+            });
+            if (res.error) {
+                console.warn("⚠️ [Resend Incendie] Primary sender error, retrying fallback:", res.error);
+                await resend.emails.send({
+                    from: FALLBACK_SENDER,
+                    to: options.to,
+                    replyTo: options.replyTo,
+                    subject: options.subject,
+                    html: options.html,
+                });
+            }
+        }
 
         try {
         if (isTier1) {
             console.log("💎 [ARBITRAGE] TIER 1 DETECTED -> Envoi direct partenaire national (Extincteurs / Desautel)");
             
-            if (resend) {
-                await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertsecuriteincendie.fr'],
-                    subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
-                    html: `
+            await sendSafeEmail({
+                to: ['hello@expertsecuriteincendie.fr'],
+                subject: `🚨 [TIER 1] Nouveau Lead Incendie B2B - ${city}`,
+                html: `
                         <div style="background-color: #fef2f2; border: 2px solid #ef4444; padding: 20px; border-radius: 12px; font-family: sans-serif;">
                             <h2 style="color: #991b1b; margin-top: 0;">🔥 LEAD B2B PREMIUM (TIER 1)</h2>
                             <table style="width: 100%; border-collapse: collapse;">
@@ -106,35 +127,28 @@ export async function POST(request: Request) {
                             </table>
                         </div>
                     `,
-                });
-            } else {
-                console.log("⚠️ [MOCK] No Resend API Key. Email mock printed.");
-            }
+            });
         } else {
             console.log("🗑️ [ARBITRAGE] TIER 2 DETECTED -> Notification email + API");
-            if (resend) {
-                await resend.emails.send({
-                    from: 'Leads Incendie <hello@expertbornerecharge.com>',
-                    to: ['hello@expertsecuriteincendie.fr'],
-                    subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
-                    html: `
-                        <div style="background-color: #f8fafc; border: 2px solid #64748b; padding: 20px; border-radius: 12px; font-family: sans-serif;">
-                            <h2 style="color: #334155; margin-top: 0;">📋 NOUVEAU LEAD INCENDIE (TIER 2)</h2>
-                            <p><strong>Contact :</strong> ${name} | ${phone} | ${email}</p>
-                            <p><strong>Société :</strong> ${company || 'N/A'} (${city})</p>
-                            <p><strong>Type :</strong> ${projectType} | Besoin : ${needType || 'N/A'} | Établissement : ${establishmentType || 'N/A'}</p>
-                            <p><strong>Surface :</strong> ${surface || 'N/A'} | Échéance : ${timeline || 'N/A'}</p>
-                            <p><strong>Attribution :</strong> ${attributionLabel} | Page : ${leadAttribution.landing_page || 'N/A'} | Referrer : ${leadAttribution.referrer || 'N/A'}</p>
-                        </div>
-                    `,
-                });
-            }
+            await sendSafeEmail({
+                to: ['hello@expertsecuriteincendie.fr'],
+                subject: `🚨 [TIER 2] Nouveau Lead Incendie - ${city}`,
+                html: `
+                    <div style="background-color: #f8fafc; border: 2px solid #64748b; padding: 20px; border-radius: 12px; font-family: sans-serif;">
+                        <h2 style="color: #334155; margin-top: 0;">📋 NOUVEAU LEAD INCENDIE (TIER 2)</h2>
+                        <p><strong>Contact :</strong> ${name} | ${phone} | ${email}</p>
+                        <p><strong>Société :</strong> ${company || 'N/A'} (${city})</p>
+                        <p><strong>Type :</strong> ${projectType} | Besoin : ${needType || 'N/A'} | Établissement : ${establishmentType || 'N/A'}</p>
+                        <p><strong>Surface :</strong> ${surface || 'N/A'} | Échéance : ${timeline || 'N/A'}</p>
+                        <p><strong>Attribution :</strong> ${attributionLabel} | Page : ${leadAttribution.landing_page || 'N/A'} | Referrer : ${leadAttribution.referrer || 'N/A'}</p>
+                    </div>
+                `,
+            });
         }
 
         // Email de confirmation au prospect
-        if (resend && email && email.includes('@')) {
-            await resend.emails.send({
-                from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+        if (email && email.includes('@')) {
+            await sendSafeEmail({
                 to: [email],
                 replyTo: 'hello@expertsecuriteincendie.fr',
                 subject: `Confirmation de votre demande de devis — Sécurité Incendie ${city ? `(${city})` : ''}`,
@@ -170,7 +184,7 @@ export async function POST(request: Request) {
                         </div>
                     </div>
                 `,
-            }).catch(e => console.error("Prospect confirmation email error:", e));
+            });
         }
 
         } catch (emailErr) {

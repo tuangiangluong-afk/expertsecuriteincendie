@@ -26,8 +26,8 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: true, simulated: true });
         }
 
-        const data = await resend.emails.send({
-            from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+        let data = await resend.emails.send({
+            from: 'Expert Sécurité Incendie <hello@expertsecuriteincendie.fr>',
             to: ['hello@expertsecuriteincendie.fr'],
             replyTo: email,
             subject: `[${postalCode || city}] Contact: ${subject} - ${name}`,
@@ -44,6 +44,28 @@ export async function POST(req: Request) {
                 <p>${message.replace(/\n/g, '<br>')}</p>
             `
         });
+
+        if (data.error) {
+            console.warn("⚠️ [Resend Contact] Primary sender error, retrying fallback:", data.error);
+            data = await resend.emails.send({
+                from: 'Expert Sécurité Incendie <hello@expertbornerecharge.com>',
+                to: ['hello@expertsecuriteincendie.fr'],
+                replyTo: email,
+                subject: `[${postalCode || city}] Contact: ${subject} - ${name}`,
+                html: `
+                    <h1>Nouveau message depuis ${domain}</h1>
+                    <p><strong>Ville :</strong> ${city}</p>
+                    <p><strong>Code Postal :</strong> ${postalCode || 'N/A'}</p>
+                    <p><strong>Nom :</strong> ${name}</p>
+                    <p><strong>Email :</strong> ${email}</p>
+                    <p><strong>Téléphone :</strong> ${phone || 'N/A'}</p>
+                    <p><strong>Sujet :</strong> ${subject}</p>
+                    <hr />
+                    <h3>Message :</h3>
+                    <p>${message.replace(/\n/g, '<br>')}</p>
+                `
+            });
+        }
 
         if (data.error) {
             console.error("Resend API Error:", data.error);
