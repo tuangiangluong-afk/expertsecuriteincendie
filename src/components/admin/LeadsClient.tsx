@@ -1,38 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import { Users, Filter, Download, Eye, Phone, Mail, Building, Home, Briefcase, X, Link as LinkIcon, Check, MapPin, CreditCard } from "lucide-react";
+import { useMemo, useState } from "react";
+import {
+    Users,
+    Filter,
+    Download,
+    Phone,
+    Mail,
+    Building2,
+    Shield,
+    Flame,
+    Check,
+    MapPin,
+    CreditCard,
+    Search,
+    ExternalLink,
+    AlertCircle,
+    Copy,
+    Share2,
+    Sparkles
+} from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { updateLeadStatus, updateLeadDetails } from "@/app/actions/leads";
+import { updateLeadDetails } from "@/app/actions/leads";
 import { useToast } from "@/components/admin/Toast";
+import LeadAssignmentModal from "@/components/admin/LeadAssignmentModal";
+import { AdminLeadRow, PartnerWithMeta } from "@/types/partners";
 
-interface Lead {
-    id: string;
-    tenant_id: string;
-    status: string;
-    type: string;
-    name: string;
-    email: string;
-    phone: string;
-    company: string | null;
-    city: string | null;
-    message: string | null;
-    postal_code: string | null;
-    housing_type: string | null;
-    notes: string | null;
-    price: number | null;
-    region: string | null;
-    department: string | null;
-    is_paid: boolean;
-    created_at: string;
-}
-
-interface Partner {
-    id: string;
-    name: string;
-    email: string;
+interface LeadsClientProps {
+    initialLeads: any[];
+    partners: PartnerWithMeta[];
 }
 
 const REGIONS = [
@@ -48,37 +46,76 @@ const REGIONS = [
     "Bretagne"
 ];
 
-export default function LeadsClient({ initialLeads, partners }: { initialLeads: any[], partners: Partner[] }) {
+export default function LeadsClient({ initialLeads, partners }: LeadsClientProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const currentTenantId = searchParams.get("tenantId");
     const currentRegion = searchParams.get("region") || "all";
+    const currentDept = searchParams.get("dept") || "all";
 
-    // Filter leads based on search params (Client-Side Filtering)
-    let filteredLeads = currentTenantId && currentTenantId !== 'all'
-        ? initialLeads.filter(l => l.tenant_id === currentTenantId)
-        : initialLeads;
-    
-    if (currentRegion !== "all") {
-        filteredLeads = filteredLeads.filter(l => l.region === currentRegion);
-    }
-
-    const [leads, setLeads] = useState<Lead[]>(filteredLeads);
     const { showToast } = useToast();
 
-    // Modal State
-    const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-    const [selectedPartnerIds, setSelectedPartnerIds] = useState<string[]>([]);
-    const [assignmentHistory, setAssignmentHistory] = useState<any[]>([]);
-    const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+    // State
+    const [leads, setLeads] = useState<AdminLeadRow[]>(() => {
+        return initialLeads.map((l: any) => {
+            const raw = l.message || "";
+            let parsedMeta: any = {};
+            try {
+                if (l.message) parsedMeta = JSON.parse(l.message);
+            } catch { }
 
-    // UI States
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isUpdatingLead, setIsUpdatingLead] = useState(false);
-    const [editNotes, setEditNotes] = useState("");
-    const [editPrice, setEditPrice] = useState(20);
+            const isIncendie =
+                raw.includes("projectType") ||
+                raw.includes("needType") ||
+                raw.includes("commission_erp") ||
+                raw.includes("conformite") ||
+                raw.includes("extincteur") ||
+                (Boolean(l.company) && !raw.includes("vehicle_status"));
+
+            return {
+                ...l,
+                isIncendie,
+                parsedMeta
+            };
+        });
+    });
+
+    const [activeTab, setActiveTab] = useState<"incendie" | "all">("incendie");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedLeadForAssign, setSelectedLeadForAssign] = useState<AdminLeadRow | null>(null);
     const [copiedId, setCopiedId] = useState<string | null>(null);
+
+    // Counts
+    const incendieCount = useMemo(() => leads.filter((l) => l.isIncendie).length, [leads]);
+    const totalCount = leads.length;
+
+    // Filtered list
+    const filteredLeads = useMemo(() => {
+        return leads.filter((l) => {
+            // Tab filter
+            if (activeTab === "incendie" && !l.isIncendie) return false;
+
+            // Region filter
+            if (currentRegion !== "all" && l.region !== currentRegion) return false;
+
+            // Dept filter
+            const dept = l.department || (l.postal_code ? l.postal_code.substring(0, 2) : "");
+            if (currentDept !== "all" && dept !== currentDept) return false;
+
+            // Search query
+            if (searchQuery.trim()) {
+                const q = searchQuery.toLowerCase().trim();
+                const matchName = (l.name || "").toLowerCase().includes(q);
+                const matchCompany = (l.company || "").toLowerCase().includes(q);
+                const matchCity = (l.city || "").toLowerCase().includes(q);
+                const matchPhone = (l.phone || "").toLowerCase().includes(q);
+                const matchEmail = (l.email || "").toLowerCase().includes(q);
+                const matchPostal = (l.postal_code || "").includes(q);
+                return matchName || matchCompany || matchCity || matchPhone || matchEmail || matchPostal;
+            }
+
+            return true;
+        });
+    }, [leads, activeTab, currentRegion, currentDept, searchQuery]);
 
     const copyToClipboard = (leadId: string) => {
         const url = `${window.location.origin}/leads/unlock/${leadId}`;
@@ -90,444 +127,294 @@ export default function LeadsClient({ initialLeads, partners }: { initialLeads: 
 
     const handleRegionFilter = (region: string) => {
         const params = new URLSearchParams(searchParams.toString());
-        if (region === "all") {
-            params.delete("region");
-        } else {
-            params.set("region", region);
-        }
+        if (region === "all") params.delete("region");
+        else params.set("region", region);
         router.push(`?${params.toString()}`);
     };
 
-    async function togglePaidStatus(lead: Lead) {
-        const newPaidStatus = !lead.is_paid;
-        try {
-            await updateLeadDetails(lead.id, { is_paid: newPaidStatus });
-            setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, is_paid: newPaidStatus } : l));
-            showToast(newPaidStatus ? "Lead marqué comme PAYÉ ✅" : "Paiement annulé", "success");
-        } catch (e) {
-            showToast("Erreur mise à jour paiement", "error");
-        }
-    }
-
-    // Initial Fetch when opening modal
-    async function openModal(lead: Lead) {
-        setSelectedLead(lead);
-        setSelectedPartnerIds([]);
-        setAssignmentHistory([]);
-        setIsLoadingHistory(true);
-        setIsSuccess(false);
-        setEditNotes(lead.notes || "");
-        setEditPrice(lead.price || 20);
-
-        try {
-            const { getLeadAssignments } = await import("@/app/actions/leads");
-            const history = await getLeadAssignments(lead.id);
-            setAssignmentHistory(history || []);
-        } catch (e) {
-            console.error("Failed to load history", e);
-        } finally {
-            setIsLoadingHistory(false);
-        }
-    }
-
-    async function handleUpdateLead() {
-        if (!selectedLead) return;
-        setIsUpdatingLead(true);
-        try {
-            await updateLeadDetails(selectedLead.id, { notes: editNotes, price: editPrice });
-            setLeads(prev => prev.map(l => l.id === selectedLead.id ? { ...l, notes: editNotes, price: editPrice } : l));
-            showToast("Plomberie mise à jour !", "success");
-        } catch (e) {
-            showToast("Erreur mise à jour infos", "error");
-        } finally {
-            setIsUpdatingLead(false);
-        }
-    }
-
-    async function handleAssignment() {
-        if (!selectedLead || selectedPartnerIds.length === 0) return;
-        setIsSubmitting(true);
-
-        try {
-            const { assignLeadToPartners } = await import("@/app/actions/leads");
-            await assignLeadToPartners(selectedLead.id, selectedPartnerIds);
-
-            // Update local state
-            setLeads(prev => prev.map(l => l.id === selectedLead.id ? { ...l, status: 'sold' } : l));
-
-            setIsSuccess(true);
-        } catch (e) {
-            showToast("Erreur lors de l'assignation", "error");
-        } finally {
-            setIsSubmitting(false);
-        }
-    }
-
-    const togglePartner = (id: string) => {
-        setSelectedPartnerIds(prev =>
-            prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
-        );
+    const handleDeptFilter = (dept: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (dept === "all") params.delete("dept");
+        else params.set("dept", dept);
+        router.push(`?${params.toString()}`);
     };
 
-    const getStatusColor = (status: string) => {
+    const getStatusBadge = (status: string) => {
         switch (status) {
-            case 'new': return 'bg-red-100 text-red-700';
-            case 'contacted': return 'bg-yellow-100 text-yellow-700';
-            case 'converted': return 'bg-green-100 text-green-700';
-            case 'sold': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
-            case 'lost': return 'bg-red-100 text-red-700';
-            default: return 'bg-gray-100 text-gray-700';
+            case "sold":
+                return (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800 border border-emerald-200">
+                        <Check size={12} strokeWidth={3} /> Vendu
+                    </span>
+                );
+            case "dispatched":
+                return (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-800 border border-blue-200">
+                        ⚡ Attribué
+                    </span>
+                );
+            case "new":
+                return (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700 border border-red-200 animate-pulse">
+                        🔥 Nouveau
+                    </span>
+                );
+            case "contacted":
+                return (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
+                        En cours
+                    </span>
+                );
+            default:
+                return (
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600">
+                        {status}
+                    </span>
+                );
         }
     };
 
-    const getTypeIcon = (type: string) => {
-        if (type?.includes('copro')) return <Building size={16} className="text-purple-600" />;
-        if (type?.includes('entreprise')) return <Briefcase size={16} className="text-slate-600" />;
-        return <Home size={16} className="text-red-600" />;
+    const projectLabels: Record<string, string> = {
+        conformite: "Conformité extincteurs",
+        maintenance: "Maintenance extincteurs",
+        commission_erp: "Commission Sécurité ERP",
+        q18: "Audit Q18 électrique",
+        ssi_triennale: "Visite triennale SSI"
     };
 
     return (
-        <div className="w-full">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+        <div className="w-full space-y-6">
+            {/* Top Title & Stats Header */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                        <Users className="text-red-600" />
-                        Leads & Devis
+                    <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2.5">
+                        <Flame className="text-red-600 h-7 w-7" />
+                        Bourse des Dossiers & Leads Sécurité Incendie
                     </h1>
-                    <p className="text-slate-500">
-                        {leads.length} leads trouvés {currentTenantId ? `pour ${currentTenantId}` : "au total"}
+                    <p className="text-sm text-slate-500 mt-1">
+                        Attribution directe, arbitrage multi-partenaires et débit wallet instantané
                     </p>
                 </div>
-                
-                <div className="flex flex-wrap items-center gap-2">
-                    {/* Region Filter Dropdown */}
-                    <div className="flex items-center gap-2 bg-white border border-slate-200 p-1 rounded-lg shadow-sm">
-                        <div className="pl-3 pr-1 text-slate-400">
-                            <MapPin size={16} />
-                        </div>
-                        <select 
-                            value={currentRegion}
-                            onChange={(e) => handleRegionFilter(e.target.value)}
-                            className="bg-transparent border-none text-sm font-bold text-slate-700 focus:ring-0 cursor-pointer pr-8"
-                        >
-                            <option value="all">Toutes les régions</option>
-                            {REGIONS.map(r => (
-                                <option key={r} value={r}>{r}</option>
-                            ))}
-                        </select>
-                    </div>
 
-                    <button className="flex items-center gap-2 bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-50 transition font-medium">
-                        <Filter size={18} />
-                        Plus de filtres
+                {/* Filter Tabs */}
+                <div className="flex rounded-xl bg-slate-200/80 p-1 border border-slate-300">
+                    <button
+                        onClick={() => setActiveTab("incendie")}
+                        className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-black transition ${
+                            activeTab === "incendie"
+                                ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                                : "text-slate-600 hover:text-slate-900"
+                        }`}
+                    >
+                        <Flame size={14} />
+                        Sécurité Incendie B2B ({incendieCount})
                     </button>
-                    <button className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
-                        <Download size={18} />
-                        Export
+                    <button
+                        onClick={() => setActiveTab("all")}
+                        className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition ${
+                            activeTab === "all"
+                                ? "bg-white text-slate-900 shadow-sm"
+                                : "text-slate-600 hover:text-slate-900"
+                        }`}
+                    >
+                        Tous / Archives ({totalCount})
                     </button>
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                {leads.length === 0 ? (
-                    <div className="p-12 text-center text-slate-500">
-                        <p className="mb-2">Aucun lead pour le moment.</p>
-                        <p className="text-sm">Vérifiez que le formulaire frontal enregistre bien en base.</p>
+            {/* Filter Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="flex flex-1 items-center gap-2 min-w-[240px]">
+                    <Search size={16} className="text-slate-400 ml-2" />
+                    <input
+                        type="text"
+                        placeholder="Rechercher par société, nom, ville, téléphone..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full text-xs font-medium outline-none text-slate-800 placeholder:text-slate-400"
+                    />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                    {/* Region Selector */}
+                    <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-xs">
+                        <MapPin size={13} className="text-slate-400" />
+                        <select
+                            value={currentRegion}
+                            onChange={(e) => handleRegionFilter(e.target.value)}
+                            className="bg-transparent font-bold text-slate-700 outline-none text-xs"
+                        >
+                            <option value="all">Toutes les régions</option>
+                            {REGIONS.map((r) => (
+                                <option key={r} value={r}>
+                                    {r}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-                ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-slate-50 border-b border-slate-200">
+
+                    <span className="text-xs text-slate-400 font-bold px-1">
+                        {filteredLeads.length} dossier(s)
+                    </span>
+                </div>
+            </div>
+
+            {/* Leads Table */}
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-black uppercase tracking-wider text-slate-500">
+                                <th className="px-4 py-3.5">Date & Urgence</th>
+                                <th className="px-4 py-3.5">Établissement & Gérant</th>
+                                <th className="px-4 py-3.5">Besoin & Surface</th>
+                                <th className="px-4 py-3.5">Localisation</th>
+                                <th className="px-4 py-3.5">Statut</th>
+                                <th className="px-4 py-3.5 text-right">Attribution & Vente</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                            {filteredLeads.length === 0 ? (
                                 <tr>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Date</th>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Region / Site</th>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Statut / Payé</th>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Contact</th>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Projet</th>
-                                    <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase">Prix (HT)</th>
-                                    <th className="text-right px-6 py-3 text-xs font-bold text-slate-500 uppercase">Actions</th>
+                                    <td colSpan={6} className="py-12 text-center text-slate-400 italic">
+                                        Aucun dossier trouvé pour ces filtres.
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100">
-                                {leads.map((lead) => {
-                                    let solarInterest = false;
-                                    try {
-                                        if (lead.message) {
-                                            const meta = JSON.parse(lead.message);
-                                            solarInterest = meta.solar_interest;
-                                        }
-                                    } catch (e) { }
+                            ) : (
+                                filteredLeads.map((lead) => {
+                                    const meta = lead.parsedMeta || {};
+                                    const dept = lead.department || (lead.postal_code ? lead.postal_code.substring(0, 2) : "");
+                                    const need = (meta.needType && projectLabels[meta.needType]) || meta.needType || lead.housing_type || "Conformité Incendie";
+                                    const surface = meta.surface ? (meta.surface === "moins_50" ? "< 50m²" : meta.surface === "50_200" ? "50-200m²" : "> 200m²") : null;
 
                                     return (
-                                        <tr key={lead.id} className={`hover:bg-slate-50 transition group ${lead.is_paid ? 'bg-emerald-50/30' : ''}`}>
-                                            <td className="px-6 py-4 text-sm text-slate-500 whitespace-nowrap">
-                                                {format(new Date(lead.created_at), "dd MMM yyyy", { locale: fr })}
-                                                <div className="text-xs text-slate-400">
-                                                    {format(new Date(lead.created_at), "HH:mm")}
+                                        <tr key={lead.id} className="hover:bg-red-50/20 transition group">
+                                            {/* Date */}
+                                            <td className="px-4 py-3.5 whitespace-nowrap">
+                                                <div className="font-bold text-slate-900">
+                                                    {format(new Date(lead.created_at), "dd MMM yyyy", { locale: fr })}
                                                 </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex flex-col gap-1">
-                                                    <span className="text-[10px] font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded self-start uppercase">
-                                                        {lead.region || "National"}
+                                                <div className="text-[11px] text-slate-400">
+                                                    {format(new Date(lead.created_at), "HH:mm", { locale: fr })}
+                                                </div>
+                                                {meta.timeline === "urgent" && (
+                                                    <span className="mt-1 inline-block rounded bg-rose-100 px-1.5 py-0.5 text-[9px] font-black text-rose-800 border border-rose-200">
+                                                        ⚡ Devis 48h
                                                     </span>
-                                                    <span className="text-xs text-slate-400">
-                                                        {lead.tenant_id}
+                                                )}
+                                            </td>
+
+                                            {/* Company & Contact */}
+                                            <td className="px-4 py-3.5">
+                                                <div className="font-black text-slate-900 text-sm">
+                                                    {lead.company || lead.name || "Établissement commercial"}
+                                                </div>
+                                                {lead.company && lead.name && (
+                                                    <div className="text-[11px] text-slate-600 font-medium">
+                                                        Gérant : {lead.name}
+                                                    </div>
+                                                )}
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <a
+                                                        href={`tel:${lead.phone}`}
+                                                        className="font-bold text-red-600 hover:underline flex items-center gap-1"
+                                                    >
+                                                        <Phone size={11} /> {lead.phone}
+                                                    </a>
+                                                    <span className="text-slate-300">·</span>
+                                                    <span className="text-slate-500 truncate max-w-[140px]" title={lead.email}>
+                                                        {lead.email}
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex flex-col gap-2">
-                                                    <select
-                                                        value={lead.status}
-                                                        onChange={async (e) => {
-                                                            const newStatus = e.target.value;
-                                                            try {
-                                                                await updateLeadStatus(lead.id, newStatus);
-                                                                setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, status: newStatus } : l));
-                                                            } catch (err) {
-                                                                showToast("Erreur mise à jour statut", "error");
-                                                            }
-                                                        }}
-                                                        className={`text-[10px] font-bold px-2 py-1 rounded-full border-0 cursor-pointer focus:ring-2 focus:ring-red-500 ${getStatusColor(lead.status)}`}
-                                                    >
-                                                        <option value="new">New</option>
-                                                        <option value="contacted">Contacted</option>
-                                                        <option value="converted">Converted</option>
-                                                        <option value="lost">Lost</option>
-                                                        <option value="sold">VENDU ($)</option>
-                                                    </select>
-                                                    
-                                                    {/* Paid Status Toggle */}
-                                                    <button 
-                                                        onClick={() => togglePaidStatus(lead)}
-                                                        className={`flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full border transition ${lead.is_paid 
-                                                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' 
-                                                            : 'bg-white text-slate-400 border-slate-200 hover:border-emerald-200 hover:text-emerald-600'}`}
-                                                    >
-                                                        <CreditCard size={10} />
-                                                        {lead.is_paid ? "PAYÉ" : "NON PAYÉ"}
-                                                    </button>
+
+                                            {/* Project & Surface */}
+                                            <td className="px-4 py-3.5">
+                                                <div className="font-bold text-slate-800 flex items-center gap-1">
+                                                    <Shield size={12} className="text-red-500" />
+                                                    {need}
                                                 </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex flex-col">
-                                                    <span className="font-bold text-slate-900">{lead.name}</span>
-                                                    <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                                                        <Mail size={12} /> {lead.email}
+                                                {surface && (
+                                                    <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                                                        Surface ERP : <span className="font-bold text-slate-700">{surface}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                                                        <Phone size={12} /> {lead.phone}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    {getTypeIcon(lead.type)}
-                                                    <span className="text-sm font-medium text-slate-700 capitalize">{lead.type || "N/A"}</span>
-                                                    {solarInterest && (
-                                                        <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 border border-yellow-200">
-                                                            ☀️ Solaire
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                {lead.city && (
-                                                    <div className="text-xs text-slate-500">
-                                                        📍 {lead.city} {lead.postal_code ? `(${lead.postal_code})` : ''} {lead.department ? `[Dép. ${lead.department}]` : ''}
+                                                )}
+                                                {meta.establishmentType && (
+                                                    <div className="text-[10px] text-slate-400">
+                                                        Activité : {meta.establishmentType}
                                                     </div>
                                                 )}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="text-sm font-bold text-slate-700">
-                                                    {lead.price || 20} €
-                                                </span>
+
+                                            {/* Location */}
+                                            <td className="px-4 py-3.5">
+                                                <div className="font-bold text-slate-900 flex items-center gap-1">
+                                                    <MapPin size={12} className="text-red-500" />
+                                                    {lead.city || "France"}
+                                                </div>
+                                                <div className="text-[11px] text-slate-500 font-medium">
+                                                    {lead.postal_code || ""} {dept ? `(Dpt ${dept})` : ""}
+                                                </div>
+                                                {lead.region && (
+                                                    <div className="text-[10px] text-slate-400">{lead.region}</div>
+                                                )}
                                             </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <div className="flex items-center justify-end gap-2">
+
+                                            {/* Status */}
+                                            <td className="px-4 py-3.5 whitespace-nowrap">
+                                                {getStatusBadge(lead.status)}
+                                                {lead.price && lead.price > 0 && (
+                                                    <div className="text-[10px] text-emerald-700 font-black mt-1">
+                                                        {lead.price} € HT
+                                                    </div>
+                                                )}
+                                            </td>
+
+                                            {/* Action Button */}
+                                            <td className="px-4 py-3.5 text-right whitespace-nowrap">
+                                                <div className="flex items-center justify-end gap-1.5">
+                                                    <button
+                                                        onClick={() => setSelectedLeadForAssign(lead)}
+                                                        className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-2 text-xs font-black text-white hover:bg-red-600 transition shadow-sm"
+                                                    >
+                                                        <Flame size={13} className="text-red-400 group-hover:text-white" />
+                                                        Attribuer / Vendre
+                                                    </button>
+
                                                     <button
                                                         onClick={() => copyToClipboard(lead.id)}
-                                                        className={`p-2 rounded-lg transition border shadow-sm flex items-center gap-1 ${copiedId === lead.id ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-white text-slate-400 hover:text-red-600 hover:border-red-200'}`}
-                                                        title="Copier le lien de vente"
+                                                        title="Copier le lien public de vente"
+                                                        className="rounded-xl border border-slate-200 p-2 text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition"
                                                     >
-                                                        {copiedId === lead.id ? <Check size={14} /> : <LinkIcon size={14} />}
-                                                    </button>
-                                                    <button
-                                                        onClick={() => openModal(lead)}
-                                                        className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition font-bold flex items-center gap-1 border border-emerald-200 shadow-sm"
-                                                        title="Assigner / Vendre"
-                                                    >
-                                                        <span className="text-xs">Vendre ($)</span>
+                                                        {copiedId === lead.id ? (
+                                                            <Check size={14} className="text-emerald-600" />
+                                                        ) : (
+                                                            <Copy size={14} />
+                                                        )}
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
                                     );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
+                                })
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            {/* Assignment Modal */}
-            {selectedLead && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-
-                        {isSuccess ? (
-                            <div className="text-center py-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
-                                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                                </div>
-                                <h2 className="text-2xl font-bold text-slate-900 mb-2">🎉 Lead Vendu !</h2>
-                                <p className="text-slate-500 mb-8">
-                                    L'email de notification a été envoyé à {selectedPartnerIds.length} partenaire(s).
-                                </p>
-                                <button
-                                    onClick={() => setSelectedLead(null)}
-                                    className="px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-slate-900/20"
-                                >
-                                    Fermer et retourner aux leads
-                                </button>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="flex justify-between items-center mb-4">
-                                    <h2 className="text-xl font-bold text-slate-900">Assignation Lead</h2>
-                                    <button onClick={() => setSelectedLead(null)} className="text-slate-400 hover:text-slate-600">
-                                        <X size={20} />
-                                    </button>
-                                </div>
-
-                                <div className="bg-slate-50 p-4 rounded-lg mb-6 text-sm border border-slate-100">
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <p className="font-bold text-slate-900 text-lg">{selectedLead.name}</p>
-                                            <p className="text-slate-500">{selectedLead.city} ({selectedLead.postal_code})</p>
-                                            <div className="mt-1">
-                                                <span className="text-[10px] font-bold bg-red-100 text-red-700 px-2 py-0.5 rounded uppercase">
-                                                    {selectedLead.region || "National"}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <span className="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">
-                                            {selectedLead.tenant_id}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Notes & Price Editing */}
-                                <div className="mb-6 grid grid-cols-1 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
-                                    <div>
-                                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                                            Notes / Contexte (visible par le partenaire)
-                                        </label>
-                                        <textarea
-                                            value={editNotes}
-                                            onChange={(e) => setEditNotes(e.target.value)}
-                                            className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-red-500 min-h-[80px]"
-                                            placeholder="Ex: Client pressé, prévoir nacelle..."
-                                        />
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                                Prix de vente (HT)
-                                            </label>
-                                            <div className="flex items-center gap-2">
-                                                <input
-                                                    type="number"
-                                                    value={editPrice}
-                                                    onChange={(e) => setEditPrice(Number(e.target.value))}
-                                                    className="w-24 px-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-red-500 font-bold"
-                                                />
-                                                <span className="text-sm font-bold text-slate-500">€</span>
-                                            </div>
-                                        </div>
-                                        <button
-                                            onClick={handleUpdateLead}
-                                            disabled={isUpdatingLead}
-                                            className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 transition shadow-sm disabled:opacity-50"
-                                        >
-                                            {isUpdatingLead ? "..." : "Enregistrer"}
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* History Section */}
-                                {isLoadingHistory ? (
-                                    <div className="text-center py-4 text-slate-400 italic">Chargement historique...</div>
-                                ) : assignmentHistory.length > 0 ? (
-                                    <div className="mb-6">
-                                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Déjà assigné à :</h3>
-                                        <div className="space-y-2">
-                                            {assignmentHistory.map((assign: any) => (
-                                                <div key={assign.id} className="flex items-center justify-between text-sm bg-slate-50 p-2 rounded border border-slate-100">
-                                                    <span className="font-medium text-slate-700">{assign.partners?.name}</span>
-                                                    <span className="text-xs text-slate-400">
-                                                        {format(new Date(assign.assigned_at), "dd MMM HH:mm", { locale: fr })}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ) : null}
-
-                                <div className="mb-6">
-                                    <h3 className="text-sm font-bold text-slate-900 mb-3">Sélectionner les techniciens</h3>
-                                    <div className="space-y-2 max-h-60 overflow-y-auto border border-slate-200 rounded-lg p-2">
-                                        {partners.length === 0 ? (
-                                            <p className="text-xs text-red-500 italic p-2">Aucun partenaire enregistré.</p>
-                                        ) : partners.map(p => {
-                                            const isAlreadyAssigned = assignmentHistory.some((h: any) => h.partner_id === p.id);
-                                            return (
-                                                <label key={p.id} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition ${selectedPartnerIds.includes(p.id)
-                                                    ? "bg-red-50 border-red-200"
-                                                    : "hover:bg-slate-50 border-transparent hover:border-slate-100"
-                                                    } ${isAlreadyAssigned ? "opacity-50 cursor-not-allowed bg-slate-50" : ""}`}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedPartnerIds.includes(p.id)}
-                                                        onChange={() => !isAlreadyAssigned && togglePartner(p.id)}
-                                                        disabled={isAlreadyAssigned}
-                                                        className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <div className="text-sm font-medium text-slate-900">{p.name}</div>
-                                                        <div className="text-xs text-slate-500">{p.email}</div>
-                                                    </div>
-                                                    {isAlreadyAssigned && <span className="text-[10px] bg-slate-200 px-2 py-0.5 rounded text-slate-600">Déjà envoyé</span>}
-                                                </label>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-3 pt-4 border-t border-slate-100">
-                                    <button onClick={() => setSelectedLead(null)} className="flex-1 px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 font-medium text-slate-600 transition">
-                                        Annuler
-                                    </button>
-                                    <button
-                                        onClick={handleAssignment}
-                                        disabled={selectedPartnerIds.length === 0 || isSubmitting}
-                                        className="flex-1 px-4 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 font-bold disabled:opacity-50 shadow-lg shadow-slate-900/10 transition flex items-center justify-center gap-2"
-                                    >
-                                        {isSubmitting ? (
-                                            <span className="animate-spin">⏳</span>
-                                        ) : (
-                                            <>
-                                                <span>Envoyer ({selectedPartnerIds.length})</span>
-                                                <Mail size={16} />
-                                            </>
-                                        )}
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
+            {/* Hero Modal Assignment */}
+            {selectedLeadForAssign && (
+                <LeadAssignmentModal
+                    lead={selectedLeadForAssign}
+                    partners={partners}
+                    onClose={() => setSelectedLeadForAssign(null)}
+                    onSuccess={() => {
+                        showToast("Dossier attribué avec succès !", "success");
+                        router.refresh();
+                    }}
+                />
             )}
         </div>
     );
 }
-

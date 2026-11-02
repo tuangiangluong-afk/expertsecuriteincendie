@@ -12,7 +12,7 @@ export default async function AdminLeadsPage() {
     ]);
 
     const leads = leadsResult.data || [];
-    const partners = partnersResult.data || [];
+    const partners = (partnersResult.data || []) as any;
 
     return <LeadsClient initialLeads={leads} partners={partners} />;
 }

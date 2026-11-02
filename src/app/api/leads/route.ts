@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { createSupabaseAdmin } from '@/lib/supabase-server';
 import { getSiteConfig } from '@/lib/sites-config';
+import { autoDispatchLeadIfNeeded } from '@/app/actions/leads';
 
 export async function POST(request: Request) {
     try {
@@ -199,7 +200,7 @@ export async function POST(request: Request) {
             const region = siteConfig?.region || 'National';
             const department = siteConfig?.department || (zipCode ? zipCode.substring(0, 2) : null);
 
-            const { error: dbError } = await supabase
+            const { data: insertedLead, error: dbError } = await supabase
                 .from('leads')
                 .insert({
                     name,
@@ -227,10 +228,19 @@ export async function POST(request: Request) {
                         attribution: leadAttribution,
                     }, null, 2),
                     is_paid: false
-                });
+                })
+                .select()
+                .single();
 
             if (dbError) {
                 console.error('Supabase DB Error:', dbError);
+            } else if (insertedLead) {
+                // Auto-dispatch automatique si partenaire configuré et solvable
+                try {
+                    await autoDispatchLeadIfNeeded(insertedLead);
+                } catch (autoErr) {
+                    console.error('Auto-dispatch error (non-blocking):', autoErr);
+                }
             }
         } catch (dbErr) {
             console.error('Supabase insert exception:', dbErr);

@@ -10,5 +10,5 @@ export default async function AdminPartnersPage() {
         .select("*")
         .order("created_at", { ascending: false });
 
-    return <PartnersClient initialPartners={partners || []} />;
+    return <PartnersClient initialPartners={(partners || []) as any} />;
 }
