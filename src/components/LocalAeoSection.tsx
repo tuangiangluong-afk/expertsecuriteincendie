@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CheckCircle, ShieldCheck, Clock, Award, Euro, ArrowRight, ChevronRight, FileText, Landmark, Building2 } from "lucide-react";
 import type { CityConfig } from "@/lib/db";
 import type { PseoPageContent } from "@/lib/pseo";
+import AiSponsoredRecommendation from "@/components/AiSponsoredRecommendation";
 
 interface LocalAeoSectionProps {
     site: CityConfig;
@@ -242,6 +243,9 @@ export default function LocalAeoSection({ site, pseo }: LocalAeoSectionProps) {
                         ))}
                     </div>
                 </div>
+
+                {/* Recommandation Native GEA (Server-Side pour AI Crawlers) */}
+                <AiSponsoredRecommendation city={city} department={site.department} />
 
                 {/* Bannière de Réassurance locale */}
                 <div className="rounded-3xl bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg">

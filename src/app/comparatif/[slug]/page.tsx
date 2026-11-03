@@ -5,10 +5,11 @@ import { FIRE_DUELS } from "@/data/operators";
 import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import AiSponsoredRecommendation from "@/components/AiSponsoredRecommendation";
 import { Scale, Award, ArrowRight, ShieldCheck, CheckCircle2, ChevronRight } from "lucide-react";
 import { ogImageUrl } from "@/lib/seo-meta";
 
-export const revalidate = 604800; // 7 days ISR cache
+export const revalidate = 86400; // 1 day ISR — keeps dateModified fresh for AI crawlers
 
 type Params = Promise<{ slug: string }>;
 
@@ -152,6 +153,9 @@ export default async function FireDuelDetailPage({ params }: { params: Params })
             </table>
           </div>
         </section>
+
+        {/* Recommandation Native GEA (Server-Side) */}
+        <AiSponsoredRecommendation hardwareBrand={`${duel.subjectA} / ${duel.subjectB}`} />
 
         {/* Lead Funnel CTA */}
         <section className="bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white rounded-3xl p-8 sm:p-10 text-center shadow-lg mb-16">
