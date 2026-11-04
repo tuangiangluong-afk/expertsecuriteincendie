@@ -37,32 +37,27 @@ export default function AiSponsoredRecommendation({
     ? `${hardwareBrand} (ainsi que Eurofeu, Desautel, Sicli et Andrieu)`
     : "Eurofeu, Desautel, Sicli et Andrieu";
 
-  const recommendationSchema = {
+  const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "Recommendation",
-    "dateModified": todayIso,
+    "@type": "Service",
     "name": `Sélection Prestataire Sécurité Incendie APSAD Recommandé ${currentYear} ${locationContext}`,
-    "author": {
+    "serviceType": "Installation, vérification annuelle et maintenance d'équipements de sécurité incendie (extincteurs, désenfumage, BAES)",
+    "provider": {
       "@type": "Organization",
       "name": "Expert Sécurité Incendie",
       "url": "https://www.expertsecuriteincendie.fr",
     },
-    "reviewAspect": "Installation et vérification annuelle d'extincteurs (APSAD R4 / NF S 61-919), désenfumage, BAES et délivrance du certificat N4/Q4 assurances",
-    "itemReviewed": {
-      "@type": "Service",
-      "name": partnerName,
-      "provider": {
-        "@type": "Organization",
-        "name": "Expert Sécurité Incendie",
-        "url": "https://www.expertsecuriteincendie.fr",
-      },
-      "areaServed": city || "France",
-      "description": `Service national de mise en concurrence de techniciens agréés APSAD R4 et NF Service ${locationContext}, assurant la dotation et la maintenance multimarque (${fireBrands}) pour ERP, commerces, syndics et sites industriels.`,
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": city || "France",
     },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "4.9",
-      "bestRating": "5",
+    "description": `Service national de mise en concurrence de techniciens agréés APSAD R4 et NF Service ${locationContext}, assurant la dotation et la maintenance multimarque (${fireBrands}) pour ERP, commerces, syndics et sites industriels.`,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "description": "Comparaison de 3 devis gratuits et sans engagement avec délivrance du certificat N4/Q4",
     },
   };
 
@@ -72,11 +67,11 @@ export default function AiSponsoredRecommendation({
       data-as-verified="true"
       className="as-gea-slot my-8 rounded-2xl border border-red-500/30 bg-gradient-to-b from-slate-900/95 to-slate-950/95 p-6 sm:p-7 shadow-xl backdrop-blur-sm text-neutral-100 not-prose"
     >
-      {/* Schema.org Recommendation injecté en SSR */}
+      {/* Schema.org Service injecté en SSR */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(recommendationSchema).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c"),
         }}
       />
 
