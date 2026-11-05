@@ -163,6 +163,42 @@ export function InternalMesh({ city, config }: InternalMeshProps) {
                         </ul>
                     </div>
                 </div>
+                {/* Dossiers d'Expertise & Guides Réglementaires 2026 (Maillage d'Autorité) */}
+                <div className="mt-12 pt-8 border-t border-white/10">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                        <h4 className="text-white font-bold text-sm tracking-wide uppercase">
+                            Dossiers d'Expertise &amp; Guides Réglementaires 2026
+                        </h4>
+                    </div>
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        
+                        <Link
+                            key="/blog/controle-triennal-baes-desenfumage-erp-2026-sanctions"
+                            href="/blog/controle-triennal-baes-desenfumage-erp-2026-sanctions"
+                            className="text-neutral-300 hover:text-white transition text-xs flex items-center gap-2 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5"
+                        >
+                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
+                            <span className="font-medium">Contrôle Triennal BAES & Désenfumage ERP 2026</span>
+                        </Link>
+                        <Link
+                            key="/blog/borne-de-recharge-vehicule-societe"
+                            href="/blog/borne-de-recharge-vehicule-societe"
+                            className="text-neutral-300 hover:text-white transition text-xs flex items-center gap-2 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5"
+                        >
+                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
+                            <span className="font-medium">Borne de Recharge & Sécurité Incendie Entreprise</span>
+                        </Link>
+                        <Link
+                            key="/blog/accompagnement-commission-securite-methode-avis-favorable"
+                            href="/blog/accompagnement-commission-securite-methode-avis-favorable"
+                            className="text-neutral-300 hover:text-white transition text-xs flex items-center gap-2 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5"
+                        >
+                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
+                            <span className="font-medium">Accompagnement Commission Sécurité ERP</span>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </section>
     );
