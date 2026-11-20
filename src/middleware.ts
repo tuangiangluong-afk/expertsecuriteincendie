@@ -89,7 +89,7 @@ export default async function middleware(req: NextRequest, event?: NextFetchEven
     requestHeaders.set("x-incendie-city", domainKey);
     requestHeaders.set("x-incendie-path", cleanPath);
 
-    const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur") || cleanPath.startsWith("/verifications-reglementaires") || cleanPath.startsWith("/commission-de-securite-erp"))
+    const canonicalDomain = (cleanPath.startsWith("/guides") || cleanPath.startsWith("/blog") || cleanPath.startsWith("/vehicules") || cleanPath.startsWith("/solutions") || cleanPath.startsWith("/service") || cleanPath.startsWith("/poi") || cleanPath.startsWith("/outils") || cleanPath.startsWith("/maintenance") || cleanPath.startsWith("/fiscalite-entreprise-extincteur") || cleanPath.startsWith("/verifications-reglementaires") || cleanPath.startsWith("/commission-de-securite-erp"))
         ? "www.expertsecuriteincendie.fr"
         : (domainKey === "expertsecuriteincendie.fr" ? "www.expertsecuriteincendie.fr" : "www." + domainKey);
     requestHeaders.set("x-incendie-canonical-domain", canonicalDomain);

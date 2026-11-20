@@ -58,6 +58,10 @@ export default function Header({
         {
             href: "/guides",
             text: "Normes & Registre"
+        },
+        {
+            href: "/blog",
+            text: "Blog"
         }
     ];
 

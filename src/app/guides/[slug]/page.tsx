@@ -109,6 +109,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             `)
             .eq('slug', resolvedParams.slug)
             .eq('status', 'published')
+            .contains('tags', ['incendie'])
             .single();
         
         if (data && !error) {
@@ -173,7 +174,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         "description": guide.meta.description,
         "image": guide.meta.image ? `https://www.expertsecuriteincendie.fr${guide.meta.image}` : undefined,
         "datePublished": guide.meta.date,
-        "dateModified": new Date().toISOString(),
+        "dateModified": dbPost?.updated_at || guide.meta.date,
         "author": {
             "@type": "Organization",
             "name": guide.meta.author || "Expert Sécurité Incendie"
