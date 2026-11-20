@@ -2,9 +2,26 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
     return {
-        rules: [
+                rules: [
             {
-                userAgent: '*',
+                userAgent: [
+                    'AhrefsBot',
+                    'SemrushBot',
+                    'MJ12bot',
+                    'DotBot',
+                    'PetalBot',
+                    'DataForSeoBot',
+                    'BLEXBot',
+                    'SEOkicks',
+                    'ZoominfoBot',
+                    'SeekportBot',
+                    'SeznamBot',
+                    'CriteoBot',
+                ],
+                disallow: ['/'],
+            },
+            {
+                userAgent: '*' ,
                 allow: '/',
                 disallow: ['/admin/', '/login', '/api/private/'],
             },
