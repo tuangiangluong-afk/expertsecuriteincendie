@@ -213,7 +213,12 @@ export default function PartnersClient({ initialPartners }: PartnersClientProps)
                                                     <span className="font-black text-slate-900 text-sm">
                                                         {partner.name}
                                                     </span>
-                                                    {meta.is_default && (
+                                                    {meta.is_terminated && (
+                                                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-black text-rose-800 border border-rose-300">
+                                                            ⛔ Résilié / Blacklisté
+                                                        </span>
+                                                    )}
+                                                    {meta.is_default && !meta.is_terminated && (
                                                         <span className="rounded-full bg-teal-100 px-2 py-0.5 text-[10px] font-black text-teal-800 border border-teal-200">
                                                             🎯 Prioritaire
                                                         </span>
@@ -227,6 +232,14 @@ export default function PartnersClient({ initialPartners }: PartnersClientProps)
                                                 <div className="text-[11px] text-slate-500 mt-0.5">
                                                     {partner.email} {partner.phone ? `· ${partner.phone}` : ""}
                                                 </div>
+                                                {meta.notes && (
+                                                    <div className="mt-2 p-2 rounded-lg bg-amber-50/90 border border-amber-200/80 text-[11px] text-amber-950 max-w-sm leading-relaxed whitespace-pre-line font-medium">
+                                                        <div className="font-bold text-amber-900 mb-0.5 flex items-center gap-1">
+                                                            <span>📝 Historique & Notes BO :</span>
+                                                        </div>
+                                                        {meta.notes}
+                                                    </div>
+                                                )}
                                             </td>
 
                                             {/* Managed Departments */}
@@ -280,7 +293,11 @@ export default function PartnersClient({ initialPartners }: PartnersClientProps)
 
                                             {/* Auto-Dispatch Badge */}
                                             <td className="px-4 py-3.5 whitespace-nowrap">
-                                                {meta.auto_dispatch ? (
+                                                {meta.is_terminated ? (
+                                                    <span className="inline-flex items-center gap-1 rounded-full bg-rose-100 px-2.5 py-1 text-[11px] font-black text-rose-800 border border-rose-200">
+                                                        ⛔ Exclu du réseau
+                                                    </span>
+                                                ) : meta.auto_dispatch ? (
                                                     <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2.5 py-1 text-[11px] font-black text-purple-800 border border-purple-200">
                                                         ⚡ Activé
                                                     </span>

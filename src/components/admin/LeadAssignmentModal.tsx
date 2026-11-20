@@ -295,6 +295,11 @@ export default function LeadAssignmentModal({
                                                         <span className="font-bold text-slate-900 text-sm">
                                                             {partner.name}
                                                         </span>
+                                                        {meta.is_terminated && (
+                                                            <span className="rounded bg-rose-100 px-1.5 py-0.5 text-[10px] font-black text-rose-800 border border-rose-300">
+                                                                ⛔ Résilié / Exclu
+                                                            </span>
+                                                        )}
                                                         {meta.company_name && meta.company_name !== partner.name && (
                                                             <span className="text-xs text-slate-500 font-medium">
                                                                 ({meta.company_name})
