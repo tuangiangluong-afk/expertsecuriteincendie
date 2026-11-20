@@ -60,6 +60,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         return {
             title: clampTitle(guide.meta.title),
             description: clampDescription(guide.meta.description),
+            alternates: {
+                canonical: `https://www.expertsecuriteincendie.fr/guides/${resolvedParams.slug}`,
+            },
         };
     }
 
@@ -75,6 +78,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
          return {
             title: clampTitle(post.seo_title || post.title),
             description: clampDescription(post.seo_description || post.excerpt),
+            alternates: {
+                canonical: `https://www.expertsecuriteincendie.fr/blog/${resolvedParams.slug}`,
+            },
         };
     }
 

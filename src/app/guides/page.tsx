@@ -44,7 +44,8 @@ export default async function GuidesIndex() {
         description: post.excerpt,
         date: post.published_at,
         category: post.category?.name || 'Guide',
-        readTime: post.read_time_minutes ? `${post.read_time_minutes} min` : '5 min'
+        readTime: post.read_time_minutes ? `${post.read_time_minutes} min` : '5 min',
+        isBlog: true,
     }));
 
     const allGuides = [...staticGuides, ...dynamicGuides].sort((a: any, b: any) => 
@@ -79,7 +80,7 @@ export default async function GuidesIndex() {
                     {guides.map((guide: any) => (
                         <Link
                             key={guide.slug}
-                            href={`/guides/${guide.slug}`}
+                            href={guide.isBlog ? `/blog/${guide.slug}` : `/guides/${guide.slug}`}
                             className="group bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-xl hover:border-red-200 transition-all duration-300 flex flex-col h-full"
                         >
                             <div className="mb-4">

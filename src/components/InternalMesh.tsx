@@ -182,12 +182,12 @@ export function InternalMesh({ city, config }: InternalMeshProps) {
                             <span className="font-medium">Contrôle Triennal BAES & Désenfumage ERP 2026</span>
                         </Link>
                         <Link
-                            key="/blog/borne-de-recharge-vehicule-societe"
-                            href="/blog/borne-de-recharge-vehicule-societe"
+                            key="/blog/borne-recharge-voiture-electrique-copropriete-incendie"
+                            href="/blog/borne-recharge-voiture-electrique-copropriete-incendie"
                             className="text-neutral-300 hover:text-white transition text-xs flex items-center gap-2 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5"
                         >
                             <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
-                            <span className="font-medium">Borne de Recharge & Sécurité Incendie Entreprise</span>
+                            <span className="font-medium">Borne Recharge Copropriété & Risque Incendie</span>
                         </Link>
                         <Link
                             key="/blog/accompagnement-commission-securite-methode-avis-favorable"

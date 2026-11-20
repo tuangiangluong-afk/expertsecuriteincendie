@@ -7,8 +7,9 @@ import { slugify } from '@/lib/slugify';
 import { brands } from '@/data/brands';
 import { getAllGuides } from '@/lib/mdx';
 import { OPERATORS, FIRE_BRANDS, FIRE_DUELS } from '@/data/operators';
+import { createClient } from '@supabase/supabase-js';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.expertsecuriteincendie.fr';
 
     // Date de dernière révision réelle du contenu de ces gabarits.
@@ -50,6 +51,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${baseUrl}/guides`,
+            lastModified: CONTENT_REVISION,
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/blog`,
             lastModified: CONTENT_REVISION,
             changeFrequency: 'daily',
             priority: 0.8,
@@ -133,6 +140,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'weekly' as const,
         priority: 0.7,
     }));
+
+    // ========================================
+    // 9b. BLOG POSTS (Supabase — strictly 'incendie')
+    // ========================================
+    let blogRoutes: MetadataRoute.Sitemap = [];
+    try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tblatnaxfbjvjbihiryi.supabase.co";
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGF0bmF4ZmJqdmpiaWhpcnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1MTAxMjYsImV4cCI6MjA4NTA4NjEyNn0.T0hltZN3QOA4k3ReFJfRf20ar61rHt_2Ncm_drmCFjU";
+        if (supabaseUrl && supabaseKey) {
+            const supabase = createClient(supabaseUrl, supabaseKey);
+            const { data: blogPosts } = await supabase
+                .from('blog_posts')
+                .select('slug, published_at, updated_at')
+                .eq('status', 'published')
+                .contains('tags', ['incendie'])
+                .order('published_at', { ascending: false });
+
+            if (blogPosts) {
+                blogRoutes = blogPosts.map((post) => ({
+                    url: `${baseUrl}/blog/${post.slug}`,
+                    lastModified: new Date(post.updated_at || post.published_at),
+                    changeFrequency: 'weekly' as const,
+                    priority: 0.8,
+                }));
+            }
+        }
+    } catch (e) {
+        console.warn('[Sitemap] Failed to fetch blog posts:', e);
+    }
 
     // ========================================
     // 10. HUB WHITESPACE
@@ -223,6 +259,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...poiRoutes,
         ...maintenanceRoutes,
         ...guideRoutes,
+        ...blogRoutes,
         ...extraRoutes,
         ...b2bRoutes,
         ...regulatoryCityRoutes,

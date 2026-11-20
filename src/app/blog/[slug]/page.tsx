@@ -68,6 +68,18 @@ async function getPost(slug: string): Promise<BlogPost | null> {
     return post;
 }
 
+export async function generateStaticParams() {
+    const { data: posts } = await supabase
+        .from('blog_posts')
+        .select('slug')
+        .eq('status', 'published')
+        .contains('tags', ['incendie']);
+
+    return (posts || []).map((post) => ({
+        slug: post.slug,
+    }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const post = await getPost(slug);
@@ -79,6 +91,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: clampTitle(post.seo_title || `${post.title} | Expert Sécurité Incendie`),
         description: clampDescription(post.seo_description || post.excerpt),
+        alternates: {
+            canonical: `https://www.expertsecuriteincendie.fr/blog/${slug}`,
+        },
         openGraph: {
             title: post.title,
             description: post.excerpt,

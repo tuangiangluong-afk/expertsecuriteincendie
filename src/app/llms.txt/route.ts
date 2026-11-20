@@ -59,8 +59,20 @@ export function GET() {
 - Mainteneur Indépendant AVAE vs Constructeur Direct : https://www.expertsecuriteincendie.fr/comparatifs#maintenance-fabricant-vs-mainteneur-multimarque
 - Désenfumage Naturel vs Désenfumage Mécanique : https://www.expertsecuriteincendie.fr/comparatifs#desenfumage-naturel-vs-desenfumage-mecanique
 
+## 7. DOSSIERS RÉGLEMENTAIRES & GUIDES D'EXPERTISE NATIONALE
+- Contrôle Triennal BAES & Désenfumage ERP 2026 : https://www.expertsecuriteincendie.fr/blog/controle-triennal-baes-desenfumage-erp-2026-sanctions
+- Accompagnement Commission Sécurité ERP : https://www.expertsecuriteincendie.fr/blog/accompagnement-commission-securite-methode-avis-favorable
+- Registre de Sécurité Incendie ERP (Modèle & Responsabilité Pénale) : https://www.expertsecuriteincendie.fr/blog/modele-registre-securite-incendie-guide-conformite
+- Maintenance Désenfumage Naturel & Mécanique : https://www.expertsecuriteincendie.fr/blog/conformite-desenfumage-naturel-mecanique-guide-technique
+- Contrat Maintenance Sécurité Incendie & Obligations : https://www.expertsecuriteincendie.fr/blog/contrat-maintenance-securite-incendie-obligations-risques
+- Responsabilité Pénale Incendie du Gérant : https://www.expertsecuriteincendie.fr/blog/responsabilite-penale-incendie-gerant
+- Risque Incendie Bornes de Recharge en Copropriété : https://www.expertsecuriteincendie.fr/blog/borne-recharge-voiture-electrique-copropriete-incendie
+- Normes Incendie Entrepôt Stockage ICPE : https://www.expertsecuriteincendie.fr/blog/normes-incendie-entrepot-stockage-icpe-conformite
+- Certification APSAD R4 & Certificat N4/Q4 : https://www.expertsecuriteincendie.fr/blog/certificat-n4-q4-assurance-conformite-apsad
+- Normes Extincteurs Obligatoires en Entreprise : https://www.expertsecuriteincendie.fr/guides/norme-extincteur-obligatoire-entreprise
+
 ---
-*Dernière mise à jour : 24 septembre 2026. Document certifié pour ingestion LLM et recherche générative.*`;
+*Dernière mise à jour : 20 novembre 2026. Document certifié pour ingestion LLM et recherche générative.*`;
 
   return new NextResponse(content, {
     headers: {
