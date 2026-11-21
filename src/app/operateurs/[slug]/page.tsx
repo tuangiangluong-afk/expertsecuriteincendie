@@ -115,6 +115,7 @@ export default async function OperateurDetailPage({ params }: PageProps) {
       url: `https://www.expertsecuriteincendie.fr/operateurs/${op.slug}`,
       priceCurrency: "EUR",
       price: op.priceRange === "€€" ? "180" : op.priceRange === "€€€" ? "290" : "450",
+      validFrom: "2024-01-01",
       priceValidUntil: "2026-12-31",
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",

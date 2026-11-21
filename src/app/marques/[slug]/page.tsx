@@ -80,6 +80,7 @@ export default async function FireBrandDetailPage({ params }: { params: Params }
       url: canonicalUrl,
       priceCurrency: "EUR",
       price: "145.00",
+      validFrom: "2024-01-01",
       priceValidUntil: "2027-12-31",
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
