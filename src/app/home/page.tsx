@@ -10,6 +10,7 @@ import LeadForm from "@/components/LeadForm";
 import { CityCards } from "@/components/CityCards";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import { Footer } from "@/components/Footer";
+import FAQ from "@/components/FAQ";
 import RealizationsGrid from "@/components/RealizationsGrid";
 import PersonaSelector from "@/components/PersonaSelector";
 import LogoCloud from "@/components/LogoCloud";
@@ -475,6 +476,9 @@ export default function HomePage() {
                         </div>
                     </div>
                 </section>
+
+                {/* FAQ (AEO / PAA) */}
+                <FAQ />
 
                 {/* ============================================ */}
                 {/* CITIES GRID */}
