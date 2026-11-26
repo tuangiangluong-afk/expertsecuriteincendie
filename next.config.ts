@@ -43,6 +43,11 @@ const nextConfig: NextConfig = {
         destination: "/",
         statusCode: 301,
       },
+      {
+        source: "/authority/:slug",
+        destination: "/blog/:slug",
+        permanent: true,
+      },
     ];
   },
   async headers() {
